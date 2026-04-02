@@ -1,0 +1,103 @@
+import Link from "next/link";
+
+export function Footer() {
+  const currentYear = new Date().getFullYear();
+  
+  return (
+    <footer className="bg-midnight text-white pt-24 pb-12 border-t border-white/10">
+      <div className="container mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+          
+          {/* Brand & Contact */}
+          <div className="lg:col-span-1">
+            <Link href="/" className="text-2xl font-bold tracking-tight inline-block mb-6">
+              VALLOREX<span className="text-brand-orange">.</span>
+            </Link>
+            <p className="text-muted text-sm mb-6 max-w-xs leading-relaxed">
+              The premier engineering partner for AI and Blockchain ventures. Institutional quality from day one.
+            </p>
+            <div className="space-y-2 text-sm text-muted">
+              <p className="flex items-center gap-2">
+                <span className="font-semibold text-white/90">Email:</span> 
+                <a href="mailto:hello@vallorex.com" className="hover:text-white transition-colors">hello@vallorex.com</a>
+              </p>
+              <p className="flex items-center gap-2">
+                <span className="font-semibold text-white/90">Phone:</span> 
+                <a href="tel:+18888255673" className="hover:text-white transition-colors">+1 (888) VALLOREX</a>
+              </p>
+            </div>
+          </div>
+
+          {/* Locations */}
+          <div className="lg:col-span-1">
+            <h3 className="font-semibold text-lg mb-6 tracking-tight">Global Offices</h3>
+            <ul className="space-y-4 text-sm text-muted">
+              <li>
+                <span className="block text-white mb-1 font-medium">New York</span>
+                HQ - Financial District
+              </li>
+              <li>
+                <span className="block text-white mb-1 font-medium">London</span>
+                Canary Wharf
+              </li>
+              <li>
+                <span className="block text-white mb-1 font-medium">Singapore</span>
+                Marina Bay
+              </li>
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div className="lg:col-span-1">
+            <h3 className="font-semibold text-lg mb-6 tracking-tight">Services</h3>
+            <ul className="space-y-3 text-sm text-muted">
+              <li>
+                <Link href="/services/ai" className="hover:text-white transition-colors">AI & Machine Learning</Link>
+              </li>
+              <li>
+                <Link href="/services/blockchain" className="hover:text-white transition-colors">Blockchain Dev</Link>
+              </li>
+              <li>
+                <Link href="/services/security" className="hover:text-white transition-colors">Security Audits</Link>
+              </li>
+              <li>
+                <Link href="/services/saas" className="hover:text-white transition-colors">Custom SaaS</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div className="lg:col-span-1">
+            <h3 className="font-semibold text-lg mb-6 tracking-tight">Company</h3>
+            <ul className="space-y-3 text-sm text-muted">
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
+              </li>
+              <li>
+                <Link href="/case-studies" className="hover:text-white transition-colors">Case Studies</Link>
+              </li>
+              <li>
+                <Link href="/careers" className="hover:text-white transition-colors">Careers</Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-muted text-sm">
+            © {currentYear} Vallorex Technologies. All rights reserved.
+          </p>
+          <div className="flex gap-6 text-sm text-muted">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/cookies" className="hover:text-white transition-colors">Cookie Policy</Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
