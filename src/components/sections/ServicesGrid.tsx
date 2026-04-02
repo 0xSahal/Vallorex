@@ -8,7 +8,7 @@ import Link from "next/link";
 export function ServicesGrid() {
   return (
     <section className="py-24 bg-[#FAFAFA]" id="services">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1300px]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         
         {/* Header Section */}
         <motion.div

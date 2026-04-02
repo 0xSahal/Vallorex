@@ -33,7 +33,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 export function StatsRow() {
   return (
     <section className="bg-white border-y border-border/40 py-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1300px]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 divide-x-0 md:divide-x divide-border/60">
           {STATS.map((stat, index) => (
               <motion.div

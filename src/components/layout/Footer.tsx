@@ -1,28 +1,35 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  
+
   return (
     <footer className="bg-midnight text-white pt-24 pb-12 border-t border-white/10">
-      <div className="container mx-auto px-4 md:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
-          
+
           {/* Brand & Contact */}
           <div className="lg:col-span-1">
-            <Link href="/" className="text-2xl font-bold tracking-tight inline-block mb-6">
-              VALLOREX<span className="text-brand-orange">.</span>
+            <Link href="/" className="inline-block mb-6">
+              <Image
+                src="/Logo.png"
+                alt="Vallorex Technology"
+                width={160}
+                height={50}
+                className="h-[68px] w-auto object-contain"
+              />
             </Link>
             <p className="text-muted text-sm mb-6 max-w-xs leading-relaxed">
               The premier engineering partner for AI and Blockchain ventures. Institutional quality from day one.
             </p>
             <div className="space-y-2 text-sm text-muted">
               <p className="flex items-center gap-2">
-                <span className="font-semibold text-white/90">Email:</span> 
+                <span className="font-semibold text-white/90">Email:</span>
                 <a href="mailto:hello@vallorex.com" className="hover:text-white transition-colors">hello@vallorex.com</a>
               </p>
               <p className="flex items-center gap-2">
-                <span className="font-semibold text-white/90">Phone:</span> 
+                <span className="font-semibold text-white/90">Phone:</span>
                 <a href="tel:+18888255673" className="hover:text-white transition-colors">+1 (888) VALLOREX</a>
               </p>
             </div>

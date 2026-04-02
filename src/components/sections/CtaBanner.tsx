@@ -15,7 +15,7 @@ export function CtaBanner() {
         <div className="absolute top-0 right-0 w-[50vw] h-[50vw] max-w-[900px] bg-brand-blue/5 blur-[120px] rounded-full pointer-events-none" />
       </div>
       
-      <div className="container relative z-10 px-4 sm:px-6 lg:px-8 text-center max-w-[1000px] mx-auto">
+      <div className="container relative z-10 px-4 sm:px-6 lg:px-8 text-center max-w-[1400px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}

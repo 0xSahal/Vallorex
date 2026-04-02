@@ -22,7 +22,7 @@ export function DifferentiatorSection() {
 
   return (
     <section className="py-24 bg-white border-b border-border/40">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-center">
           
           {/* Left Column Text */}

@@ -7,7 +7,7 @@ import { Star } from "lucide-react";
 export function Testimonials() {
   return (
     <section className="py-24 bg-[#FAFAFA]" id="testimonials">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1240px]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         
         {/* We keep this heading format because the User explicitly requested to preserve it! */}
         <motion.div

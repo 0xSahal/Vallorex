@@ -35,7 +35,7 @@ export function HeroSection() {
             variants={containerVariants}
             initial="hidden"
             animate="show"
-            className="flex flex-col items-start w-full max-w-[640px]"
+            className="flex flex-col items-start w-full lg:max-w-[680px] xl:max-w-[760px]"
           >
             <motion.div variants={itemVariants} className="inline-flex items-center rounded-sm bg-slate-100 px-3 py-1.5 mb-8">
               <span className="text-[10px] font-bold tracking-wider text-muted uppercase">
@@ -45,17 +45,17 @@ export function HeroSection() {
 
             <motion.h1
               variants={itemVariants}
-              className="text-5xl sm:text-6xl md:text-[68px] font-extrabold text-midnight leading-[1.05] tracking-tight mb-8"
+              className="text-5xl sm:text-[56px] md:text-[62px] lg:text-[64px] font-extrabold text-midnight leading-[1.1] tracking-tight mb-8"
             >
               The Engineering <br className="hidden md:block" />
-              Firm That Turns <span className="text-brand-blue">AI &</span> <br className="hidden md:block" />
+              <span className="whitespace-nowrap">Firm That Turns <span className="text-brand-blue">AI &</span></span> <br className="hidden md:block" />
               <span className="text-brand-blue">Blockchain</span> Into <br className="hidden md:block" />
               Business Results.
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="text-xl text-muted/90 mb-10 leading-relaxed"
+              className="text-xl text-muted/90 mb-10 leading-relaxed max-w-[600px]"
             >
               We bridge the gap between complex emerging tech and scalable enterprise infrastructure. Elite engineering for the world's most ambitious teams.
             </motion.p>
@@ -66,7 +66,7 @@ export function HeroSection() {
               </Button>
               <Button
                 variant="outline"
-                className="rounded-full border-2 border-midnight text-midnight bg-transparent hover:bg-slate-50 px-8 h-12 text-[15px] font-bold transition-all"
+                className="rounded-full border-2 border-midnight text-midnight bg-transparent hover:bg-slate-50 hover:text-midnight px-8 h-12 text-[15px] font-bold transition-all"
               >
                 See How We Work
               </Button>

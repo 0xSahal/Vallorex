@@ -7,7 +7,7 @@ import Link from "next/link";
 export function CaseStudies() {
   return (
     <section className="py-24 bg-white" id="case-studies">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1240px]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
         
         <div className="mb-14">
           <h2 className="text-3xl md:text-[40px] font-extrabold text-[#0F172A] mb-8 tracking-tight">
