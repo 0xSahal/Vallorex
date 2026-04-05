@@ -129,7 +129,7 @@ const megaMenus: Record<string, React.ReactNode> = {
           { icon: <Zap className="h-5 w-5" />, label: "Energy & Sustainability", desc: "IoT data pipelines, carbon credit tokenization, and grid analytics." },
           { icon: <Building2 className="h-5 w-5" />, label: "Enterprise & SaaS", desc: "Scalable B2B platforms, AI copilots, and multi-tenant architectures." },
         ].map((item) => (
-          <Link key={item.label} href="#" className="group flex flex-col gap-3 rounded-xl p-4 hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all">
+          <Link key={item.label} href="/industries" className="group flex flex-col gap-3 rounded-xl p-4 hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all">
             <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-brand-blue/8 text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-all">
               {item.icon}
             </div>
