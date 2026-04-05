@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -338,6 +339,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -390,14 +392,14 @@ export function Navbar() {
               <Link
                 href={`/${menuKey(link.name)}`}
                 className={cn(
-                  "flex items-center gap-1 text-sm font-medium transition-all duration-300 h-[88px] border-b-2",
+                  "flex items-center gap-1 text-sm font-medium transition-all duration-300 h-[88px]",
                   isScrolled
-                    ? activeMenu === menuKey(link.name) || link.name === "Services"
-                      ? "text-midnight border-brand-blue"
-                      : "text-slate-500 hover:text-midnight border-transparent"
-                    : activeMenu === menuKey(link.name) || link.name === "Services"
-                      ? "text-white border-brand-blue"
-                      : "text-[#94A3B8] hover:text-white border-transparent"
+                    ? activeMenu === menuKey(link.name) || pathname === `/${menuKey(link.name)}`
+                      ? "text-midnight"
+                      : "text-slate-500 hover:text-midnight"
+                    : activeMenu === menuKey(link.name) || pathname === `/${menuKey(link.name)}`
+                      ? "text-white"
+                      : "text-[#94A3B8] hover:text-white"
                 )}
               >
                 {link.name}

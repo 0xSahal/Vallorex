@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Clock, PieChart, ShieldCheck } from "lucide-react";
-import RadialOrbitalTimelineDemo from "@/components/ui/radial-orbital-timeline-demo";
+import GlobeCdnDemo from "@/components/ui/globe-cdn-demo";
 
 export function HeroSection() {
   const containerVariants = {
@@ -103,8 +103,8 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="relative lg:pt-2 w-full"
           >
-            <div className="relative w-full h-[550px]">
-              <RadialOrbitalTimelineDemo />
+            <div className="relative w-full h-[550px] flex items-center justify-center">
+              <GlobeCdnDemo />
             </div>
           </motion.div>
           
