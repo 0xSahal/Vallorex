@@ -205,3 +205,90 @@
 .text-white\/80 {
   color: rgba(255, 255, 255, 0.8);
 }
+
+/* Animated gradient border */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    var(--border-angle, 0deg),
+    #f97316 0%,
+    transparent 25%,
+    #2563eb 50%,
+    transparent 75%,
+    #f97316 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotate-border 4s linear infinite;
+  pointer-events: none;
+}
+@keyframes rotate-border {
+  to { --border-angle: 360deg; }
+}
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Dot grid pattern */
+.dot-grid {
+  background-image: radial-gradient(circle, #94a3b8 0.5px, transparent 0.5px);
+  background-size: 32px 32px;
+}
+
+/* Shimmer text effect */
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #0F172A 0%,
+    #0F172A 40%,
+    #F97316 50%,
+    #0F172A 60%,
+    #0F172A 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Glass card */
+.glass-card {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Card gradient hover border */
+.card-glow {
+  transition: box-shadow 0.5s ease;
+}
+.card-glow:hover {
+  box-shadow:
+    0 0 0 1px rgba(37, 99, 235, 0.15),
+    0 20px 40px -12px rgba(0, 0, 0, 0.12),
+    0 0 60px -20px rgba(37, 99, 235, 0.15);
+}
+
+/* Metric bar fill animation */
+@keyframes fill-bar {
+  from { width: 0%; }
+  to { width: var(--fill-width); }
+}
+.metric-bar-fill {
+  animation: fill-bar 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Marquee pause on hover */
+.marquee-track:hover {
+  animation-play-state: paused;
+}
