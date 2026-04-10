@@ -27,10 +27,12 @@ export default function RadialOrbitalTimeline({
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>(
     {}
   );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [viewMode, setViewMode] = useState<"orbital">("orbital");
   const [rotationAngle, setRotationAngle] = useState<number>(0);
   const [autoRotate, setAutoRotate] = useState<boolean>(true);
   const [pulseEffect, setPulseEffect] = useState<Record<number, boolean>>({});
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [centerOffset, setCenterOffset] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,

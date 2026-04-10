@@ -34,8 +34,8 @@ export function DifferentiatorSection() {
             className="lg:col-span-5 flex flex-col items-start"
           >
             <h2 className="text-4xl md:text-5xl lg:text-[54px] font-extrabold text-midnight leading-[1.1] tracking-tight mb-8">
-              We're not a vendor. <br />
-              We're your engineering <br />
+              We&apos;re not a vendor. <br />
+              We&apos;re your engineering <br />
               co-founders.
             </h2>
             <p className="text-lg text-muted mb-10 leading-relaxed pr-4">

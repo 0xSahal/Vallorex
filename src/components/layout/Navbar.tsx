@@ -8,7 +8,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronDown, Menu, X, ArrowRight,
-  Cpu, ShieldCheck, Network, BarChart3, Cloud,
+  ShieldCheck, BarChart3,
   Layers, Brain, Code2, Rocket, Building2,
   Landmark, TrendingUp, ShoppingBag, HeartPulse, Zap,
   Globe, Server, Lock, GitBranch, Terminal,
@@ -145,7 +145,7 @@ const megaMenus: Record<string, React.ReactNode> = {
       </div>
       <div className="col-span-4 pl-8">
         <p className="text-[10px] font-bold tracking-widest text-muted uppercase mb-5">Deep Domain Expertise</p>
-        <p className="text-sm text-midnight font-semibold mb-2 leading-snug">We don't just code — we understand your market.</p>
+        <p className="text-sm text-midnight font-semibold mb-2 leading-snug">We don&apos;t just code — we understand your market.</p>
         <p className="text-xs text-muted leading-relaxed mb-6">Our engineering teams are paired with industry specialists who know the regulatory landscape, compliance requirements, and competitive pressures you face daily.</p>
         <div className="space-y-3">
           {[
@@ -289,14 +289,14 @@ const megaMenus: Record<string, React.ReactNode> = {
     <div className="grid grid-cols-12 py-8 gap-0 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
       <div className="col-span-8 grid grid-cols-2 gap-4 pr-10 border-r border-slate-100">
         {[
-          { icon: <Users className="h-5 w-5" />, label: "About Vallorex", desc: "Our story, mission, and the values that drive every engagement we take on." },
-          { icon: <Award className="h-5 w-5" />, label: "Leadership Team", desc: "Meet the engineers, strategists, and operators building the future with our clients." },
-          { icon: <Briefcase className="h-5 w-5" />, label: "Careers", desc: "Join a world-class team working on the most ambitious deep-tech projects in the world.", tag: "We're hiring" },
-          { icon: <MapPin className="h-5 w-5" />, label: "Offices & Locations", desc: "Distributed-first with offices in New York, London, Singapore, and remote teams worldwide." },
-          { icon: <Phone className="h-5 w-5" />, label: "Contact Us", desc: "Reach our team for partnerships, new projects, or press enquiries." },
-          { icon: <ShieldCheck className="h-5 w-5" />, label: "Trust & Security", desc: "ISO 27001 certified. SOC 2 Type II compliant. Your IP and data are always protected." },
+          { icon: <Users className="h-5 w-5" />, label: "About Vallorex", desc: "Our story, mission, and the values that drive every engagement we take on.", href: "/company" },
+          { icon: <Award className="h-5 w-5" />, label: "Leadership Team", desc: "Meet the engineers, strategists, and operators building the future with our clients.", href: "/company#leadership" },
+          { icon: <Briefcase className="h-5 w-5" />, label: "Careers", desc: "Join a world-class team working on the most ambitious deep-tech projects in the world.", tag: "We're hiring", href: "/careers" },
+          { icon: <MapPin className="h-5 w-5" />, label: "Offices & Locations", desc: "Distributed-first with offices in New York, London, Singapore, and remote teams worldwide.", href: "/company#offices" },
+          { icon: <Phone className="h-5 w-5" />, label: "Contact Us", desc: "Reach our team for partnerships, new projects, or press enquiries.", href: "/contact" },
+          { icon: <ShieldCheck className="h-5 w-5" />, label: "Trust & Security", desc: "ISO 27001 certified. SOC 2 Type II compliant. Your IP and data are always protected.", href: "/company#trust" },
         ].map((item) => (
-          <Link key={item.label} href="#" className="group flex items-start gap-4 rounded-xl p-4 hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all">
+          <Link key={item.label} href={item.href} className="group flex items-start gap-4 rounded-xl p-4 hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all">
             <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-brand-blue/8 text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-all flex-shrink-0">
               {item.icon}
             </div>
@@ -418,13 +418,13 @@ export function Navbar() {
 
         {/* CTA */}
         <div className="hidden lg:flex items-center gap-4">
-          <Button className={cn(
+          <Button asChild className={cn(
             "rounded-full px-6 h-10 text-sm font-semibold transition-all duration-300",
             isScrolled
               ? "bg-brand-orange hover:bg-[#E06612] text-white shadow-md shadow-brand-orange/20"
               : "bg-brand-orange hover:bg-[#E06612] text-white shadow-lg shadow-brand-orange/20"
           )}>
-            Get a Free Consultation
+            <Link href="/contact?tab=booking">Get a Free Consultation</Link>
           </Button>
         </div>
 
@@ -475,8 +475,8 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="mt-4 pt-6 border-t border-border/20">
-                <Button className="w-full rounded-full bg-brand-orange hover:bg-[#E06612] text-white h-12 text-base font-semibold">
-                  Get a Free Consultation
+                <Button asChild className="w-full rounded-full bg-brand-orange hover:bg-[#E06612] text-white h-12 text-base font-semibold">
+                  <Link href="/contact?tab=booking">Get a Free Consultation</Link>
                 </Button>
               </div>
             </div>

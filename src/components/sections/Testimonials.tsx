@@ -21,7 +21,7 @@ export function Testimonials() {
             Trusted by the Top 1%
           </h2>
           <p className="text-lg text-[#64748b] max-w-2xl mx-auto">
-            Don't just take our word for it. Hear from the visionaries and technical leaders we've partnered with.
+            Don&apos;t just take our word for it. Hear from the visionaries and technical leaders we&apos;ve partnered with.
           </p>
         </motion.div>
 

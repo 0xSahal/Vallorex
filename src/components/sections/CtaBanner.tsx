@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 
 export function CtaBanner() {
   return (
@@ -30,8 +31,10 @@ export function CtaBanner() {
           </h2>
           
           <div className="flex flex-col sm:flex-row items-center justify-center mb-10">
-            <Button className="rounded-full bg-[#F97316] hover:bg-[#ea580c] transition-colors text-white px-8 h-14 text-base font-semibold w-full sm:w-auto shadow-[0_4px_24px_rgba(249,115,22,0.3)]">
-              Get a Free Consultation <ArrowRight className="ml-2 h-[18px] w-[18px]" strokeWidth={2.5} />
+            <Button asChild className="rounded-full bg-[#F97316] hover:bg-[#ea580c] transition-colors text-white px-8 h-14 text-base font-semibold w-full sm:w-auto shadow-[0_4px_24px_rgba(249,115,22,0.3)]">
+              <Link href="/contact?tab=booking">
+                Get a Free Consultation <ArrowRight className="ml-2 h-[18px] w-[18px]" strokeWidth={2.5} />
+              </Link>
             </Button>
           </div>
           
