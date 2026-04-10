@@ -240,6 +240,126 @@
   inherits: false;
 }
 
+/* Hero primary CTA: smooth full-perimeter sweep + glitter overlay */
+.hero-cta-border-wrap {
+  isolation: isolate;
+}
+
+.hero-cta-border-base,
+.hero-cta-border-sparkle {
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: 340%;
+  height: 340%;
+  min-width: 220px;
+  min-height: 220px;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.hero-cta-border-base {
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    #ea580c,
+    #f97316 6deg,
+    #fdba74 22deg,
+    #ffedd5 36deg,
+    #fffbeb 44deg,
+    #ffffff 52deg,
+    #fef3c7 60deg,
+    #fdba74 72deg,
+    #f97316 88deg,
+    #fb923c 108deg,
+    #ffedd5 132deg,
+    #ffffff 142deg,
+    #fff7ed 154deg,
+    #fdba74 172deg,
+    #f97316 196deg,
+    #ea580c 218deg,
+    #fdba74 244deg,
+    #ffffff 256deg,
+    #fef9c3 268deg,
+    #fdba74 288deg,
+    #f97316 312deg,
+    #ea580c 332deg,
+    #f97316 360deg
+  );
+  opacity: 0.94;
+  animation: hero-cta-border-rotate 3.4s linear infinite;
+}
+
+.hero-cta-border-sparkle {
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    transparent 42deg,
+    rgba(255, 255, 255, 0.12) 50deg,
+    rgba(255, 255, 255, 0.95) 55deg,
+    rgba(255, 255, 255, 0.55) 62deg,
+    rgba(255, 252, 240, 0.35) 70deg,
+    transparent 80deg,
+    transparent 96deg,
+    rgba(255, 255, 255, 0.08) 102deg,
+    rgba(255, 255, 255, 0.88) 107deg,
+    rgba(255, 255, 255, 0.4) 114deg,
+    transparent 124deg,
+    transparent 148deg,
+    rgba(254, 249, 195, 0.35) 154deg,
+    rgba(255, 255, 255, 1) 159deg,
+    rgba(255, 255, 255, 0.45) 166deg,
+    rgba(255, 250, 235, 0.2) 174deg,
+    transparent 184deg,
+    transparent 200deg,
+    rgba(255, 255, 255, 0.75) 205deg,
+    rgba(255, 255, 255, 0.95) 209deg,
+    rgba(255, 255, 255, 0.2) 216deg,
+    transparent 224deg,
+    transparent 252deg,
+    rgba(255, 255, 255, 0.65) 257deg,
+    rgba(255, 255, 255, 0.12) 264deg,
+    transparent 272deg,
+    transparent 296deg,
+    rgba(255, 255, 255, 0.9) 301deg,
+    rgba(255, 255, 255, 0.35) 308deg,
+    rgba(254, 252, 232, 0.15) 316deg,
+    transparent 324deg,
+    transparent 360deg
+  );
+  mix-blend-mode: screen;
+  opacity: 0.62;
+  animation: hero-cta-border-rotate 2.05s linear infinite;
+}
+
+@keyframes hero-cta-border-rotate {
+  from {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta-border-base,
+  .hero-cta-border-sparkle {
+    animation: none;
+    transform: translate3d(-50%, -50%, 0);
+  }
+
+  .hero-cta-border-base {
+    background: #f97316;
+    opacity: 0.5;
+  }
+
+  .hero-cta-border-sparkle {
+    display: none;
+  }
+}
+
 /* Dot grid pattern */
 .dot-grid {
   background-image: radial-gradient(circle, #94a3b8 0.5px, transparent 0.5px);

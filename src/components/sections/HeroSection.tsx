@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Clock, PieChart, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import GlobeCdnDemo from "@/components/ui/globe-cdn-demo";
 
 export function HeroSection() {
@@ -23,76 +23,65 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden bg-white">
+    <section className="relative overflow-x-hidden bg-white pt-5 pb-10 sm:pt-6 sm:pb-12 md:pt-8 md:pb-16">
       {/* Soft gradient blur at top */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-32 bg-midnight/5 blur-[100px] pointer-events-none" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-32 w-full max-w-3xl -translate-x-1/2 bg-midnight/5 blur-[100px]" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 xl:gap-28 items-center lg:items-start">
-          
+      <div className="container mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+        <div className="grid min-w-0 grid-cols-1 items-center gap-7 sm:gap-9 lg:grid-cols-2 lg:items-start lg:gap-14 xl:gap-16">
           {/* Left Column Text Content */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="show"
-            className="flex flex-col items-start w-full lg:max-w-[680px] xl:max-w-[760px]"
+            className="flex min-w-0 w-full flex-col items-stretch sm:items-start lg:max-w-[680px] xl:max-w-[760px]"
           >
-            <motion.div variants={itemVariants} className="inline-flex items-center rounded-sm bg-slate-100 px-3 py-1.5 mb-8">
-              <span className="text-[10px] font-bold tracking-wider text-muted uppercase">
-                TRUSTED BY 30+ GLOBAL COMPANIES
+            <motion.div
+              variants={itemVariants}
+              className="mb-4 inline-flex max-w-full items-center justify-center self-center rounded-sm bg-slate-100 px-2.5 py-1.5 sm:mb-5 sm:self-start sm:px-3"
+            >
+              <span className="text-center text-[9px] font-bold uppercase leading-snug tracking-wider text-muted sm:text-left sm:text-[10px]">
+                Trusted by 30+ global companies
               </span>
             </motion.div>
 
             <motion.h1
               variants={itemVariants}
-              className="text-5xl sm:text-[56px] md:text-[62px] lg:text-[64px] font-extrabold text-midnight leading-[1.1] tracking-tight mb-8"
+              className="mb-4 text-balance text-[clamp(1.625rem,4.75vw+0.65rem,2.125rem)] font-extrabold leading-[1.12] tracking-tight text-midnight sm:mb-5 sm:text-4xl sm:leading-[1.1] md:text-5xl lg:text-[3.5rem] lg:leading-[1.08] xl:text-[4rem]"
             >
               The Engineering <br className="hidden md:block" />
-              <span className="whitespace-nowrap">Firm That Turns <span className="text-brand-blue">AI &</span></span> <br className="hidden md:block" />
+              <span className="lg:whitespace-nowrap">
+                Firm That Turns <span className="text-brand-blue">AI &</span>{" "}
+              </span>
+              <br className="hidden md:block" />
               <span className="text-brand-blue">Blockchain</span> Into <br className="hidden md:block" />
               Business Results.
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="text-xl text-muted/90 mb-10 leading-relaxed max-w-[600px]"
+              className="mb-5 max-w-[600px] text-base leading-relaxed text-muted/90 sm:mb-6 sm:text-lg md:text-xl"
             >
-              We bridge the gap between complex emerging tech and scalable enterprise infrastructure. Elite engineering for the world's most ambitious teams.
+              We bridge the gap between complex emerging tech and scalable enterprise infrastructure. Elite engineering for the world&apos;s most ambitious teams.
             </motion.p>
 
-            <motion.div variants={itemVariants} className="flex flex-wrap items-center gap-4 mb-12">
-              <Button className="rounded-full bg-brand-orange hover:bg-[#E06612] text-white px-8 h-12 text-[15px] font-bold shadow-lg shadow-brand-orange/20 transition-all">
-                Start Your Project <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+            <motion.div
+              variants={itemVariants}
+              className="mb-7 flex w-full flex-col gap-3 sm:mb-8 sm:flex-row sm:flex-wrap sm:items-center"
+            >
+              <span className="hero-cta-border-wrap relative inline-flex w-full overflow-hidden rounded-full p-[3px] shadow-[0_0_40px_-12px_rgba(249,115,22,0.55)] sm:w-auto">
+                <span className="hero-cta-border-base" aria-hidden />
+                <span className="hero-cta-border-sparkle" aria-hidden />
+                <Button className="relative z-10 h-12 w-full rounded-full border-0 bg-brand-orange px-6 text-sm font-bold text-white shadow-lg shadow-brand-orange/25 transition-all hover:bg-[#E06612] sm:w-auto sm:px-8 sm:text-[15px]">
+                  Start Your Project <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </span>
               <Button
                 variant="outline"
-                className="rounded-full border-2 border-midnight text-midnight bg-transparent hover:bg-slate-50 hover:text-midnight px-8 h-12 text-[15px] font-bold transition-all"
+                className="h-12 w-full rounded-full border-2 border-midnight bg-transparent px-6 text-sm font-bold text-midnight transition-all hover:bg-slate-50 hover:text-midnight sm:w-auto sm:px-8 sm:text-[15px]"
               >
                 See How We Work
               </Button>
-            </motion.div>
-
-            <motion.div variants={itemVariants} className="w-full pt-8 border-t border-border/80">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-4">
-                <div className="flex items-center gap-2.5">
-                  <div className="bg-brand-blue rounded-full p-[2px]">
-                    <CheckCircle2 className="h-4 w-4 text-white" strokeWidth={3} />
-                  </div>
-                  <span className="text-sm font-semibold text-muted">ISO 27001 Certified</span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <div className="bg-brand-blue rounded-full p-[2px]">
-                    <CheckCircle2 className="h-4 w-4 text-white" strokeWidth={3} />
-                  </div>
-                  <span className="text-sm font-semibold text-muted">98% Delivery Rate</span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <div className="bg-brand-blue rounded-full p-[2px]">
-                    <Clock className="h-4 w-4 text-white" strokeWidth={3} />
-                  </div>
-                  <span className="text-sm font-semibold text-muted">24hr Response Time</span>
-                </div>
-              </div>
             </motion.div>
           </motion.div>
           
@@ -101,9 +90,9 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            className="relative lg:pt-2 w-full"
+            className="relative min-w-0 w-full lg:pt-0"
           >
-            <div className="relative w-full h-[550px] flex items-center justify-center">
+            <div className="relative mx-auto flex h-[min(78vw,360px)] min-h-0 w-full max-w-full items-center justify-center sm:h-[400px] md:h-[460px] lg:h-[520px] xl:h-[550px]">
               <GlobeCdnDemo />
             </div>
           </motion.div>

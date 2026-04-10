@@ -8,6 +8,9 @@ import { CaseStudies } from "@/components/sections/CaseStudies";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 
+export const dynamic = "force-static";
+export const revalidate = false;
+
 export default function Home() {
   return (
     <>
