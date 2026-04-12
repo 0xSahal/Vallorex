@@ -7,17 +7,19 @@ export function Footer() {
   return (
     <footer className="bg-midnight text-white pt-24 pb-12 border-t border-white/10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-8 mb-16">
 
           {/* Brand & Contact */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-6">
+            <Link href="/" className="mb-6 inline-flex h-10 max-h-11 items-center sm:h-11" aria-label="Vallorex Technology home">
               <Image
-                src="/Logo.png"
-                alt="Vallorex Technology"
-                width={160}
-                height={50}
-                className="h-[68px] w-auto object-contain"
+                src="/vallorex-logo-dark.png"
+                alt=""
+                width={320}
+                height={80}
+                sizes="(max-width: 768px) 200px, 240px"
+                className="h-full w-auto max-w-[min(100%,14rem)] object-contain object-left sm:max-w-[15rem]"
+                aria-hidden
               />
             </Link>
             <p className="text-muted text-sm mb-6 max-w-xs leading-relaxed">
@@ -33,25 +35,6 @@ export function Footer() {
                 <a href="tel:+18888255673" className="hover:text-white transition-colors">+1 (888) VALLOREX</a>
               </p>
             </div>
-          </div>
-
-          {/* Locations */}
-          <div className="lg:col-span-1">
-            <h3 className="font-semibold text-lg mb-6 tracking-tight">Global Offices</h3>
-            <ul className="space-y-4 text-sm text-muted">
-              <li>
-                <span className="block text-white mb-1 font-medium">New York</span>
-                HQ - Financial District
-              </li>
-              <li>
-                <span className="block text-white mb-1 font-medium">London</span>
-                Canary Wharf
-              </li>
-              <li>
-                <span className="block text-white mb-1 font-medium">Singapore</span>
-                Marina Bay
-              </li>
-            </ul>
           </div>
 
           {/* Services */}
