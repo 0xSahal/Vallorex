@@ -14,7 +14,7 @@ import {
   Landmark, TrendingUp, ShoppingBag, HeartPulse, Zap,
   Globe, Server, Lock, GitBranch, Terminal,
   BookOpen, Newspaper, Video, MessageSquare,
-  Users, Award, Briefcase, MapPin, Phone,
+  Users, Award, Briefcase, Phone,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -137,7 +137,6 @@ const companyMegaItemsData: CompanyMegaItem[] = [
   { Icon: Users, label: "About Vallorex", desc: "Our story, mission, and the values that drive every engagement we take on.", href: "/company" },
   { Icon: Award, label: "Leadership Team", desc: "Meet the engineers, strategists, and operators building the future with our clients.", href: "/company#leadership" },
   { Icon: Briefcase, label: "Careers", desc: "Join a world-class team working on the most ambitious deep-tech projects in the world.", tag: "We're hiring", href: "/careers" },
-  { Icon: MapPin, label: "Offices & Locations", desc: "Distributed-first with offices in New York, London, Singapore, and remote teams worldwide.", href: "/company#offices" },
   { Icon: Phone, label: "Contact Us", desc: "Reach our team for partnerships, new projects, or press enquiries.", href: "/contact" },
   { Icon: ShieldCheck, label: "Trust & Security", desc: "ISO 27001 certified. SOC 2 Type II compliant. Your IP and data are always protected.", href: "/company#trust" },
 ];
@@ -380,6 +379,12 @@ const menuKey = (name: string) => name.toLowerCase().replace(/ /g, "-");
 
 const drawerTransition = { duration: 0.3, ease: "easeInOut" as const };
 
+const LOGO_LIGHT = "/vallorex-logo.png";
+const LOGO_DARK = "/vallorex-logo-dark.png";
+/** Reference aspect (dark logo); Next/Image intrinsic ratio — display locked via CSS */
+const LOGO_REF_WIDTH = 560;
+const LOGO_REF_HEIGHT = 156;
+
 // ─── Navbar Component ────────────────────────────────────────────────────────
 
 export function Navbar() {
@@ -391,6 +396,7 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -443,15 +449,39 @@ export function Navbar() {
       onMouseLeave={() => setActiveMenu(null)}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] flex items-center justify-between w-full">
-        <Link href="/" className="flex items-center z-50">
-          <Image
-            src="/Logo.png"
-            alt="Vallorex Technology"
-            width={200}
-            height={80}
-            className="h-[68px] w-auto object-contain"
-            priority
-          />
+        <Link
+          href="/"
+          className="relative z-50 inline-flex h-[32px] shrink-0 items-center md:h-[42px] lg:h-[52px]"
+          aria-label="Vallorex Technology home"
+        >
+          <span className="relative block h-[32px] w-auto shrink-0 aspect-[560/156] md:h-[42px] lg:h-[52px]">
+            <Image
+              src={LOGO_DARK}
+              alt=""
+              width={LOGO_REF_WIDTH}
+              height={LOGO_REF_HEIGHT}
+              sizes="(max-width: 767px) 115px, (max-width: 1023px) 151px, 187px"
+              className={cn(
+                "absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-500 ease-in-out",
+                isScrolled ? "pointer-events-none opacity-0" : "opacity-100"
+              )}
+              priority
+              aria-hidden
+            />
+            <Image
+              src={LOGO_LIGHT}
+              alt=""
+              width={LOGO_REF_WIDTH}
+              height={LOGO_REF_HEIGHT}
+              sizes="(max-width: 767px) 115px, (max-width: 1023px) 151px, 187px"
+              className={cn(
+                "absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-500 ease-in-out",
+                isScrolled ? "opacity-100" : "pointer-events-none opacity-0"
+              )}
+              priority
+              aria-hidden
+            />
+          </span>
         </Link>
 
         <nav className="hidden lg:flex items-center h-full gap-8">
@@ -546,13 +576,20 @@ export function Navbar() {
             className="lg:hidden fixed top-0 right-0 z-[65] flex h-[100vh] w-[100vw] max-w-none flex-col bg-white"
           >
             <div className="flex h-[88px] flex-shrink-0 items-center justify-between border-b border-[#e5e7eb] bg-white px-4 sm:px-5">
-              <Link href="/" className="flex items-center" onClick={closeMobileMenu}>
+              <Link
+                href="/"
+                className="flex h-9 max-h-10 items-center sm:h-10"
+                onClick={closeMobileMenu}
+                aria-label="Vallorex Technology home"
+              >
                 <Image
-                  src="/Logo.png"
-                  alt="Vallorex Technology"
-                  width={200}
-                  height={80}
-                  className="h-[52px] w-auto object-contain"
+                  src={LOGO_LIGHT}
+                  alt=""
+                  width={LOGO_REF_WIDTH}
+                  height={LOGO_REF_HEIGHT}
+                  sizes="(max-width: 640px) 200px, 220px"
+                  className="h-full w-auto max-w-[min(100%,12rem)] object-contain object-left sm:max-w-[13rem]"
+                  aria-hidden
                 />
               </Link>
               <button

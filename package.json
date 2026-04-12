@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/fix-favicon-after-export.mjs",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "firebase deploy --only hosting"
+    "deploy": "npm run build && firebase deploy"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -34,6 +34,7 @@
     "eslint-config-next": "14.2.35",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "to-ico": "^1.1.5",
     "typescript": "^5"
   }
 }

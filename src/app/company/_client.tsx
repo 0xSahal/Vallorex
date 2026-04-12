@@ -20,7 +20,6 @@ import {
   Lightbulb,
   Scale,
   Globe2,
-  MapPin,
   Rocket,
   TrendingUp,
   CheckCircle2,
@@ -175,41 +174,6 @@ const leadership = [
     bio: "Former McKinsey engagement manager. Bridges the gap between business strategy and engineering execution for Fortune 500 clients.",
     color: "#0D9488",
     previousCompany: "McKinsey",
-  },
-];
-
-const offices = [
-  {
-    city: "New York",
-    country: "United States",
-    type: "Global HQ",
-    address: "Financial District, Manhattan",
-    timezone: "EST (UTC-5)",
-    color: "#2563EB",
-  },
-  {
-    city: "London",
-    country: "United Kingdom",
-    type: "EMEA Office",
-    address: "Canary Wharf, E14",
-    timezone: "GMT (UTC+0)",
-    color: "#8B5CF6",
-  },
-  {
-    city: "Singapore",
-    country: "Singapore",
-    type: "APAC Office",
-    address: "Marina Bay Financial Centre",
-    timezone: "SGT (UTC+8)",
-    color: "#F97316",
-  },
-  {
-    city: "Dubai",
-    country: "UAE",
-    type: "MENA Office",
-    address: "DIFC, Gate Village",
-    timezone: "GST (UTC+4)",
-    color: "#10B981",
   },
 ];
 
@@ -782,84 +746,7 @@ export default function CompanyPageClient() {
         </div>
       </section>
 
-      {/* ── SECTION 7: GLOBAL PRESENCE ──────────────────────────── */}
-      <section id="offices" className="py-24 md:py-32 bg-white scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="text-center mb-16"
-          >
-            <motion.span
-              variants={fadeUp}
-              className="block text-[10px] font-bold tracking-[0.25em] text-brand-blue uppercase mb-4"
-            >
-              Global Presence
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              className="text-3xl sm:text-4xl md:text-[44px] font-extrabold text-midnight tracking-tight leading-tight"
-            >
-              Distributed-First. Globally Available.
-            </motion.h2>
-            <motion.p
-              variants={fadeUp}
-              className="mt-4 text-base md:text-lg text-muted max-w-[580px] mx-auto"
-            >
-              Strategic offices across four continents, with remote engineering
-              teams operating across 20+ time zones.
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={stagger}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
-            {offices.map((office) => (
-              <motion.div
-                key={office.city}
-                variants={fadeUp}
-                className="group bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
-              >
-                <div
-                  className="absolute top-0 left-0 right-0 h-1 transition-all duration-300"
-                  style={{ background: office.color }}
-                />
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: `${office.color}10` }}
-                >
-                  <MapPin
-                    className="w-5 h-5"
-                    style={{ color: office.color }}
-                  />
-                </div>
-                <h3 className="text-lg font-bold text-midnight">
-                  {office.city}
-                </h3>
-                <p className="text-xs font-semibold text-brand-blue mt-0.5">
-                  {office.type}
-                </p>
-                <p className="text-sm text-muted mt-3">{office.address}</p>
-                <p className="text-xs text-muted mt-1">{office.country}</p>
-                <div className="mt-4 pt-3 border-t border-slate-100">
-                  <p className="text-xs text-muted flex items-center gap-1.5">
-                    <Globe2 className="w-3 h-3" />
-                    {office.timezone}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── SECTION 8: CULTURE & CAREERS ────────────────────────── */}
+      {/* ── SECTION 7: CULTURE & CAREERS ────────────────────────── */}
       <section id="careers" className="py-24 md:py-32 bg-[#FAFAFA] border-y border-slate-200/60 scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -939,7 +826,7 @@ export default function CompanyPageClient() {
         </div>
       </section>
 
-      {/* ── SECTION 9: TRUST & COMPLIANCE ───────────────────────── */}
+      {/* ── SECTION 8: TRUST & COMPLIANCE ───────────────────────── */}
       <section id="trust" className="py-20 bg-white scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
@@ -1020,7 +907,7 @@ export default function CompanyPageClient() {
         </div>
       </section>
 
-      {/* ── SECTION 10: CTA ─────────────────────────────────────── */}
+      {/* ── SECTION 9: CTA ─────────────────────────────────────── */}
       <section className="relative py-32 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-[#1c1815] via-[#0F172A] to-[#0A101C]" />
