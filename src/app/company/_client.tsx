@@ -23,10 +23,7 @@ import {
   Rocket,
   TrendingUp,
   ExternalLink,
-  Heart,
   Zap,
-  BookOpen,
-  Coffee,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -275,10 +272,10 @@ export default function CompanyPageClient() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:divide-x md:divide-slate-200/60">
             {[
-              { value: 15, suffix: "+", label: "Engineers & Specialists" },
-              { value: 20, suffix: "+", label: "Projects Delivered" },
-              { value: 3, suffix: "", label: "Countries Served" },
-              { value: 98, suffix: "%", label: "On-Time Delivery" },
+              { value: 15, suffix: "+", label: "Engineers & Specialists", prefix: "" },
+              { value: 20, suffix: "+", label: "Projects Delivered", prefix: "" },
+              { value: 3, suffix: "", label: "Countries Served", prefix: "" },
+              { value: 98, suffix: "%", label: "On-Time Delivery", prefix: "" },
             ].map((stat, i) => (
               <motion.div
                 key={i}
