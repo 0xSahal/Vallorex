@@ -5,9 +5,9 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 export const metadata: Metadata = {
-  title: "Case Studies | Vallorex — 50+ Production-Grade Projects",
+  title: "Case Studies | Vallorex — Production Systems That Ship",
   description:
-    "Explore how Vallorex engineers production AI and blockchain systems — from fraud detection to DeFi protocols — for high-stakes enterprises.",
+    "Explore live and MVP production systems engineered by Vallorex — real architecture, measurable outcomes, and technical depth.",
 };
 
 export default function CaseStudiesPage() {
