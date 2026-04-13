@@ -136,15 +136,15 @@ type CompanyMegaItem = { Icon: LucideIcon; label: string; desc: string; href: st
 const companyMegaItemsData: CompanyMegaItem[] = [
   { Icon: Users, label: "About Vallorex", desc: "Our story, mission, and the values that drive every engagement we take on.", href: "/company" },
   { Icon: Award, label: "Leadership Team", desc: "Meet the engineers, strategists, and operators building the future with our clients.", href: "/company#leadership" },
-  { Icon: Briefcase, label: "Careers", desc: "Join a world-class team working on the most ambitious deep-tech projects in the world.", tag: "We're hiring", href: "/careers" },
+  { Icon: Briefcase, label: "Careers", desc: "Work on challenging AI and Blockchain problems with a focused, technical team.", tag: "We're hiring", href: "/careers" },
   { Icon: Phone, label: "Contact Us", desc: "Reach our team for partnerships, new projects, or press enquiries.", href: "/contact" },
-  { Icon: ShieldCheck, label: "Trust & Security", desc: "ISO 27001 certified. SOC 2 Type II compliant. Your IP and data are always protected.", href: "/company#trust" },
+  { Icon: ShieldCheck, label: "Trust & Security", desc: "Your IP and data are always protected. We sign NDAs on every engagement.", href: "/company#trust" },
 ];
 
 const companyPartnerCta = {
   href: "#" as const,
   eyebrow: "Partner With Us",
-  title: "Join 30+ companies building the next generation of tech.",
+  title: "Join our growing network of AI and Blockchain ventures.",
   linkLabel: "Start a conversation",
 };
 
@@ -232,9 +232,9 @@ const megaMenus: Record<string, React.ReactNode> = {
         <p className="text-xs text-muted leading-relaxed mb-6">Our engineering teams are paired with industry specialists who know the regulatory landscape, compliance requirements, and competitive pressures you face daily.</p>
         <div className="space-y-3">
           {[
-            { stat: "30+", label: "Industries Served" },
+            { stat: "5+", label: "Industries Served" },
             { stat: "98%", label: "On-Time Delivery" },
-            { stat: "$2B+", label: "Client Value Unlocked" },
+            { stat: "20+", label: "Projects Delivered" },
           ].map((s) => (
             <div key={s.label} className="flex items-center gap-4">
               <span className="text-2xl font-extrabold text-brand-blue w-16">{s.stat}</span>
@@ -356,7 +356,7 @@ const megaMenus: Record<string, React.ReactNode> = {
         <div>
           <p className="text-[10px] font-bold tracking-widest text-muted uppercase mb-4">Trusted By</p>
           <div className="grid grid-cols-3 gap-3">
-            {["Series A", "Fortune 500", "Gov't Contracts", "DeFi Protocols", "Scale-ups", "Web3 Founders"].map((badge) => (
+            {["Series A", "DeFi Protocols", "Scale-ups", "Web3 Founders", "Startups", "Growth-Stage"].map((badge) => (
               <div key={badge} className="flex items-center justify-center rounded-lg border border-slate-200 px-2 py-2 text-[10px] font-bold text-muted text-center leading-tight">
                 {badge}
               </div>

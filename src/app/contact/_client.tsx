@@ -329,7 +329,7 @@ export default function ContactPageClient() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
               </span>
               <span className="text-[10px] font-bold tracking-[0.2em] text-white/60 uppercase">
-                Typically respond within 4 hours
+                Typically respond within 1 business day
               </span>
             </motion.div>
 
@@ -362,13 +362,11 @@ export default function ContactPageClient() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={stagger}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto"
           >
             {[
               { icon: Mail, label: "Email Us", value: "hello@vallorex.com", href: "mailto:hello@vallorex.com", color: "#2563EB" },
-              { icon: Phone, label: "Call Us", value: "+1 (888) VALLOREX", href: "tel:+18888255673", color: "#F97316" },
-              { icon: MapPin, label: "HQ Office", value: "Financial District, NYC", href: "#", color: "#8B5CF6" },
-              { icon: Clock, label: "Business Hours", value: "Mon–Fri, 9AM–6PM EST", href: "#", color: "#10B981" },
+              { icon: Clock, label: "Response Time", value: "Mon-Fri, 10AM-7PM IST", href: "#", color: "#10B981" },
             ].map((item) => (
               <motion.a
                 key={item.label}
@@ -632,7 +630,7 @@ export default function ContactPageClient() {
                                 <p className="text-sm font-bold text-midnight">
                                   {selectedDate.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
                                 </p>
-                                <p className="text-xs text-brand-blue font-semibold">{selectedTime} EST — 30 min consultation</p>
+                                <p className="text-xs text-brand-blue font-semibold">{selectedTime} EST, 30 min consultation</p>
                               </div>
                               <button
                                 type="button"
@@ -763,7 +761,7 @@ export default function ContactPageClient() {
                   <div className="space-y-4">
                     {[
                       { step: "01", title: "We Review", desc: "A senior engineer reviews your inquiry within 4 hours.", color: "#2563EB" },
-                      { step: "02", title: "We Respond", desc: "You'll get a personalized response — not a template.", color: "#F97316" },
+                      { step: "02", title: "We Respond", desc: "You'll get a personalized response, not a template.", color: "#F97316" },
                       { step: "03", title: "We Strategize", desc: "A free 30-min call to assess scope, timeline, and budget.", color: "#8B5CF6" },
                       { step: "04", title: "We Deliver", desc: "If it's a fit, we kick off with a detailed proposal in 48h.", color: "#10B981" },
                     ].map((item) => (
@@ -788,10 +786,10 @@ export default function ContactPageClient() {
               <div className="bg-white rounded-2xl border border-slate-200/80 p-6 space-y-4">
                 <h3 className="text-sm font-bold text-midnight uppercase tracking-wider">Why Teams Trust Vallorex</h3>
                 {[
-                  { icon: ShieldCheck, label: "ISO 27001 & SOC 2 Certified", color: "#2563EB" },
-                  { icon: Globe2, label: "200+ Engineers, 30+ Countries", color: "#8B5CF6" },
-                  { icon: Zap, label: "150+ Projects Delivered", color: "#F97316" },
-                  { icon: Users, label: "98% Client Retention Rate", color: "#10B981" },
+                  { icon: ShieldCheck, label: "Specialized in AI & Blockchain Engineering", color: "#2563EB" },
+                  { icon: Zap, label: "20+ Projects Delivered Across 3 Countries", color: "#F97316" },
+                  { icon: Users, label: "Senior Engineers Handle Every Project", color: "#8B5CF6" },
+                  { icon: CheckCircle2, label: "98% On-Time Delivery Rate", color: "#10B981" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-3">
                     <div
@@ -831,82 +829,6 @@ export default function ContactPageClient() {
         </div>
       </section>
 
-      {/* ── GLOBAL OFFICES MAP-STYLE ──────────────────────────── */}
-      <section className="py-20 md:py-28 bg-[#0A0F1E] relative overflow-hidden">
-        <div className="absolute top-[20%] left-[-10%] w-[50vw] h-[50vw] max-w-[700px] bg-brand-blue/5 blur-[150px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-[5%] right-[-5%] w-[40vw] h-[40vw] max-w-[500px] bg-brand-orange/5 blur-[120px] rounded-full pointer-events-none" />
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="text-center mb-14"
-          >
-            <motion.span
-              variants={fadeUp}
-              className="block text-[10px] font-bold tracking-[0.25em] text-brand-orange uppercase mb-4"
-            >
-              Our Offices
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              className="text-3xl sm:text-4xl md:text-[44px] font-extrabold text-white tracking-tight leading-tight"
-            >
-              Global Presence, Local Partnership
-            </motion.h2>
-            <motion.p
-              variants={fadeUp}
-              className="mt-4 text-base text-[#94A3B8] max-w-[480px] mx-auto"
-            >
-              Strategic offices across four continents, with engineering teams
-              operating across 20+ time zones.
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={stagger}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
-          >
-            {[
-              { city: "New York", type: "Global HQ", address: "Financial District, Manhattan", timezone: "EST (UTC-5)", color: "#2563EB" },
-              { city: "London", type: "EMEA Office", address: "Canary Wharf, E14", timezone: "GMT (UTC+0)", color: "#8B5CF6" },
-              { city: "Singapore", type: "APAC Office", address: "Marina Bay Financial Centre", timezone: "SGT (UTC+8)", color: "#F97316" },
-              { city: "Dubai", type: "MENA Office", address: "DIFC, Gate Village", timezone: "GST (UTC+4)", color: "#10B981" },
-            ].map((office) => (
-              <motion.div
-                key={office.city}
-                variants={fadeUp}
-                className="group rounded-xl border border-white/[0.06] bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 relative overflow-hidden"
-              >
-                <div
-                  className="absolute top-0 left-0 right-0 h-[2px]"
-                  style={{ background: office.color }}
-                />
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
-                  style={{ background: `${office.color}15` }}
-                >
-                  <MapPin className="w-5 h-5" style={{ color: office.color }} />
-                </div>
-                <h3 className="text-lg font-bold text-white">{office.city}</h3>
-                <p className="text-xs font-semibold mt-0.5" style={{ color: office.color }}>{office.type}</p>
-                <p className="text-sm text-[#94A3B8] mt-3">{office.address}</p>
-                <div className="mt-4 pt-3 border-t border-white/[0.06]">
-                  <p className="text-xs text-[#94A3B8] flex items-center gap-1.5">
-                    <Globe2 className="w-3 h-3" />
-                    {office.timezone}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 }

@@ -283,7 +283,7 @@ const services = [
     category: "AI ENGINEERING",
     title: "Intelligent Systems at Scale",
     description:
-      "Build production-grade AI systems — from fine-tuned language models to autonomous agents that execute complex workflows at enterprise scale.",
+      "Build production-grade AI systems, from fine-tuned language models to autonomous agents that execute complex workflows at enterprise scale.",
     subServices: [
       "AI Strategy & Roadmap",
       "Custom LLM Development",
@@ -298,7 +298,7 @@ const services = [
     category: "BLOCKCHAIN",
     title: "Decentralized Infrastructure",
     description:
-      "Architect secure, audited decentralized systems — smart contracts, DeFi protocols, and token economics designed for real-world adoption.",
+      "Architect secure, audited decentralized systems, smart contracts, DeFi protocols, and token economics designed for real-world adoption.",
     subServices: [
       "Smart Contract Development",
       "DeFi Protocol Design",
@@ -491,7 +491,7 @@ export default function ServicesPageClient() {
       <FloatingIconsHero
         className="bg-[#0A0F1E]"
         title="Engineering the Future, Today."
-        subtitle="From autonomous AI agents to audited smart contracts — Vallorex delivers elite engineering across the full emerging tech stack."
+        subtitle="From autonomous AI agents to audited smart contracts. Vallorex delivers specialized engineering across the full emerging tech stack."
         ctaText="Get a Free Consultation"
         ctaHref="/contact?tab=booking"
         icons={heroIcons}
@@ -626,7 +626,7 @@ export default function ServicesPageClient() {
         </div>
 
         <div className="space-y-6">
-          {/* Row 1 — scrolls left→right */}
+          {/* Row 1 - scrolls left→right */}
           <div className="overflow-hidden">
             <div className="flex gap-4 animate-marquee [animation-direction:reverse] will-change-transform">
               {[...row1Tech, ...row1Tech].map((tech, i) => (
@@ -640,7 +640,7 @@ export default function ServicesPageClient() {
             </div>
           </div>
 
-          {/* Row 2 — scrolls right→left */}
+          {/* Row 2 - scrolls right→left */}
           <div className="overflow-hidden">
             <div className="flex gap-4 animate-marquee will-change-transform">
               {[...row2Tech, ...row2Tech].map((tech, i) => (
@@ -665,7 +665,7 @@ export default function ServicesPageClient() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Left — content */}
+            {/* Left - content */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -714,7 +714,7 @@ export default function ServicesPageClient() {
               </motion.div>
             </motion.div>
 
-            {/* Right — Venn diagram */}
+            {/* Right - Venn diagram */}
             <VennDiagram />
           </div>
         </div>
@@ -730,19 +730,6 @@ export default function ServicesPageClient() {
             variants={stagger}
           >
             {/* Availability indicator */}
-            <motion.div
-              variants={fadeUp}
-              className="flex items-center justify-center gap-2 mb-6"
-            >
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-400" />
-              </span>
-              <span className="text-sm text-green-400">
-                3 project slots open this quarter
-              </span>
-            </motion.div>
-
             <motion.h2
               variants={fadeUp}
               className="text-4xl font-black text-white mb-6"

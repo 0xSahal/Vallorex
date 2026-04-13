@@ -18,10 +18,10 @@ export function Testimonials() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-[#0F172A] mb-4">
-            Trusted by the Top 1%
+            Built for Teams That Ship
           </h2>
           <p className="text-lg text-[#64748b] max-w-2xl mx-auto">
-            Don&apos;t just take our word for it. Hear from the visionaries and technical leaders we&apos;ve partnered with.
+            Don&apos;t just take our word for it. Hear from the engineers and founders we&apos;ve partnered with.
           </p>
         </motion.div>
 

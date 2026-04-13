@@ -18,7 +18,6 @@ import {
   HeartPulse,
   Factory,
   Truck,
-  CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -181,7 +180,7 @@ const industries: Industry[] = [
     accentBg: "bg-teal-50",
     heading: "Modernizing Legacy Workflows",
     description:
-      "We build the connective tissue between your legacy ERP systems and next-generation AI agents — without disrupting the operations that keep you running.",
+      "We build the connective tissue between your legacy ERP systems and next-generation AI agents, without disrupting the operations that keep you running.",
     features: [
       { label: "Process Mining" },
       { label: "Decision Support" },
@@ -647,9 +646,8 @@ export default function IndustriesPageClient() {
               className="text-base md:text-lg text-muted max-w-[580px] mx-auto leading-relaxed mb-2"
             >
               We&apos;re not a general-purpose dev shop. We&apos;ve built
-              production AI and blockchain systems in 5 high-stakes industries —
-              and we know the regulations, edge cases, and failure modes that
-              only come from being there.
+              production AI and blockchain systems in 5 high-stakes industries, and we know the regulations,
+              edge cases, and failure modes that only come from being there.
             </motion.p>
 
             <IndustryNav />
@@ -694,80 +692,6 @@ export default function IndustriesPageClient() {
         </div>
       ))}
 
-      {/* ─── Trust Badges ─── */}
-      <section className="py-20 bg-[#FAFAFA] border-y border-slate-200/60">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="text-center mb-14"
-          >
-            <motion.span
-              variants={fadeUp}
-              className="block text-[10px] font-bold tracking-[0.25em] text-brand-blue uppercase mb-4"
-            >
-              Compliance & Standards
-            </motion.span>
-            <motion.h3
-              variants={fadeUp}
-              className="text-2xl md:text-3xl font-extrabold text-midnight tracking-tight"
-            >
-              Built to Enterprise Standards
-            </motion.h3>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
-            {[
-              {
-                label: "ISO 27001",
-                desc: "Information security certified",
-                color: "#2563EB",
-              },
-              {
-                label: "SOC 2 Type II",
-                desc: "Continuous compliance",
-                color: "#8B5CF6",
-              },
-              {
-                label: "HIPAA",
-                desc: "Healthcare data protection",
-                color: "#0D9488",
-              },
-              {
-                label: "PCI DSS",
-                desc: "Payment card security",
-                color: "#F97316",
-              },
-            ].map((badge, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="group bg-white rounded-2xl border border-slate-200/80 p-6 text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
-              >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-4 transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: `${badge.color}10` }}
-                >
-                  <CheckCircle2
-                    className="w-5 h-5"
-                    style={{ color: badge.color }}
-                  />
-                </div>
-                <p className="text-sm font-bold text-midnight mb-1">
-                  {badge.label}
-                </p>
-                <p className="text-xs text-muted">{badge.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ─── Bottom CTA ─── */}
       <section className="relative py-32 bg-[#0F172A] overflow-hidden">
         {/* Background glows */}
@@ -797,8 +721,8 @@ export default function IndustriesPageClient() {
               className="text-base md:text-lg text-[#94A3B8] max-w-xl mx-auto mb-10 leading-relaxed"
             >
               We&apos;ve architected systems for defense, energy, and aerospace.
-              Our core engineering principles — security, scalability, and
-              precision — apply wherever failure is not an option.
+              Our core engineering principles, security, scalability, and precision, apply wherever failure is
+              not an option.
             </motion.p>
 
             <motion.div variants={fadeUp}>

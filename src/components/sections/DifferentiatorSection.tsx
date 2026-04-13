@@ -7,8 +7,9 @@ import Link from "next/link";
 export function DifferentiatorSection() {
   const differentiators = [
     {
-      title: "Top 1% Engineers Only",
-      description: "We don't outsource. Your project is handled by senior architects who have built billion-dollar systems.",
+      title: "Senior Engineers, No Juniors",
+      description:
+        "We don't outsource. Your project is handled by experienced engineers who have shipped production systems for funded startups and growth-stage companies.",
     },
     {
       title: "Fixed Scope, Fixed Price",

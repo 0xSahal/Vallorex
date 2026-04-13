@@ -30,10 +30,6 @@ export function Footer() {
                 <span className="font-semibold text-white/90">Email:</span>
                 <a href="mailto:hello@vallorex.com" className="hover:text-white transition-colors">hello@vallorex.com</a>
               </p>
-              <p className="flex items-center gap-2">
-                <span className="font-semibold text-white/90">Phone:</span>
-                <a href="tel:+18888255673" className="hover:text-white transition-colors">+1 (888) VALLOREX</a>
-              </p>
             </div>
           </div>
 
@@ -88,9 +84,9 @@ export function Footer() {
             © {currentYear} Vallorex Technologies. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-muted">
-            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-            <Link href="/cookies" className="hover:text-white transition-colors">Cookie Policy</Link>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </div>
