@@ -22,9 +22,7 @@ import {
   Globe2,
   Rocket,
   TrendingUp,
-  CheckCircle2,
   ExternalLink,
-  Briefcase,
   Heart,
   Zap,
   BookOpen,
@@ -183,15 +181,6 @@ const milestones = [
   { year: "2023", title: "Momentum", event: "Grew to a team of 10 engineers. Started serving US-based clients in fintech and healthtech verticals.", icon: Globe2, color: "#8B5CF6" },
   { year: "2024", title: "Converged Practice", event: "Launched our converged AI + Blockchain practice. Built and shipped 3 production-grade AI agent systems for international clients.", icon: Zap, color: "#10B981" },
   { year: "2025", title: "Global Partnerships", event: "Expanded team and service offerings. Currently partnering with growth-stage companies across 3 continents.", icon: Target, color: "#06B6D4" },
-];
-
-const perks = [
-  { icon: Globe2, label: "Remote-First Culture", desc: "Work from anywhere with async-first communication" },
-  { icon: BookOpen, label: "$5K Learning Budget", desc: "Annual stipend for courses, conferences & certifications" },
-  { icon: Heart, label: "Premium Healthcare", desc: "Full medical, dental & vision for you and your family" },
-  { icon: Coffee, label: "Unlimited PTO", desc: "We trust you to manage your time and recharge" },
-  { icon: Zap, label: "Latest Hardware", desc: "Top-spec MacBook Pro, 4K monitor & ergonomic setup" },
-  { icon: TrendingUp, label: "Equity & Bonuses", desc: "Competitive equity packages and performance bonuses" },
 ];
 
 /* ═══════════════════════════════════════════════════════════════

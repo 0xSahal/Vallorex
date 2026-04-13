@@ -7,8 +7,6 @@ import { useSearchParams } from "next/navigation";
 import {
   ArrowRight,
   Mail,
-  Phone,
-  MapPin,
   Clock,
   Send,
   Calendar,
@@ -16,7 +14,6 @@ import {
   ChevronLeft,
   ChevronRight,
   CheckCircle2,
-  Globe2,
   ShieldCheck,
   Zap,
   Users,
