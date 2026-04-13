@@ -16,8 +16,6 @@ import {
   Database,
   Code2,
   Palette,
-  Shield,
-  ShieldCheck,
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -249,7 +247,7 @@ export default function TechnologiesPageClient() {
                 <span className="block mb-1 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">
                   Scale Your
                 </span>
-                <div className="relative h-[1.25em] flex items-center justify-center lg:justify-start text-brand-blue whitespace-nowrap">
+                <div className="relative min-h-[1.4em] overflow-hidden flex items-center justify-center lg:justify-start text-brand-blue whitespace-nowrap">
                   <LayoutGroup>
                     <TextRotate
                       texts={[
@@ -259,7 +257,7 @@ export default function TechnologiesPageClient() {
                         "Cloud Infra",
                         "Enterprise Data",
                       ]}
-                      mainClassName="overflow-hidden font-black"
+                      mainClassName="font-black"
                       staggerDuration={0.03}
                       staggerFrom="last"
                       rotationInterval={3000}
@@ -281,18 +279,22 @@ export default function TechnologiesPageClient() {
                 className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4 sm:gap-5 w-full sm:w-auto"
               >
                 <Button
+                  asChild
                   size="lg"
                   className="bg-brand-orange hover:bg-[#E06612] text-white rounded-full px-8 md:px-10 py-4 md:py-5 h-auto text-sm md:text-base font-bold shadow-xl shadow-brand-orange/20 transition-all hover:scale-[1.03] active:scale-95 group justify-center"
                 >
-                  Consult Our Architects
-                  <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1.5 transition-transform" />
+                  <Link href="/contact">
+                    Consult Our Architects
+                    <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1.5 transition-transform" />
+                  </Link>
                 </Button>
                 <Button
+                  asChild
                   variant="outline"
                   size="lg"
                   className="rounded-full border-2 border-white/20 text-white hover:text-white px-8 md:px-10 py-4 md:py-5 h-auto text-sm md:text-base font-bold hover:bg-white/[0.06] transition-all hover:scale-[1.03] active:scale-95 justify-center"
                 >
-                  Review Our Standards
+                  <Link href="/services">View Our Services</Link>
                 </Button>
               </motion.div>
             </motion.div>
@@ -406,80 +408,6 @@ export default function TechnologiesPageClient() {
                 </motion.div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Standards Section (Premium Stitch Rebuild) */}
-      <section className="py-24 md:py-32 bg-slate-50/50 relative z-10 border-y border-slate-100/50">
-        <div className="container mx-auto px-4 max-w-[1400px]">
-          <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-[42px] font-extrabold text-[#0F172A] tracking-tight leading-tight"
-            >
-              Standards We Hold Ourselves To
-            </motion.h2>
-          </div>
-
-          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {[
-              {
-                label: "ISO 27001",
-                description: "Information security management certified.",
-                icon: ShieldCheck,
-                color: "#2563EB",
-                bg: "bg-blue-50/80",
-                glow: "group-hover:shadow-blue-500/10"
-              },
-              {
-                label: "SOC 2 Type II",
-                description: "Continuous compliance for enterprise trust.",
-                icon: Shield,
-                color: "#8B5CF6",
-                bg: "bg-purple-50/80",
-                glow: "group-hover:shadow-purple-500/10"
-              },
-              {
-                label: "AWS Partner",
-                description: "Advanced tier consulting for cloud architecture.",
-                icon: Cloud,
-                color: "#F97316",
-                bg: "bg-orange-50/80",
-                glow: "group-hover:shadow-orange-500/10"
-              },
-              {
-                label: "EF Contributor",
-                description: "Core contributor to Ethereum infrastructure.",
-                icon: Layers,
-                color: "#0F172A",
-                bg: "bg-slate-100/80",
-                glow: "group-hover:shadow-slate-500/10"
-              },
-            ].map((ac, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 * idx, duration: 0.5 }}
-                className={`group bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${ac.glow} cursor-default`}
-              >
-                {/* Badge Icon Container */}
-                <div className={`w-16 h-16 rounded-2xl ${ac.bg} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500`}>
-                  <ac.icon className="w-8 h-8" style={{ color: ac.color }} />
-                </div>
-
-                <h4 className="text-[17px] font-bold text-[#0F172A] mb-3 tracking-tight">
-                  {ac.label}
-                </h4>
-                <p className="text-[13px] text-slate-400 font-medium leading-relaxed max-w-[180px]">
-                  {ac.description}
-                </p>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>

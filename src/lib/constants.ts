@@ -99,8 +99,8 @@ export const TESTIMONIALS = [
 ];
 
 export const STATS = [
-  { value: 50, suffix: "+", label: "Projects Delivered" },
-  { value: 30, suffix: "+", label: "Global Clients" },
-  { value: 5, suffix: "", label: "Continents Served" },
-  { value: 98, suffix: "%", label: "Success Rate" },
+  { value: 20, suffix: "+", label: "Projects Delivered" },
+  { value: 15, suffix: "+", label: "Clients Served" },
+  { value: 3, suffix: "", label: "Countries Served" },
+  { value: 98, suffix: "%", label: "On-Time Delivery" },
 ];

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import GlobeCdnDemo from "@/components/ui/globe-cdn-demo";
+import Link from "next/link";
 
 export function HeroSection() {
   const containerVariants = {
@@ -41,7 +42,7 @@ export function HeroSection() {
               className="mb-4 inline-flex max-w-full items-center justify-center self-center rounded-sm bg-slate-100 px-2.5 py-1.5 sm:mb-5 sm:self-start sm:px-3"
             >
               <span className="text-center text-[9px] font-bold uppercase leading-snug tracking-wider text-muted sm:text-left sm:text-[10px]">
-                Trusted by 30+ global companies
+                Trusted by global companies
               </span>
             </motion.div>
 
@@ -72,15 +73,21 @@ export function HeroSection() {
               <span className="hero-cta-border-wrap relative inline-flex w-full overflow-hidden rounded-full p-[3px] shadow-[0_0_40px_-12px_rgba(249,115,22,0.55)] sm:w-auto">
                 <span className="hero-cta-border-base" aria-hidden />
                 <span className="hero-cta-border-sparkle" aria-hidden />
-                <Button className="relative z-10 h-12 w-full rounded-full border-0 bg-brand-orange px-6 text-sm font-bold text-white shadow-lg shadow-brand-orange/25 transition-all hover:bg-[#E06612] sm:w-auto sm:px-8 sm:text-[15px]">
-                  Start Your Project <ArrowRight className="ml-2 h-4 w-4" />
+                <Button
+                  asChild
+                  className="relative z-10 h-12 w-full rounded-full border-0 bg-brand-orange px-6 text-sm font-bold text-white shadow-lg shadow-brand-orange/25 transition-all hover:bg-[#E06612] sm:w-auto sm:px-8 sm:text-[15px]"
+                >
+                  <Link href="/contact">
+                    Start Your Project <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
               </span>
               <Button
+                asChild
                 variant="outline"
                 className="h-12 w-full rounded-full border-2 border-midnight bg-transparent px-6 text-sm font-bold text-midnight transition-all hover:bg-slate-50 hover:text-midnight sm:w-auto sm:px-8 sm:text-[15px]"
               >
-                See How We Work
+                <Link href="/case-studies">See How We Work</Link>
               </Button>
             </motion.div>
           </motion.div>

@@ -106,14 +106,14 @@ const values = [
     icon: Target,
     title: "Precision Engineering",
     description:
-      "Every line of code is written with intention. We don't ship prototypes — we ship production-grade systems built to last.",
+      "Every line of code is written with intention. We don't ship prototypes. We ship production-grade systems built to last.",
     color: "#2563EB",
   },
   {
     icon: ShieldCheck,
     title: "Security First",
     description:
-      "Threat modeling isn't an afterthought. We bake security into every layer — from architecture to deployment.",
+      "Threat modeling isn't an afterthought. We bake security into every layer, from architecture to deployment.",
     color: "#8B5CF6",
   },
   {
@@ -178,14 +178,11 @@ const leadership = [
 ];
 
 const milestones = [
-  { year: "2018", title: "The Beginning", event: "Founded in New York by AI & blockchain engineers from Google, Meta, and Coinbase", icon: Rocket, color: "#2563EB" },
-  { year: "2019", title: "First Major Win", event: "First $1M contract — AI-driven fraud detection for a top-10 US bank", icon: TrendingUp, color: "#F97316" },
-  { year: "2020", title: "Going Global", event: "Opened London office; grew to 50 engineers across 12 countries", icon: Globe2, color: "#8B5CF6" },
-  { year: "2021", title: "Scaling Impact", event: "Secured $2B+ in client value through DeFi protocol launches and AI deployments", icon: Zap, color: "#10B981" },
-  { year: "2022", title: "Trust Certified", event: "ISO 27001 & SOC 2 Type II certified; expanded into Singapore and Dubai", icon: ShieldCheck, color: "#06B6D4" },
-  { year: "2023", title: "AI Agents Era", event: "150+ projects delivered; launched dedicated AI Agents & LLM practice", icon: Lightbulb, color: "#EC4899" },
-  { year: "2024", title: "Industry Leader", event: "Named 'Top AI Engineering Firm' by TechCrunch; crossed 200 engineers globally", icon: CheckCircle2, color: "#F97316" },
-  { year: "2025", title: "The Converged Stack", event: "Pioneered converged AI + Blockchain stack; partnership with Fortune 100 enterprises", icon: Target, color: "#2563EB" },
+  { year: "2021", title: "Foundation", event: "Founded with a focus on blockchain infrastructure and smart contract development for early Web3 teams.", icon: Rocket, color: "#2563EB" },
+  { year: "2022", title: "AI Expansion", event: "Expanded into AI engineering. Delivered first end-to-end ML pipeline for a logistics client, reducing manual processing by 60%.", icon: TrendingUp, color: "#F97316" },
+  { year: "2023", title: "Momentum", event: "Grew to a team of 10 engineers. Started serving US-based clients in fintech and healthtech verticals.", icon: Globe2, color: "#8B5CF6" },
+  { year: "2024", title: "Converged Practice", event: "Launched our converged AI + Blockchain practice. Built and shipped 3 production-grade AI agent systems for international clients.", icon: Zap, color: "#10B981" },
+  { year: "2025", title: "Global Partnerships", event: "Expanded team and service offerings. Currently partnering with growth-stage companies across 3 continents.", icon: Target, color: "#06B6D4" },
 ];
 
 const perks = [
@@ -204,7 +201,7 @@ const perks = [
 export default function CompanyPageClient() {
   return (
     <div className="bg-white relative overflow-hidden">
-      {/* ── SECTION 1: HERO ─────────────────────────────────────── */}
+      {/* - SECTION 1: HERO - */}
       <section className="relative w-full pt-20 pb-24 md:pt-28 md:pb-32 lg:pt-36 lg:pb-40 bg-[#0A0F1E] overflow-hidden">
         {/* Background effects */}
         <div className="absolute inset-0">
@@ -256,8 +253,8 @@ export default function CompanyPageClient() {
             >
               Vallorex is the premier engineering partner for AI and blockchain
               ventures. We build production-grade systems that institutions
-              trust — from autonomous agents to audited smart contracts —
-              with institutional quality from day one.
+              trust, from autonomous agents to audited smart contracts, with
+              institutional quality from day one.
             </motion.p>
 
             <motion.div
@@ -284,15 +281,15 @@ export default function CompanyPageClient() {
         </div>
       </section>
 
-      {/* ── SECTION 2: STATS BAR ────────────────────────────────── */}
+      {/* - SECTION 2: STATS BAR - */}
       <section className="bg-white border-b border-slate-200/60 py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:divide-x md:divide-slate-200/60">
             {[
-              { value: 200, suffix: "+", label: "Engineers Worldwide" },
-              { value: 150, suffix: "+", label: "Projects Delivered" },
-              { prefix: "$", value: 2, suffix: "B+", label: "Client Value Created" },
-              { value: 98, suffix: "%", label: "Client Retention Rate" },
+              { value: 15, suffix: "+", label: "Engineers & Specialists" },
+              { value: 20, suffix: "+", label: "Projects Delivered" },
+              { value: 3, suffix: "", label: "Countries Served" },
+              { value: 98, suffix: "%", label: "On-Time Delivery" },
             ].map((stat, i) => (
               <motion.div
                 key={i}
@@ -318,7 +315,7 @@ export default function CompanyPageClient() {
         </div>
       </section>
 
-      {/* ── SECTION 3: OUR STORY ────────────────────────────────── */}
+      {/* - SECTION 3: OUR STORY - */}
       <section className="py-24 md:py-32 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -338,33 +335,14 @@ export default function CompanyPageClient() {
                 variants={fadeUp}
                 className="mt-4 text-3xl sm:text-4xl md:text-[44px] font-extrabold text-midnight leading-[1.1] tracking-tight"
               >
-                Born from the Belief That Emerging Tech Deserves Elite
-                Engineering
+                Born from the Belief That Emerging Tech Deserves Elite Engineering
               </motion.h2>
               <motion.div
                 variants={fadeUp}
                 className="mt-8 space-y-5 text-[15px] md:text-base text-muted leading-relaxed"
               >
                 <p>
-                  Vallorex was founded in 2018 by a team of engineers from
-                  Google DeepMind, Meta, and Coinbase who saw a gap in the
-                  market: the most transformative technologies of our
-                  generation — artificial intelligence and blockchain — were
-                  being built by teams that didn&apos;t understand the
-                  institutional-grade standards required for real-world
-                  deployment.
-                </p>
-                <p>
-                  We started with a single conviction: that AI and blockchain
-                  ventures deserve the same caliber of engineering that powers
-                  Wall Street trading systems, defense infrastructure, and
-                  critical healthcare platforms.
-                </p>
-                <p>
-                  Today, Vallorex is a 200+ person engineering organization
-                  serving Fortune 500 enterprises, Series A startups, DeFi
-                  protocols, and government contracts across 30+ countries —
-                  with offices in New York, London, Singapore, and Dubai.
+                  Vallorex was founded by engineers who saw a clear gap: most agencies treat AI and Blockchain as buzzwords. We treat them as infrastructure. We started as a small specialized team, took on hard problems other firms avoided, and built a reputation for delivery over promises. Today we work with startups and growth-stage companies across the US, Europe, and Asia who need production-grade systems, not slide decks.
                 </p>
               </motion.div>
             </motion.div>
@@ -405,10 +383,7 @@ export default function CompanyPageClient() {
                     </span>
                   </div>
                   <p className="text-[15px] text-[#94A3B8] leading-relaxed">
-                    A world where every organization — from a two-person
-                    startup to a multinational institution — has access to
-                    engineering talent that can turn frontier technology into
-                    production reality, securely and at scale.
+                    A world where every organization, from a two-person startup to a multinational institution, has access to engineering talent that can turn frontier technology into production reality, securely and at scale.
                   </p>
                 </div>
               </div>
@@ -417,7 +392,7 @@ export default function CompanyPageClient() {
         </div>
       </section>
 
-      {/* ── SECTION 4: VALUES ───────────────────────────────────── */}
+      {/* - SECTION 4: VALUES - */}
       <section className="py-24 md:py-32 bg-[#FAFAFA] border-y border-slate-200/60">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
@@ -482,7 +457,7 @@ export default function CompanyPageClient() {
         </div>
       </section>
 
-      {/* ── SECTION 5: LEADERSHIP ───────────────────────────────── */}
+      {/* - SECTION 5: LEADERSHIP - */}
       <section id="leadership" className="py-24 md:py-32 bg-white scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
@@ -589,7 +564,7 @@ export default function CompanyPageClient() {
         </div>
       </section>
 
-      {/* ── SECTION 6: JOURNEY TIMELINE ─────────────────────────── */}
+      {/* - SECTION 6: JOURNEY TIMELINE - */}
       <section className="py-24 md:py-32 bg-[#0A0F1E] relative overflow-hidden">
         <div className="absolute top-[20%] left-[-10%] w-[50vw] h-[50vw] max-w-[700px] bg-brand-blue/5 blur-[150px] rounded-full pointer-events-none" />
         <div className="absolute bottom-[5%] right-[-5%] w-[40vw] h-[40vw] max-w-[500px] bg-brand-orange/5 blur-[120px] rounded-full pointer-events-none" />
@@ -618,17 +593,16 @@ export default function CompanyPageClient() {
               variants={fadeUp}
               className="mt-4 text-base text-[#94A3B8] max-w-[480px] mx-auto"
             >
-              Seven years of relentless execution, from a small New York team
-              to 200+ engineers across four continents.
+              A focused journey of building production systems, growing our team, and partnering with clients across regions and industries.
             </motion.p>
           </motion.div>
 
           <div className="relative max-w-5xl mx-auto">
-            {/* Central vertical line — desktop only */}
+            {/* Central vertical line - desktop only */}
             <div className="hidden md:block absolute left-1/2 -translate-x-px top-0 bottom-0 w-px">
               <div className="h-full w-full bg-gradient-to-b from-brand-blue/60 via-brand-orange/40 to-brand-blue/20" />
             </div>
-            {/* Left vertical line — mobile only */}
+            {/* Left vertical line - mobile only */}
             <div className="md:hidden absolute left-[27px] top-0 bottom-0 w-px bg-gradient-to-b from-brand-blue/60 via-brand-orange/40 to-brand-blue/20" />
 
             <div className="space-y-6 md:space-y-0">
@@ -689,7 +663,7 @@ export default function CompanyPageClient() {
                           borderColor: `${milestone.color}20`,
                         }}
                       >
-                        {/* Connector arm — desktop only */}
+                        {/* Connector arm - desktop only */}
                         <div
                           className={`hidden md:block absolute top-1/2 -translate-y-px h-px w-5 ${
                             isLeft ? "-right-5" : "-left-5"
@@ -746,168 +720,7 @@ export default function CompanyPageClient() {
         </div>
       </section>
 
-      {/* ── SECTION 7: CULTURE & CAREERS ────────────────────────── */}
-      <section id="careers" className="py-24 md:py-32 bg-[#FAFAFA] border-y border-slate-200/60 scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left content */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              variants={stagger}
-            >
-              <motion.div
-                variants={fadeUp}
-                className="inline-flex items-center gap-2 rounded-full bg-green-50 border border-green-200/60 px-3 py-1 mb-6"
-              >
-                <Briefcase className="w-3 h-3 text-green-600" />
-                <span className="text-[10px] font-bold tracking-[0.15em] text-green-700 uppercase">
-                  We&apos;re Hiring
-                </span>
-              </motion.div>
-              <motion.h2
-                variants={fadeUp}
-                className="text-3xl sm:text-4xl md:text-[44px] font-extrabold text-midnight leading-[1.1] tracking-tight"
-              >
-                Build the Future With the Best
-              </motion.h2>
-              <motion.p
-                variants={fadeUp}
-                className="mt-6 text-[15px] md:text-base text-muted leading-relaxed max-w-[480px]"
-              >
-                We&apos;re building a team of extraordinary engineers who
-                want to work on the hardest problems in AI and blockchain.
-                If you thrive on complexity and care about craft, you&apos;ll
-                feel right at home.
-              </motion.p>
-              <motion.div variants={fadeUp} className="mt-8">
-                <Button
-                  asChild
-                  className="bg-brand-orange hover:bg-[#E06612] text-white rounded-full px-8 h-12 text-sm font-bold shadow-lg shadow-brand-orange/20 transition-all hover:scale-[1.03] active:scale-95 group"
-                >
-                  <Link href="/careers">
-                    View Open Positions
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </motion.div>
-            </motion.div>
-
-            {/* Right: Perks grid */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-              variants={stagger}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-            >
-              {perks.map((perk) => (
-                <motion.div
-                  key={perk.label}
-                  variants={fadeUp}
-                  className="group flex items-start gap-3.5 bg-white rounded-xl border border-slate-200/80 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  <div className="w-9 h-9 rounded-lg bg-brand-blue/8 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-blue group-hover:text-white transition-all">
-                    <perk.icon className="w-4 h-4 text-brand-blue group-hover:text-white transition-colors" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-midnight">
-                      {perk.label}
-                    </p>
-                    <p className="text-xs text-muted mt-0.5 leading-relaxed">
-                      {perk.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 8: TRUST & COMPLIANCE ───────────────────────── */}
-      <section id="trust" className="py-20 bg-white scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="text-center mb-14"
-          >
-            <motion.span
-              variants={fadeUp}
-              className="block text-[10px] font-bold tracking-[0.25em] text-brand-blue uppercase mb-4"
-            >
-              Trust & Security
-            </motion.span>
-            <motion.h3
-              variants={fadeUp}
-              className="text-2xl md:text-3xl font-extrabold text-midnight tracking-tight"
-            >
-              Enterprise-Grade Security & Compliance
-            </motion.h3>
-            <motion.p
-              variants={fadeUp}
-              className="mt-3 text-sm text-muted max-w-[500px] mx-auto"
-            >
-              Your intellectual property, data, and infrastructure are
-              protected by industry-leading certifications and practices.
-            </motion.p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
-            {[
-              {
-                label: "ISO 27001",
-                desc: "Information security management",
-                color: "#2563EB",
-              },
-              {
-                label: "SOC 2 Type II",
-                desc: "Continuous compliance verified",
-                color: "#8B5CF6",
-              },
-              {
-                label: "HIPAA",
-                desc: "Healthcare data protection",
-                color: "#0D9488",
-              },
-              {
-                label: "PCI DSS",
-                desc: "Payment card industry security",
-                color: "#F97316",
-              },
-            ].map((badge, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="group bg-white rounded-2xl border border-slate-200/80 p-6 text-center shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
-              >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-4 transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: `${badge.color}10` }}
-                >
-                  <CheckCircle2
-                    className="w-5 h-5"
-                    style={{ color: badge.color }}
-                  />
-                </div>
-                <p className="text-sm font-bold text-midnight mb-1">
-                  {badge.label}
-                </p>
-                <p className="text-xs text-muted">{badge.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 9: CTA ─────────────────────────────────────── */}
+      {/* - SECTION 7: CTA - */}
       <section className="relative py-32 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-[#1c1815] via-[#0F172A] to-[#0A101C]" />
@@ -926,15 +739,7 @@ export default function CompanyPageClient() {
             <motion.div
               variants={fadeUp}
               className="flex items-center justify-center gap-2 mb-6"
-            >
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-400" />
-              </span>
-              <span className="text-sm text-green-400">
-                3 project slots open this quarter
-              </span>
-            </motion.div>
+            />
 
             <motion.h2
               variants={fadeUp}
@@ -960,7 +765,7 @@ export default function CompanyPageClient() {
                 asChild
                 className="bg-brand-orange hover:bg-[#E06612] text-white rounded-full px-10 h-14 md:h-16 text-base md:text-lg font-bold shadow-[0_4px_24px_rgba(249,115,22,0.3)] transition-all hover:scale-105 active:scale-95 group"
               >
-                <Link href="/contact?tab=booking">
+                <Link href="/contact">
                   Get a Free Consultation
                   <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1.5 transition-transform" />
                 </Link>

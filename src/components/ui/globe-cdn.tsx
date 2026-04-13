@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useCallback, useState } from "react"
+import { useEffect, useRef, useCallback } from "react"
 import createGlobe from "cobe"
 
 interface CdnMarker {
@@ -23,16 +23,16 @@ interface GlobeCdnProps {
 }
 
 const defaultMarkers: CdnMarker[] = [
-  { id: "node-nyc", location: [40.71, -74.01], region: "AI-ENGINE-NYC" },
-  { id: "node-sfo", location: [37.77, -122.42], region: "TX-VALIDATOR-SF" },
-  { id: "node-cdg", location: [48.86, 2.35], region: "EUROPE-AI-HUB" },
-  { id: "node-hnd", location: [35.68, 139.65], region: "ASIA-VAL-TYO" },
-  { id: "node-syd", location: [-33.87, 151.21], region: "OCEANIA-EDGE" },
-  { id: "node-gru", location: [-23.55, -46.63], region: "LATAM-VAL-NODE" },
-  { id: "node-sin", location: [1.35, 103.82], region: "SEA-TECH-CLUSTER" },
-  { id: "node-dub", location: [25.21, 55.27], region: "EMEA-AI-ENGINE" },
-  { id: "node-blr", location: [12.97, 77.59], region: "INDIA-VAL-BLR" },
-  { id: "node-lon", location: [51.51, -0.13], region: "UK-DATA-COMPUTE" },
+  { id: "node-nyc", location: [40.71, -74.01], region: "AI Integration" },
+  { id: "node-sfo", location: [37.77, -122.42], region: "Smart Contracts" },
+  { id: "node-cdg", location: [48.86, 2.35], region: "DeFi Solutions" },
+  { id: "node-hnd", location: [35.68, 139.65], region: "ML Pipeline" },
+  { id: "node-syd", location: [-33.87, 151.21], region: "Web3 Dev" },
+  { id: "node-gru", location: [-23.55, -46.63], region: "Blockchain Audit" },
+  { id: "node-sin", location: [1.35, 103.82], region: "LLM Fine-tuning" },
+  { id: "node-dub", location: [25.21, 55.27], region: "NFT Platform" },
+  { id: "node-blr", location: [12.97, 77.59], region: "AI Automation" },
+  { id: "node-lon", location: [51.51, -0.13], region: "Token Launch" },
 ]
 
 const defaultArcs: CdnArc[] = [
@@ -56,21 +56,6 @@ export function GlobeCdn({
   const phiOffsetRef = useRef(0)
   const thetaOffsetRef = useRef(0)
   const isPausedRef = useRef(false)
-  const [traffic, setTraffic] = useState(() =>
-    defaultArcs.map((a, i) => ({ id: a.id, value: [420, 380, 290, 185, 156, 134][i] || 100 }))
-  )
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTraffic((data) =>
-        data.map((t) => ({
-          ...t,
-          value: Math.max(50, t.value + Math.floor(Math.random() * 21) - 10),
-        }))
-      )
-    }, 250)
-    return () => clearInterval(interval)
-  }, [])
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     pointerInteracting.current = { x: e.clientX, y: e.clientY }
@@ -244,31 +229,6 @@ export function GlobeCdn({
             boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
             border: "1px solid #E2E8F0"
           }}>{m.region}</span>
-        </div>
-      ))}
-      {traffic.map((t) => (
-        <div
-          key={t.id}
-          style={{
-            position: "absolute",
-            positionAnchor: `--cobe-arc-${t.id}`,
-            bottom: "anchor(top)",
-            left: "anchor(center)",
-            translate: "-50% 0",
-            fontFamily: "monospace",
-            fontSize: "0.45rem",
-            color: "#fff",
-            background: "#2563EB", // Brand Blue
-            padding: "2px 6px",
-            borderRadius: 4,
-            whiteSpace: "nowrap" as const,
-            pointerEvents: "none" as const,
-            opacity: `var(--cobe-visible-arc-${t.id}, 0)`,
-            filter: `blur(calc((1 - var(--cobe-visible-arc-${t.id}, 0)) * 8px))`,
-            transition: "opacity 0.3s, filter 0.3s",
-          }}
-        >
-          {t.value} tx/s
         </div>
       ))}
     </div>
