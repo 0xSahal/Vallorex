@@ -353,6 +353,14 @@ export default function CaseStudyDetailPage({
             ))}
           </div>
 
+          {cs.status === "In Progress" ? (
+            <p className="mt-6 text-sm italic text-white/55">
+              Performance benchmarks including reconstruction accuracy, conversion
+              speed, and wall-detection precision will be published following MVP
+              completion and architectural pilot validation.
+            </p>
+          ) : null}
+
           <ul className="mt-12 space-y-4">
             {cs.outcomes.map((line) => (
               <li key={line} className="flex gap-3 text-base leading-relaxed">
@@ -374,13 +382,130 @@ export default function CaseStudyDetailPage({
             Screenshots &amp; Product
           </h2>
 
-          <div className="mt-10">
-            <ProductScreenshotsSlider
-              images={cs.images}
-              shortTitle={cs.shortTitle}
-              addressBarUrl={cs.demoLink}
-            />
-          </div>
+          {cs.images.length === 0 ? (
+            <div className="mt-10">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                {Array.from({ length: 3 }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="relative h-48 overflow-hidden rounded-xl border border-white/10 md:h-56"
+                    style={{
+                      background: "linear-gradient(135deg, #0a1628, #0d2340)",
+                    }}
+                  >
+                    <svg
+                      className="absolute inset-0 h-full w-full opacity-20"
+                      viewBox="0 0 400 160"
+                      xmlns="http://www.w3.org/2000/svg"
+                      preserveAspectRatio="none"
+                      aria-hidden
+                    >
+                      <line
+                        x1="0"
+                        y1="80"
+                        x2="400"
+                        y2="80"
+                        stroke="white"
+                        strokeWidth="0.5"
+                      />
+                      <line
+                        x1="200"
+                        y1="0"
+                        x2="200"
+                        y2="160"
+                        stroke="white"
+                        strokeWidth="0.5"
+                      />
+                      <rect
+                        x="50"
+                        y="25"
+                        width="110"
+                        height="110"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="1"
+                      />
+                      <rect
+                        x="220"
+                        y="20"
+                        width="130"
+                        height="65"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="1"
+                      />
+                      <rect
+                        x="220"
+                        y="95"
+                        width="130"
+                        height="50"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="1"
+                      />
+                      <line
+                        x1="50"
+                        y1="80"
+                        x2="160"
+                        y2="80"
+                        stroke="white"
+                        strokeWidth="0.5"
+                      />
+                      <line
+                        x1="105"
+                        y1="25"
+                        x2="105"
+                        y2="135"
+                        stroke="white"
+                        strokeWidth="0.5"
+                      />
+                      <line
+                        x1="220"
+                        y1="60"
+                        x2="350"
+                        y2="60"
+                        stroke="white"
+                        strokeWidth="0.5"
+                        strokeDasharray="4 4"
+                      />
+                      <circle
+                        cx="105"
+                        cy="80"
+                        r="3"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="0.8"
+                        opacity="0.6"
+                      />
+                      <circle
+                        cx="285"
+                        cy="60"
+                        r="2"
+                        fill="white"
+                        opacity="0.3"
+                      />
+                    </svg>
+                    <div className="absolute bottom-3 left-3 text-xs font-mono text-white/25">
+                      Screenshot Placeholder
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-4 text-sm italic text-muted-foreground">
+                Product screenshots and demo walkthrough will be added after MVP
+                completion.
+              </p>
+            </div>
+          ) : (
+            <div className="mt-10">
+              <ProductScreenshotsSlider
+                images={cs.images}
+                shortTitle={cs.shortTitle}
+                addressBarUrl={cs.demoLink}
+              />
+            </div>
+          )}
 
           {cs.demoLink ? (
             <div className="mt-10">
