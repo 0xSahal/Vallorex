@@ -12,6 +12,12 @@ type Props = {
   shortTitle: string;
   /** Shown in the mock browser address bar (e.g. live demo URL) */
   addressBarUrl?: string;
+  /** Slide viewport (default mimics 16:9 product frame) */
+  viewportClassName?: string;
+  /** Main slide image fit / focal point */
+  imageClassName?: string;
+  /** Thumbnail image fit */
+  thumbnailImageClassName?: string;
 };
 
 const transition = { duration: 0.3, ease: "easeOut" as const };
@@ -32,6 +38,9 @@ export function ProductScreenshotsSlider({
   images,
   shortTitle,
   addressBarUrl,
+  viewportClassName = "aspect-video",
+  imageClassName = "object-cover object-top",
+  thumbnailImageClassName = "object-cover object-top",
 }: Props) {
   const count = images.length;
   const [index, setIndex] = useState(0);
@@ -114,7 +123,12 @@ export function ProductScreenshotsSlider({
           >
             <BrowserChrome barText={barText} />
 
-            <div className="relative aspect-video w-full overflow-hidden bg-black">
+            <div
+              className={cn(
+                "relative w-full overflow-hidden bg-black",
+                viewportClassName,
+              )}
+            >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={images[index]}
@@ -128,7 +142,7 @@ export function ProductScreenshotsSlider({
                     src={images[index]!}
                     alt={`${shortTitle} product screenshot ${index + 1} of ${count}`}
                     fill
-                    className="object-cover object-top"
+                    className={imageClassName}
                     sizes="900px"
                     priority={index === 0}
                   />
@@ -175,7 +189,7 @@ export function ProductScreenshotsSlider({
                   src={src}
                   alt=""
                   fill
-                  className="object-cover object-top"
+                  className={thumbnailImageClassName}
                   sizes="112px"
                   aria-hidden
                 />

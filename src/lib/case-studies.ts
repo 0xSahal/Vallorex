@@ -9,7 +9,7 @@ export interface CaseStudy {
   year: number;
   timelineWeeks: string;
   teamSize: number;
-  status: "Live" | "MVP" | "In Progress" | "Completed";
+  status: "Live" | "MVP" | "MVP Complete" | "In Progress" | "Completed";
   heroMetricLabel: string;
   heroMetricValue: string;
   shortDescription: string;
@@ -234,6 +234,220 @@ export const caseStudies: CaseStudy[] = [
       "Planner 5D",
       "Foyr Neo",
     ],
+  },
+  {
+    slug: "careline-ai-healthcare-voice-assistant",
+    title: "CareLine AI",
+    shortTitle: "CareLine AI",
+    category: "Healthcare",
+    tags: [
+      "Artificial Intelligence",
+      "Voice AI",
+      "LiveKit",
+      "LangGraph",
+      "FastAPI",
+      "Multilingual",
+      "Telephony",
+      "+2 more",
+    ],
+    client: "CareLine AI",
+    industry: "Healthcare / AI Voice Automation",
+    year: 2026,
+    timelineWeeks: "2-4 Weeks to Production",
+    teamSize: 3,
+    status: "MVP Complete",
+    heroMetricLabel: "To Production",
+    heroMetricValue: "2-4 weeks",
+    shortDescription: "AI Voice Assistant for Healthcare Appointment Automation",
+    summary:
+      "CareLine AI is an AI voice and chat assistant that automates healthcare appointment workflows - booking, rescheduling, and cancellations - through natural conversations in English and Hindi, backed by real-time availability checks and a clinic monitoring dashboard.",
+    challenge:
+      "Healthcare organizations - hospitals, clinics, diagnostic centers, and telemedicine providers - spend significant time managing appointment calls through human operators. A busy clinic can receive hundreds of calls daily for booking, rescheduling, and cancellations, tying up staff who could be doing higher-value work. Long hold times frustrate patients, and missed calls lead directly to missed appointments and lost revenue.\n\nTraditional IVR systems do not solve this. They are rigid, menu-driven, and break down the moment a patient deviates from the expected flow. They cannot handle natural conversation, do not support Indian languages reliably, and cannot manage complex rescheduling logic where multiple calendar slots, doctor availability, and patient history all need to be considered in real time.\n\nThe goal was to build an AI voice assistant that could handle the full appointment workflow - booking, rescheduling, and cancellation - through natural conversations over phone calls and chat, in both English and Hindi, with a backend that verified availability, updated records, and gave clinic staff full visibility through a monitoring dashboard.",
+    approach: [
+      {
+        title: "LiveKit-Based Voice Orchestration",
+        description:
+          "Built real-time voice interaction on LiveKit Agents, handling the full telephony session lifecycle including SIP integration and Twilio connectivity. The system manages concurrent patient calls without blocking, with WebSocket-based communication between voice, AI, and backend layers.",
+        icon: "Phone",
+      },
+      {
+        title: "LangGraph Conversational Flows",
+        description:
+          "Designed deterministic appointment workflows using LangGraph so the AI follows reliable, testable conversation paths for booking, rescheduling, and cancellation - rather than free-form generation that could hallucinate availability or confirmation details.",
+        icon: "GitBranch",
+      },
+      {
+        title: "Multilingual Speech with Sarvam AI",
+        description:
+          "Integrated Sarvam AI for speech-to-text and text-to-speech in Hindi and Indian English, covering the primary languages of the target patient base. The pipeline handles code-switching - patients who mix Hindi and English mid-conversation - without dropping context.",
+        icon: "Mic",
+      },
+      {
+        title: "Appointment Management Backend",
+        description:
+          "Built a FastAPI backend with SQLite storing patient records, appointment slots, doctor availability, and call logs. The AI verifies availability in real time during the conversation, confirms bookings, and writes back to the database before ending the call.",
+        icon: "Database",
+      },
+      {
+        title: "React Monitoring Dashboard",
+        description:
+          "Delivered a clinic-facing dashboard giving staff visibility into live and completed calls, appointment outcomes, call transcripts, and system status. Staff can review AI-handled conversations and catch edge cases without listening to recordings.",
+        icon: "Monitor",
+      },
+      {
+        title: "Dual-Channel Support",
+        description:
+          "The same appointment logic runs across both voice calls and chat interfaces. Patients who prefer text-based interaction reach the same backend flows and receive the same confirmation and rescheduling capability as phone callers.",
+        icon: "MessageSquare",
+      },
+    ],
+    techStack: [
+      "React",
+      "Python",
+      "FastAPI",
+      "WebSocket",
+      "SQLite",
+      "LiveKit Agents",
+      "LangGraph",
+      "OpenAI / Groq",
+      "Sarvam AI STT/TTS",
+      "SIP Telephony",
+      "Twilio",
+    ],
+    architectureDescription:
+      "Voice + Chat Clients → LiveKit Agents + Telephony (SIP/Twilio) → LangGraph Flow Orchestrator → FastAPI APIs (availability + records) → SQLite (patients + slots + logs) → Clinic Monitoring Dashboard",
+    kpis: [
+      { value: "2", label: "Channels Supported (voice + chat)" },
+      { value: "2+", label: "Languages (Hindi and English)" },
+      { value: "3", label: "Appointment Flows (book, reschedule, cancel)" },
+      { value: "2-4", label: "To Production (weeks)" },
+    ],
+    outcomes: [
+      "Full appointment workflow automation covering booking, rescheduling, and cancellation through natural voice conversations and chat",
+      "Multilingual support for Hindi and Indian English including mid-conversation code-switching, built on Sarvam AI speech processing",
+      "SIP telephony and Twilio integration enabling the assistant to handle real inbound patient phone calls, not just web-based demos",
+      "Deterministic LangGraph conversation flows prevent hallucinated availability or confirmation details during live patient interactions",
+      "React monitoring dashboard gives clinic staff real-time visibility into call outcomes, transcripts, and appointment changes without manual call review",
+      "MVP complete with 2 to 4 weeks estimated to full production deployment, telephony validation, and pilot launch",
+    ],
+    images: [],
+    featured: false,
+    gradientFrom: "#051a14",
+    gradientTo: "#041210",
+    useCases: [
+      "Hospitals and Diagnostic Centers: High call-volume facilities where appointment desks handle hundreds of daily calls. The assistant reduces staff workload and eliminates hold times during peak hours.",
+      "Clinics and Specialist Practices: Smaller practices without dedicated call center staff that need reliable appointment handling without hiring additional reception personnel.",
+      "Telemedicine Providers: Platforms managing appointment scheduling across multiple doctors and time zones where consistent, automated patient communication is critical to conversion.",
+      "Healthcare Chains: Multi-location operators who need a centralized appointment automation layer that works consistently across branches and supports regional language variations.",
+    ],
+    competitors: [],
+  },
+  {
+    slug: "latticepay-non-custodial-wallet",
+    title: "LatticePay Wallet",
+    shortTitle: "LatticePay Wallet",
+    category: "Blockchain & Web3",
+    tags: [
+      "Fintech",
+      "BSC",
+      "Solidity",
+      "Non-Custodial",
+      ".NET",
+      "Mobile",
+      "Smart Contracts",
+      "+3 more",
+    ],
+    client: "Confidential",
+    industry: "Digital Payments / Consumer Web3",
+    year: 2025,
+    timelineWeeks: "~9 months (V1 shipped)",
+    teamSize: 4,
+    status: "Live",
+    heroMetricLabel: "V1 Shipped",
+    heroMetricValue: "120 days",
+    shortDescription: "Non-Custodial Web3 Wallet Ecosystem on BSC",
+    summary:
+      "LatticePay is a production-grade non-custodial wallet ecosystem on BSC that combines secure asset management, utility payments, rewards mechanics, and in-app education. Private keys and seed phrases remain on-device, and the on-chain reward model enables 10,000-recipient batch distributions for roughly $150 per run.",
+    challenge:
+      "Fintech teams building consumer wallet products face a specific trap: most of the team understands payments but not blockchain. Internal Web3 execution maturity is low, wallet trust flows are poorly understood, and the projected operating cost of on-chain reward distribution is high enough to make the entire business model questionable before launch.\n\nThe client needed a production-grade non-custodial wallet that combined secure asset management, utility-payment experiences, rewards mechanics, and in-app education without inheriting custodial liability or derailing delivery speed. Private keys and seed phrases had to stay on the user's device. The architecture had to be modular enough for a Web2-native team to build on incrementally.\n\nOn the on-chain side, the challenge was batch reward distribution. Sending tokens to 10,000 recipients through standard per-transaction methods would cost $6,000 to $8,000 per distribution run on BSC. That cost structure made the rewards program commercially unviable. The system needed a smarter on-chain model to make it work.",
+    approach: [
+      {
+        icon: "Shield",
+        title: "Non-Custodial Wallet Architecture",
+        description:
+          "Designed the full wallet trust model with private keys and seed phrases retained on-device. Wallet creation, import, PIN and biometric security, and backup flows were built to production standard with no server-side key custody at any point.",
+      },
+      {
+        icon: "Layers",
+        title: "Modular Product Rollout",
+        description:
+          "Structured the product into four independent modules (wallet core, utility payments, rewards and gamification, and in-app learning) so the Web2-native team could ship and iterate each module without cross-module dependency risk.",
+      },
+      {
+        icon: "Code2",
+        title: "Six Core Smart Contracts",
+        description:
+          "Designed and audited six on-chain contracts covering token handling, transfer flows, reward distribution, and admin controls. Reentrancy protections, access controls, and partial execution guards were applied across all contracts.",
+      },
+      {
+        icon: "Zap",
+        title: "Batch Airdrop Engine",
+        description:
+          "Built a batch distribution contract that processes up to 10,000 recipients in a single on-chain transaction for roughly $150 on BSC. This replaced a per-transaction model that would have cost $6,000 to $8,000 per distribution run and made the rewards program commercially viable.",
+      },
+      {
+        icon: "Code2",
+        title: "Backend Orchestration Layer",
+        description:
+          "Delivered 40 to 50+ .NET backend APIs covering authentication, content delivery, rewards tracking, and analytics. The backend was designed to support the full module stack with staged rollout capability and weekly hotfix deployment.",
+      },
+      {
+        icon: "Layers",
+        title: "Web2-to-Web3 Team Enablement",
+        description:
+          "Acted as fractional blockchain architecture partner and delivery lead throughout. Reduced overall Web3 delivery cost by around 25% by transferring architecture knowledge, setting execution standards, and accelerating the team's on-chain decision-making speed.",
+      },
+    ],
+    techStack: [
+      "BSC",
+      "Solidity",
+      ".NET",
+      "Mobile (Native)",
+      "On-Device Signing",
+      "PIN / Biometric Auth",
+      "Batch Airdrop Engine",
+      "Analytics",
+    ],
+    architectureDescription:
+      "Mobile Wallet (On-Device Keys) → Auth & Content APIs (.NET) → Rewards Engine & Analytics → Smart Contracts (BSC) → Batch Distribution (10K recipients per run)",
+    kpis: [
+      { value: "120 days", label: "Beta Shipped" },
+      { value: "6 core", label: "Smart Contracts" },
+      { value: "50+", label: "Backend APIs" },
+      { value: "10K / run", label: "Batch Recipients" },
+    ],
+    outcomes: [
+      "Internal beta shipped in approximately 120 days; V1 delivered in around 9 months with monthly release cadence and weekly hotfix capability",
+      "Batch airdrop engine cuts 10,000-recipient distribution cost to roughly $150 on BSC, down from a typical range of $6,000 to $8,000",
+      "Six production smart contracts covering token transfers, reward distribution, and admin controls with reentrancy and access control protections",
+      "40 to 50+ backend APIs and 70 to 80 mobile screens delivered across wallet core, utility, rewards, and learn modules",
+      "Web2-native team shipped a non-custodial BSC wallet without rebuilding the engineering org, reducing total Web3 delivery cost by approximately 25%",
+    ],
+    images: [
+      "/images/case-studies/LatticePay%20Wallet%20app%20welcome%20screen.png",
+      "/images/case-studies/Wallet%20Pay.jpeg",
+      "/images/case-studies/WhatsApp%20Image%202026-04-14%20at%2022.41.52.jpeg",
+    ],
+    featured: false,
+    gradientFrom: "#0a1a2e",
+    gradientTo: "#071428",
+    useCases: [
+      "Fintech Founders: Teams adding wallet, token, or payment utility to a consumer fintech product without rebuilding their entire engineering team around Web3.",
+      "Token Ecosystems: Projects running rewards, airdrops, or loyalty programs on-chain that need commercial-grade distribution economics, not per-transaction cost structures.",
+      "Web2 Companies Moving to Web3: Product teams with strong backend and mobile capability but limited blockchain execution maturity that need an architecture partner to ship, not just advise.",
+      "Wallet Operators and Exchanges: Teams building or upgrading non-custodial wallet infrastructure where security posture, key handling, and trust UX are non-negotiable.",
+    ],
+    competitors: [],
   },
 ];
 

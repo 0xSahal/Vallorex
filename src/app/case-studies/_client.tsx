@@ -94,6 +94,149 @@ function StudyCard({ study }: { study: CaseStudy }) {
   const shown = study.techStack.slice(0, 4);
   const more = Math.max(0, study.techStack.length - 4);
   const isArchVision = study.slug === "archvision-ai-floor-plan-to-3d";
+  const hasHeroImage = Boolean(study.images[0]);
+  const isLatticePay = study.slug === "latticepay-non-custodial-wallet";
+  /** Prefer triptych onboarding art for the grid card when present. */
+  const latticeCardImage = isLatticePay
+    ? (study.images[1] ?? study.images[0])
+    : undefined;
+
+  const EmptyHeroHeader = () => {
+    if (isLatticePay && !study.images[0]) {
+      return (
+        <div
+          className="w-full h-40 rounded-t-xl overflow-hidden relative flex-shrink-0"
+          style={{
+            background:
+              "linear-gradient(135deg, #0a1a2e 0%, #0d2545 55%, #071428 100%)",
+          }}
+        >
+          <svg
+            className="absolute inset-0 w-full h-full opacity-20"
+            viewBox="0 0 400 160"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+            aria-hidden
+          >
+            <polygon
+              points="80,20 110,37 110,71 80,88 50,71 50,37"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.8"
+            />
+            <polygon
+              points="140,20 170,37 170,71 140,88 110,71 110,37"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.8"
+            />
+            <polygon
+              points="200,20 230,37 230,71 200,88 170,71 170,37"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.8"
+            />
+            <polygon
+              points="260,20 290,37 290,71 260,88 230,71 230,37"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.8"
+            />
+            <polygon
+              points="320,20 350,37 350,71 320,88 290,71 290,37"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.8"
+            />
+            <polygon
+              points="110,71 140,88 140,122 110,139 80,122 80,88"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.8"
+              opacity="0.5"
+            />
+            <polygon
+              points="170,71 200,88 200,122 170,139 140,122 140,88"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.8"
+              opacity="0.5"
+            />
+            <polygon
+              points="230,71 260,88 260,122 230,139 200,122 200,88"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.8"
+              opacity="0.5"
+            />
+            <polygon
+              points="290,71 320,88 320,122 290,139 260,122 260,88"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.8"
+              opacity="0.5"
+            />
+            <circle cx="200" cy="54" r="4" fill="white" opacity="0.4" />
+            <circle
+              cx="200"
+              cy="54"
+              r="10"
+              fill="none"
+              stroke="white"
+              strokeWidth="0.5"
+              opacity="0.2"
+            />
+          </svg>
+          <div className="absolute bottom-2 left-3 text-[9px] font-mono uppercase tracking-widest text-white/30">
+            Screenshots coming soon
+          </div>
+          <div className="absolute top-2 right-3 text-[9px] font-mono uppercase tracking-widest text-white/20">
+            BSC Mainnet
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div
+        className="w-full h-40 rounded-t-xl overflow-hidden relative flex-shrink-0"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)",
+        }}
+      >
+        <svg
+          className="absolute inset-0 w-full h-full opacity-20"
+          viewBox="0 0 400 160"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <path
+            d="M-20 140 L110 10 L220 130 L420 -10"
+            fill="none"
+            stroke="white"
+            strokeWidth="0.8"
+            opacity="0.55"
+          />
+          <path
+            d="M-20 110 L90 20 L210 120 L420 0"
+            fill="none"
+            stroke="white"
+            strokeWidth="0.8"
+            opacity="0.35"
+            strokeDasharray="4 6"
+          />
+          <circle cx="115" cy="18" r="3" fill="white" opacity="0.35" />
+          <circle cx="222" cy="126" r="3" fill="white" opacity="0.25" />
+          <circle cx="310" cy="62" r="2.5" fill="white" opacity="0.22" />
+        </svg>
+        <div className="absolute bottom-2 left-3 text-[9px] font-mono uppercase tracking-widest text-white/30">
+          Screenshots coming soon
+        </div>
+      </div>
+    );
+  };
 
   return (
     <Link href={`/case-studies/${study.slug}`} className="block group h-full">
@@ -220,6 +363,37 @@ function StudyCard({ study }: { study: CaseStudy }) {
                   2D to 3D demo
                 </div>
               </div>
+            </div>
+          ) : null}
+
+          {isLatticePay && latticeCardImage ? (
+            <div className="-mx-6 -mt-6 mb-5 md:-mx-7 md:-mt-7">
+              <div className="relative h-40 w-full flex-shrink-0 overflow-hidden rounded-t-xl bg-black">
+                <Image
+                  src={latticeCardImage}
+                  alt="LatticePay wallet onboarding screens"
+                  fill
+                  className="object-cover object-[50%_35%] transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 100vw, 420px"
+                  priority={false}
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-black/25" />
+                <div className="absolute bottom-2 left-3 text-[9px] font-mono uppercase tracking-widest text-white/45">
+                  Wallet app UI
+                </div>
+                <div className="absolute top-2 right-3 text-[9px] font-mono uppercase tracking-widest text-white/25">
+                  BSC Mainnet
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {!isArchVision &&
+          !(isLatticePay && latticeCardImage) &&
+          !hasHeroImage ? (
+            <div className="-mx-6 -mt-6 mb-5 md:-mx-7 md:-mt-7">
+              <EmptyHeroHeader />
             </div>
           ) : null}
 

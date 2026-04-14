@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -18,6 +19,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { caseStudies, getCaseStudyBySlug } from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
 import { ProductScreenshotsSlider } from "./product-screenshots-slider";
+
+const LATTICEPAY_HERO_IMAGE = "/images/case-studies/Wallet%20Pay.jpeg";
 
 const APPROACH_ICONS: Record<string, LucideIcon> = {
   Brain,
@@ -115,6 +118,9 @@ export default function CaseStudyDetailPage({
 
   const challengeParagraphs = cs.challenge.split(/\n\n+/);
 
+  const isLatticePayCaseStudy =
+    cs.slug === "latticepay-non-custodial-wallet";
+
   return (
     <div className="bg-background text-foreground">
       <div className="border-b border-border bg-background">
@@ -175,52 +181,72 @@ export default function CaseStudyDetailPage({
 
             <div
               className={cn(
-                "relative overflow-hidden rounded-2xl border border-white/10 shadow-xl",
-                cs.heroVideo
-                  ? "aspect-video w-full justify-self-center lg:justify-self-end"
-                  : "min-h-[280px] lg:min-h-[340px]",
+                "w-full lg:justify-self-end",
+                isLatticePayCaseStudy ? "" : "relative",
               )}
             >
-              {cs.heroVideo ? (
-                <video
-                  className="h-full w-full bg-black object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  aria-label={`${cs.shortTitle} product walkthrough`}
-                >
-                  <source src={cs.heroVideo} type="video/mp4" />
-                </video>
-              ) : (
-                <>
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background: `linear-gradient(135deg, ${cs.gradientFrom}, ${cs.gradientTo})`,
-                    }}
+              {isLatticePayCaseStudy ? (
+                <div className="relative min-h-[280px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-xl ring-1 ring-white/5 lg:min-h-[340px]">
+                  <Image
+                    src={LATTICEPAY_HERO_IMAGE}
+                    alt={`${cs.shortTitle} onboarding screens`}
+                    fill
+                    className="object-contain object-center p-2 sm:p-3"
+                    sizes="(max-width: 1024px) 100vw, 560px"
+                    priority
                   />
-                  <CircuitPattern />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                </div>
+              ) : (
+                <div
+                  className={cn(
+                    "relative overflow-hidden rounded-2xl border border-white/10 shadow-xl",
+                    cs.heroVideo
+                      ? "aspect-video w-full justify-self-center"
+                      : "min-h-[280px] lg:min-h-[340px]",
+                  )}
+                >
+                  {cs.heroVideo ? (
+                    <video
+                      className="h-full w-full bg-black object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                      aria-label={`${cs.shortTitle} product walkthrough`}
+                    >
+                      <source src={cs.heroVideo} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <>
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background: `linear-gradient(135deg, ${cs.gradientFrom}, ${cs.gradientTo})`,
+                        }}
+                      />
+                      <CircuitPattern />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
-                  {cs.demoLink ? (
-                    <div className="absolute inset-x-0 bottom-0 flex justify-center p-6">
-                      <a
-                        href={cs.demoLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={cn(
-                          buttonVariants({ variant: "outline", size: "lg" }),
-                          "border-brand-orange bg-midnight/40 text-brand-orange backdrop-blur-sm hover:bg-brand-orange/10",
-                        )}
-                      >
-                        View Live Demo
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </a>
-                    </div>
-                  ) : null}
-                </>
+                      {cs.demoLink ? (
+                        <div className="absolute inset-x-0 bottom-0 flex justify-center p-6">
+                          <a
+                            href={cs.demoLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={cn(
+                              buttonVariants({ variant: "outline", size: "lg" }),
+                              "border-brand-orange bg-midnight/40 text-brand-orange backdrop-blur-sm hover:bg-brand-orange/10",
+                            )}
+                          >
+                            View Live Demo
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </a>
+                        </div>
+                      ) : null}
+                    </>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -384,118 +410,229 @@ export default function CaseStudyDetailPage({
 
           {cs.images.length === 0 ? (
             <div className="mt-10">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                {Array.from({ length: 3 }).map((_, idx) => (
-                  <div
-                    key={idx}
-                    className="relative h-48 overflow-hidden rounded-xl border border-white/10 md:h-56"
-                    style={{
-                      background: "linear-gradient(135deg, #0a1628, #0d2340)",
-                    }}
-                  >
-                    <svg
-                      className="absolute inset-0 h-full w-full opacity-20"
-                      viewBox="0 0 400 160"
-                      xmlns="http://www.w3.org/2000/svg"
-                      preserveAspectRatio="none"
-                      aria-hidden
-                    >
-                      <line
-                        x1="0"
-                        y1="80"
-                        x2="400"
-                        y2="80"
-                        stroke="white"
-                        strokeWidth="0.5"
-                      />
-                      <line
-                        x1="200"
-                        y1="0"
-                        x2="200"
-                        y2="160"
-                        stroke="white"
-                        strokeWidth="0.5"
-                      />
-                      <rect
-                        x="50"
-                        y="25"
-                        width="110"
-                        height="110"
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="1"
-                      />
-                      <rect
-                        x="220"
-                        y="20"
-                        width="130"
-                        height="65"
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="1"
-                      />
-                      <rect
-                        x="220"
-                        y="95"
-                        width="130"
-                        height="50"
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="1"
-                      />
-                      <line
-                        x1="50"
-                        y1="80"
-                        x2="160"
-                        y2="80"
-                        stroke="white"
-                        strokeWidth="0.5"
-                      />
-                      <line
-                        x1="105"
-                        y1="25"
-                        x2="105"
-                        y2="135"
-                        stroke="white"
-                        strokeWidth="0.5"
-                      />
-                      <line
-                        x1="220"
-                        y1="60"
-                        x2="350"
-                        y2="60"
-                        stroke="white"
-                        strokeWidth="0.5"
-                        strokeDasharray="4 4"
-                      />
-                      <circle
-                        cx="105"
-                        cy="80"
-                        r="3"
-                        fill="none"
-                        stroke="white"
-                        strokeWidth="0.8"
-                        opacity="0.6"
-                      />
-                      <circle
-                        cx="285"
-                        cy="60"
-                        r="2"
-                        fill="white"
-                        opacity="0.3"
-                      />
-                    </svg>
-                    <div className="absolute bottom-3 left-3 text-xs font-mono text-white/25">
-                      Screenshot Placeholder
-                    </div>
+              {cs.slug === "latticepay-non-custodial-wallet" ? (
+                <div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {Array.from({ length: 3 }).map((_, idx) => (
+                      <div
+                        key={idx}
+                        className="h-48 md:h-56 rounded-xl border border-white/10 overflow-hidden relative"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, #0a1a2e, #0d2545)",
+                        }}
+                      >
+                        <svg
+                          className="absolute inset-0 w-full h-full opacity-15"
+                          viewBox="0 0 400 160"
+                          xmlns="http://www.w3.org/2000/svg"
+                          preserveAspectRatio="none"
+                          aria-hidden
+                        >
+                          <polygon
+                            points="80,20 110,37 110,71 80,88 50,71 50,37"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.8"
+                          />
+                          <polygon
+                            points="140,20 170,37 170,71 140,88 110,71 110,37"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.8"
+                          />
+                          <polygon
+                            points="200,20 230,37 230,71 200,88 170,71 170,37"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.8"
+                          />
+                          <polygon
+                            points="260,20 290,37 290,71 260,88 230,71 230,37"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.8"
+                          />
+                          <polygon
+                            points="320,20 350,37 350,71 320,88 290,71 290,37"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.8"
+                          />
+                          <polygon
+                            points="110,71 140,88 140,122 110,139 80,122 80,88"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.8"
+                            opacity="0.5"
+                          />
+                          <polygon
+                            points="170,71 200,88 200,122 170,139 140,122 140,88"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.8"
+                            opacity="0.5"
+                          />
+                          <polygon
+                            points="230,71 260,88 260,122 230,139 200,122 200,88"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.8"
+                            opacity="0.5"
+                          />
+                          <polygon
+                            points="290,71 320,88 320,122 290,139 260,122 260,88"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.8"
+                            opacity="0.5"
+                          />
+                          <circle
+                            cx="200"
+                            cy="54"
+                            r="4"
+                            fill="white"
+                            opacity="0.4"
+                          />
+                          <circle
+                            cx="200"
+                            cy="54"
+                            r="10"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.5"
+                            opacity="0.2"
+                          />
+                        </svg>
+                        <div className="absolute bottom-3 left-3 text-xs font-mono text-white/25">
+                          Screenshot Placeholder
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
 
-              <p className="mt-4 text-sm italic text-muted-foreground">
-                Product screenshots and demo walkthrough will be added after MVP
-                completion.
-              </p>
+                  <p className="text-sm italic text-muted-foreground mt-4">
+                    Product screenshots and demo walkthrough will be added after
+                    client approval.
+                  </p>
+                </div>
+              ) : (
+                <div>
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    {Array.from({ length: 3 }).map((_, idx) => (
+                      <div
+                        key={idx}
+                        className="relative h-48 overflow-hidden rounded-xl border border-white/10 md:h-56"
+                        style={{
+                          background:
+                            "linear-gradient(135deg, #0a1628, #0d2340)",
+                        }}
+                      >
+                        <svg
+                          className="absolute inset-0 h-full w-full opacity-20"
+                          viewBox="0 0 400 160"
+                          xmlns="http://www.w3.org/2000/svg"
+                          preserveAspectRatio="none"
+                          aria-hidden
+                        >
+                          <line
+                            x1="0"
+                            y1="80"
+                            x2="400"
+                            y2="80"
+                            stroke="white"
+                            strokeWidth="0.5"
+                          />
+                          <line
+                            x1="200"
+                            y1="0"
+                            x2="200"
+                            y2="160"
+                            stroke="white"
+                            strokeWidth="0.5"
+                          />
+                          <rect
+                            x="50"
+                            y="25"
+                            width="110"
+                            height="110"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="1"
+                          />
+                          <rect
+                            x="220"
+                            y="20"
+                            width="130"
+                            height="65"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="1"
+                          />
+                          <rect
+                            x="220"
+                            y="95"
+                            width="130"
+                            height="50"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="1"
+                          />
+                          <line
+                            x1="50"
+                            y1="80"
+                            x2="160"
+                            y2="80"
+                            stroke="white"
+                            strokeWidth="0.5"
+                          />
+                          <line
+                            x1="105"
+                            y1="25"
+                            x2="105"
+                            y2="135"
+                            stroke="white"
+                            strokeWidth="0.5"
+                          />
+                          <line
+                            x1="220"
+                            y1="60"
+                            x2="350"
+                            y2="60"
+                            stroke="white"
+                            strokeWidth="0.5"
+                            strokeDasharray="4 4"
+                          />
+                          <circle
+                            cx="105"
+                            cy="80"
+                            r="3"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="0.8"
+                            opacity="0.6"
+                          />
+                          <circle
+                            cx="285"
+                            cy="60"
+                            r="2"
+                            fill="white"
+                            opacity="0.3"
+                          />
+                        </svg>
+                        <div className="absolute bottom-3 left-3 text-xs font-mono text-white/25">
+                          Screenshot Placeholder
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <p className="mt-4 text-sm italic text-muted-foreground">
+                    Product screenshots and demo walkthrough will be added after
+                    MVP completion.
+                  </p>
+                </div>
+              )}
             </div>
           ) : (
             <div className="mt-10">
@@ -503,6 +640,16 @@ export default function CaseStudyDetailPage({
                 images={cs.images}
                 shortTitle={cs.shortTitle}
                 addressBarUrl={cs.demoLink}
+                {...(cs.slug === "latticepay-non-custodial-wallet"
+                  ? {
+                      viewportClassName:
+                        "aspect-video min-h-[300px] sm:min-h-[340px] md:min-h-[380px]",
+                      imageClassName:
+                        "object-contain object-left object-top bg-black",
+                      thumbnailImageClassName:
+                        "object-contain object-left object-top bg-black",
+                    }
+                  : {})}
               />
             </div>
           )}
