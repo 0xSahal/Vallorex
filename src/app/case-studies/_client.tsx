@@ -93,6 +93,7 @@ function TechMarquee() {
 function StudyCard({ study }: { study: CaseStudy }) {
   const shown = study.techStack.slice(0, 4);
   const more = Math.max(0, study.techStack.length - 4);
+  const isArchVision = study.slug === "archvision-ai-floor-plan-to-3d";
 
   return (
     <Link href={`/case-studies/${study.slug}`} className="block group h-full">
@@ -106,6 +107,122 @@ function StudyCard({ study }: { study: CaseStudy }) {
         <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 group-hover:ring-white/20 transition-all duration-300" />
 
         <div className="relative z-10 flex flex-1 flex-col">
+          {isArchVision ? (
+            <div className="-mx-6 -mt-6 mb-5 md:-mx-7 md:-mt-7">
+              <div
+                className="w-full h-40 rounded-t-xl overflow-hidden relative flex-shrink-0"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #0a1628 0%, #0d2340 60%, #0f2a50 100%)",
+                }}
+              >
+                <Image
+                  src="/images/case-studies/3d-demo.jpeg"
+                  alt="2D to 3D demo preview"
+                  fill
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 420px"
+                  priority={false}
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+                <svg
+                  className="absolute inset-0 w-full h-full opacity-25"
+                  viewBox="0 0 400 160"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="none"
+                >
+                  <line
+                    x1="0"
+                    y1="80"
+                    x2="400"
+                    y2="80"
+                    stroke="white"
+                    strokeWidth="0.5"
+                  />
+                  <line
+                    x1="200"
+                    y1="0"
+                    x2="200"
+                    y2="160"
+                    stroke="white"
+                    strokeWidth="0.5"
+                  />
+                  <rect
+                    x="50"
+                    y="25"
+                    width="110"
+                    height="110"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1"
+                  />
+                  <rect
+                    x="220"
+                    y="20"
+                    width="130"
+                    height="65"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1"
+                  />
+                  <rect
+                    x="220"
+                    y="95"
+                    width="130"
+                    height="50"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1"
+                  />
+                  <line
+                    x1="50"
+                    y1="80"
+                    x2="160"
+                    y2="80"
+                    stroke="white"
+                    strokeWidth="0.5"
+                  />
+                  <line
+                    x1="105"
+                    y1="25"
+                    x2="105"
+                    y2="135"
+                    stroke="white"
+                    strokeWidth="0.5"
+                  />
+                  <line
+                    x1="220"
+                    y1="60"
+                    x2="350"
+                    y2="60"
+                    stroke="white"
+                    strokeWidth="0.5"
+                    strokeDasharray="4 4"
+                  />
+                  <circle
+                    cx="105"
+                    cy="80"
+                    r="3"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="0.8"
+                    opacity="0.6"
+                  />
+                  <circle
+                    cx="285"
+                    cy="60"
+                    r="2"
+                    fill="white"
+                    opacity="0.3"
+                  />
+                </svg>
+                <div className="absolute bottom-2 left-3 text-[9px] font-mono uppercase tracking-widest text-white/30">
+                  2D to 3D demo
+                </div>
+              </div>
+            </div>
+          ) : null}
+
           <div className="mb-4 flex items-start justify-between gap-3">
             <Badge
               variant="outline"
@@ -241,20 +358,29 @@ function FeaturedStudyBlock({
             </div>
           </div>
 
-          <div className="relative mx-auto mt-8 aspect-square w-full max-w-[min(100%,320px)] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-black/20 shadow-lg ring-1 ring-inset ring-white/5 lg:mx-0 lg:mt-0 lg:max-w-none lg:aspect-auto lg:min-h-[280px] lg:w-full">
+          <div className="relative mx-auto mt-8 h-[220px] w-full max-w-[min(100%,320px)] shrink-0 overflow-hidden rounded-xl border border-white/10 bg-black/20 shadow-lg ring-1 ring-white/10 lg:mx-0 lg:mt-0 lg:max-w-none lg:h-[320px] lg:w-full">
             <div className="pointer-events-none absolute inset-0 dot-grid opacity-[0.12]" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand-orange/10 via-transparent to-brand-blue/10" />
             {study.images[0] ? (
-              <Image
-                src={study.images[0]}
-                alt={`${study.shortTitle} product interface`}
-                fill
-                className="object-cover object-top"
-                sizes="(max-width: 1024px) 320px, (max-width: 1400px) 40vw, 520px"
-                priority
-              />
+              <div className="absolute inset-0 overflow-hidden rounded-xl">
+                <Image
+                  src={study.images[0]}
+                  alt={`${study.shortTitle} product interface`}
+                  fill
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 1024px) 320px, (max-width: 1400px) 40vw, 520px"
+                  priority
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 rounded-xl"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,0.35), transparent)",
+                  }}
+                />
+              </div>
             ) : (
-              <div className="relative flex h-full min-h-[220px] items-center justify-center p-8">
+              <div className="relative flex h-full items-center justify-center p-8">
                 <div className="text-center">
                   <p className="font-mono text-xs uppercase tracking-[0.25em] text-white/50">
                     {study.shortTitle}
