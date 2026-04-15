@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import Script from "next/script";
 import {
   ArrowRight,
   Mail,
@@ -11,13 +12,10 @@ import {
   Send,
   Calendar,
   MessageSquare,
-  ChevronLeft,
-  ChevronRight,
   CheckCircle2,
   ShieldCheck,
   Zap,
   Users,
-  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -43,203 +41,6 @@ const fadeUp: Variants = {
 };
 
 /* ═══════════════════════════════════════════════════════════════
-   CALENDAR HELPERS
-   ═══════════════════════════════════════════════════════════════ */
-
-const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
-const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-function getDaysInMonth(year: number, month: number) {
-  return new Date(year, month + 1, 0).getDate();
-}
-
-function getFirstDayOfMonth(year: number, month: number) {
-  return new Date(year, month, 1).getDay();
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   TIME SLOTS
-   ═══════════════════════════════════════════════════════════════ */
-
-const timeSlots = [
-  "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
-  "11:00 AM", "11:30 AM", "1:00 PM", "1:30 PM",
-  "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM",
-  "4:00 PM", "4:30 PM", "5:00 PM",
-];
-
-/* ═══════════════════════════════════════════════════════════════
-   INTERACTIVE CALENDAR COMPONENT
-   ═══════════════════════════════════════════════════════════════ */
-
-function CalendarPicker({
-  selectedDate,
-  onSelectDate,
-  selectedTime,
-  onSelectTime,
-}: {
-  selectedDate: Date | null;
-  onSelectDate: (date: Date) => void;
-  selectedTime: string;
-  onSelectTime: (time: string) => void;
-}) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const [viewYear, setViewYear] = useState(today.getFullYear());
-  const [viewMonth, setViewMonth] = useState(today.getMonth());
-
-  const daysInMonth = getDaysInMonth(viewYear, viewMonth);
-  const firstDay = getFirstDayOfMonth(viewYear, viewMonth);
-
-  const calendarDays = useMemo(() => {
-    const days: (number | null)[] = [];
-    for (let i = 0; i < firstDay; i++) days.push(null);
-    for (let d = 1; d <= daysInMonth; d++) days.push(d);
-    return days;
-  }, [firstDay, daysInMonth]);
-
-  const goToPrevMonth = () => {
-    if (viewMonth === 0) {
-      setViewMonth(11);
-      setViewYear(viewYear - 1);
-    } else {
-      setViewMonth(viewMonth - 1);
-    }
-  };
-
-  const goToNextMonth = () => {
-    if (viewMonth === 11) {
-      setViewMonth(0);
-      setViewYear(viewYear + 1);
-    } else {
-      setViewMonth(viewMonth + 1);
-    }
-  };
-
-  const isDateDisabled = (day: number) => {
-    const date = new Date(viewYear, viewMonth, day);
-    date.setHours(0, 0, 0, 0);
-    const dayOfWeek = date.getDay();
-    return date < today || dayOfWeek === 0 || dayOfWeek === 6;
-  };
-
-  const isDateSelected = (day: number) => {
-    if (!selectedDate) return false;
-    return (
-      selectedDate.getDate() === day &&
-      selectedDate.getMonth() === viewMonth &&
-      selectedDate.getFullYear() === viewYear
-    );
-  };
-
-  const isToday = (day: number) => {
-    return (
-      today.getDate() === day &&
-      today.getMonth() === viewMonth &&
-      today.getFullYear() === viewYear
-    );
-  };
-
-  const canGoPrev = viewYear > today.getFullYear() || viewMonth > today.getMonth();
-
-  return (
-    <div className="space-y-6">
-      {/* Calendar Grid */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-base font-bold text-midnight">
-            {MONTH_NAMES[viewMonth]} {viewYear}
-          </h3>
-          <div className="flex items-center gap-1">
-            <button
-              onClick={goToPrevMonth}
-              disabled={!canGoPrev}
-              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-            >
-              <ChevronLeft className="w-4 h-4 text-muted" />
-            </button>
-            <button
-              onClick={goToNextMonth}
-              className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-colors"
-            >
-              <ChevronRight className="w-4 h-4 text-muted" />
-            </button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-7 gap-1">
-          {DAY_LABELS.map((d) => (
-            <div key={d} className="text-center text-[10px] font-bold text-muted uppercase tracking-wider pb-2">
-              {d}
-            </div>
-          ))}
-          {calendarDays.map((day, i) => (
-            <div key={i} className="aspect-square flex items-center justify-center">
-              {day !== null ? (
-                <button
-                  disabled={isDateDisabled(day)}
-                  onClick={() => onSelectDate(new Date(viewYear, viewMonth, day))}
-                  className={`w-full h-full rounded-lg text-sm font-medium transition-all duration-200 relative ${
-                    isDateSelected(day)
-                      ? "bg-brand-blue text-white shadow-md shadow-brand-blue/30 scale-105"
-                      : isToday(day)
-                      ? "bg-brand-blue/10 text-brand-blue font-bold ring-1 ring-brand-blue/30"
-                      : isDateDisabled(day)
-                      ? "text-slate-300 cursor-not-allowed"
-                      : "text-midnight hover:bg-brand-blue/8 hover:text-brand-blue"
-                  }`}
-                >
-                  {day}
-                </button>
-              ) : null}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Time Slots */}
-      <AnimatePresence>
-        {selectedDate && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="border-t border-slate-100 pt-5">
-              <h4 className="text-sm font-bold text-midnight mb-3">
-                Select a Time{" "}
-                <span className="text-xs text-muted font-normal">
-                  (EST, {selectedDate.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })})
-                </span>
-              </h4>
-              <div className="grid grid-cols-3 gap-2">
-                {timeSlots.map((time) => (
-                  <button
-                    key={time}
-                    onClick={() => onSelectTime(time)}
-                    className={`rounded-lg px-3 py-2 text-xs font-semibold transition-all duration-200 ${
-                      selectedTime === time
-                        ? "bg-brand-orange text-white shadow-md shadow-brand-orange/25"
-                        : "bg-slate-50 text-muted hover:bg-brand-orange/10 hover:text-brand-orange border border-slate-100"
-                    }`}
-                  >
-                    {time}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════════
    MAIN PAGE
    ═══════════════════════════════════════════════════════════════ */
 
@@ -262,17 +63,6 @@ export default function ContactPageClient() {
     message: "",
   });
 
-  // Booking state
-  const [bookForm, setBookForm] = useState({
-    name: "",
-    email: "",
-    company: "",
-    topic: "",
-    notes: "",
-  });
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState("");
-
   const [submitted, setSubmitted] = useState(false);
 
   const handleMessageSubmit = (e: React.FormEvent) => {
@@ -280,17 +70,9 @@ export default function ContactPageClient() {
     setSubmitted(true);
   };
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
   const resetAll = () => {
     setSubmitted(false);
     setMsgForm({ name: "", email: "", company: "", phone: "", projectType: "", budget: "", message: "" });
-    setBookForm({ name: "", email: "", company: "", topic: "", notes: "" });
-    setSelectedDate(null);
-    setSelectedTime("");
   };
 
   return (
@@ -397,7 +179,7 @@ export default function ContactPageClient() {
             {/* Left Column: Tabs + Form/Calendar */}
             <div className="lg:col-span-7 xl:col-span-8">
               <AnimatePresence mode="wait">
-                {submitted ? (
+                {submitted && activeTab === "message" ? (
                   <motion.div
                     key="success"
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -414,12 +196,10 @@ export default function ContactPageClient() {
                       <CheckCircle2 className="w-10 h-10 text-green-600" />
                     </motion.div>
                     <h3 className="text-2xl font-extrabold text-midnight mb-3">
-                      {activeTab === "booking" ? "Consultation Booked!" : "Message Sent!"}
+                      Message Sent!
                     </h3>
                     <p className="text-muted text-base leading-relaxed mb-2 max-w-md mx-auto">
-                      {activeTab === "booking"
-                        ? `Your consultation is scheduled for ${selectedDate?.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })} at ${selectedTime}.`
-                        : "Thank you for reaching out. A senior engineer will review your message and get back to you within 4 hours."}
+                      Thank you for reaching out. A senior engineer will review your message and get back to you within 4 hours.
                     </p>
                     <p className="text-sm text-muted mb-8">
                       Check your inbox for a confirmation email.
@@ -596,144 +376,26 @@ export default function ContactPageClient() {
                           </Button>
                         </motion.form>
                       ) : (
-                        <motion.form
-                          key="booking-form"
+                        <motion.div
+                          key="booking-calendly"
                           initial={{ opacity: 0, x: 20 }}
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: 20 }}
                           transition={{ duration: 0.25 }}
-                          onSubmit={handleBookingSubmit}
                           className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-8 space-y-6"
                         >
-                          {/* Calendar Section */}
-                          <div className="bg-slate-50/80 rounded-xl border border-slate-100 p-5">
-                            <CalendarPicker
-                              selectedDate={selectedDate}
-                              onSelectDate={setSelectedDate}
-                              selectedTime={selectedTime}
-                              onSelectTime={setSelectedTime}
+                          <div className="bg-slate-50/80 rounded-xl border border-slate-100 p-3 sm:p-4">
+                            <div
+                              className="calendly-inline-widget"
+                              data-url="https://calendly.com/sahal-vallorex/30min?primary_color=f97316"
+                              style={{ minWidth: 320, height: 700 }}
+                            />
+                            <Script
+                              src="https://assets.calendly.com/assets/external/widget.js"
+                              strategy="lazyOnload"
                             />
                           </div>
-
-                          {/* Booking summary */}
-                          {selectedDate && selectedTime && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              className="flex items-center gap-3 p-4 rounded-xl bg-brand-blue/5 border border-brand-blue/15"
-                            >
-                              <Calendar className="w-5 h-5 text-brand-blue flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-bold text-midnight">
-                                  {selectedDate.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
-                                </p>
-                                <p className="text-xs text-brand-blue font-semibold">{selectedTime} EST, 30 min consultation</p>
-                              </div>
-                              <button
-                                type="button"
-                                onClick={() => { setSelectedDate(null); setSelectedTime(""); }}
-                                className="text-muted hover:text-red-500 transition-colors p-1"
-                              >
-                                <X className="w-4 h-4" />
-                              </button>
-                            </motion.div>
-                          )}
-
-                          {/* Booking info fields */}
-                          <div className="space-y-4">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              <div>
-                                <label className="block text-sm font-semibold text-midnight mb-1.5">
-                                  Full Name <span className="text-red-500">*</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  required
-                                  value={bookForm.name}
-                                  onChange={(e) => setBookForm({ ...bookForm, name: e.target.value })}
-                                  placeholder="John Doe"
-                                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
-                                />
-                              </div>
-                              <div>
-                                <label className="block text-sm font-semibold text-midnight mb-1.5">
-                                  Work Email <span className="text-red-500">*</span>
-                                </label>
-                                <input
-                                  type="email"
-                                  required
-                                  value={bookForm.email}
-                                  onChange={(e) => setBookForm({ ...bookForm, email: e.target.value })}
-                                  placeholder="john@company.com"
-                                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              <div>
-                                <label className="block text-sm font-semibold text-midnight mb-1.5">
-                                  Company
-                                </label>
-                                <input
-                                  type="text"
-                                  value={bookForm.company}
-                                  onChange={(e) => setBookForm({ ...bookForm, company: e.target.value })}
-                                  placeholder="Acme Inc."
-                                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
-                                />
-                              </div>
-                              <div>
-                                <label className="block text-sm font-semibold text-midnight mb-1.5">
-                                  Discussion Topic <span className="text-red-500">*</span>
-                                </label>
-                                <select
-                                  required
-                                  value={bookForm.topic}
-                                  onChange={(e) => setBookForm({ ...bookForm, topic: e.target.value })}
-                                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all appearance-none bg-white bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEyIDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMS41TDYgNi41TDExIDEuNSIgc3Ryb2tlPSIjOTRBM0I4IiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+')] bg-no-repeat bg-[center_right_1rem]"
-                                >
-                                  <option value="">Select topic</option>
-                                  <option value="new-project">New Project Discussion</option>
-                                  <option value="technical-audit">Free Technical Audit</option>
-                                  <option value="ai-strategy">AI Strategy Session</option>
-                                  <option value="blockchain-consulting">Blockchain Consulting</option>
-                                  <option value="partnership">Partnership Inquiry</option>
-                                  <option value="general">General Discussion</option>
-                                </select>
-                              </div>
-                            </div>
-
-                            <div>
-                              <label className="block text-sm font-semibold text-midnight mb-1.5">
-                                Additional Notes <span className="text-xs text-muted font-normal">(optional)</span>
-                              </label>
-                              <textarea
-                                rows={3}
-                                value={bookForm.notes}
-                                onChange={(e) => setBookForm({ ...bookForm, notes: e.target.value })}
-                                placeholder="Anything you'd like us to prepare for the call?"
-                                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all resize-none"
-                              />
-                            </div>
-                          </div>
-
-                          <Button
-                            type="submit"
-                            disabled={!selectedDate || !selectedTime}
-                            className="w-full bg-brand-orange hover:bg-[#E06612] text-white rounded-full h-12 text-sm font-bold shadow-lg shadow-brand-orange/20 transition-all hover:scale-[1.01] active:scale-95 group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-                          >
-                            <Calendar className="mr-2 h-4 w-4" />
-                            {!selectedDate
-                              ? "Select a date & time to continue"
-                              : !selectedTime
-                              ? "Select a time slot to continue"
-                              : "Confirm Booking"}
-                            {selectedDate && selectedTime && (
-                              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                            )}
-                          </Button>
-                        </motion.form>
+                        </motion.div>
                       )}
                     </AnimatePresence>
                   </motion.div>
