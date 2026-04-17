@@ -1,13 +1,12 @@
 {
-  "name": "temp_app",
+  "name": "vallorex-website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/fix-favicon-after-export.mjs",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "deploy": "npm run build && firebase deploy"
+    "lint": "next lint"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -23,6 +22,7 @@
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
+    "resend": "^6.12.0",
     "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -34,7 +34,6 @@
     "eslint-config-next": "14.2.35",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "to-ico": "^1.1.5",
     "typescript": "^5"
   }
 }

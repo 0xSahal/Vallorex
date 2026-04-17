@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   Zap,
   Users,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -46,6 +47,8 @@ const fadeUp: Variants = {
 
 type ContactTab = "message" | "booking";
 
+type FieldErrors = Partial<Record<"name" | "email" | "message", string>>;
+
 export default function ContactPageClient() {
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<ContactTab>(
@@ -61,18 +64,54 @@ export default function ContactPageClient() {
     projectType: "",
     budget: "",
     message: "",
+    website: "", // honeypot
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [serverError, setServerError] = useState<string | null>(null);
 
-  const handleMessageSubmit = (e: React.FormEvent) => {
+  const handleMessageSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setServerError(null);
+    setFieldErrors({});
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(msgForm),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+        setMsgForm({ name: "", email: "", company: "", phone: "", projectType: "", budget: "", message: "", website: "" });
+        return;
+      }
+
+      const data = (await res.json().catch(() => null)) as null | { errors?: FieldErrors; message?: string };
+      if (res.status === 400 && data?.errors) {
+        setFieldErrors(data.errors);
+        return;
+      }
+
+      setServerError("Something went wrong. Please email us at hello@vallorex.com");
+    } catch (err) {
+      console.error(err);
+      setServerError("Something went wrong. Please email us at hello@vallorex.com");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetAll = () => {
     setSubmitted(false);
-    setMsgForm({ name: "", email: "", company: "", phone: "", projectType: "", budget: "", message: "" });
+    setServerError(null);
+    setFieldErrors({});
+    setIsSubmitting(false);
+    setMsgForm({ name: "", email: "", company: "", phone: "", projectType: "", budget: "", message: "", website: "" });
   };
 
   return (
@@ -199,7 +238,7 @@ export default function ContactPageClient() {
                       Message Sent!
                     </h3>
                     <p className="text-muted text-base leading-relaxed mb-2 max-w-md mx-auto">
-                      Thank you for reaching out. A senior engineer will review your message and get back to you within 4 hours.
+                      Message sent! We’ll review your inquiry and respond within 1 business day.
                     </p>
                     <p className="text-sm text-muted mb-8">
                       Check your inbox for a confirmation email.
@@ -255,6 +294,12 @@ export default function ContactPageClient() {
                           onSubmit={handleMessageSubmit}
                           className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-8 space-y-5"
                         >
+                          {serverError ? (
+                            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                              {serverError}
+                            </div>
+                          ) : null}
+
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                               <label className="block text-sm font-semibold text-midnight mb-1.5">
@@ -268,6 +313,9 @@ export default function ContactPageClient() {
                                 placeholder="John Doe"
                                 className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
                               />
+                              {fieldErrors.name ? (
+                                <p className="mt-1 text-xs font-medium text-red-600">{fieldErrors.name}</p>
+                              ) : null}
                             </div>
                             <div>
                               <label className="block text-sm font-semibold text-midnight mb-1.5">
@@ -281,6 +329,9 @@ export default function ContactPageClient() {
                                 placeholder="john@company.com"
                                 className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
                               />
+                              {fieldErrors.email ? (
+                                <p className="mt-1 text-xs font-medium text-red-600">{fieldErrors.email}</p>
+                              ) : null}
                             </div>
                           </div>
 
@@ -352,6 +403,16 @@ export default function ContactPageClient() {
                             </div>
                           </div>
 
+                          <input
+                            type="text"
+                            tabIndex={-1}
+                            autoComplete="off"
+                            value={msgForm.website}
+                            onChange={(e) => setMsgForm({ ...msgForm, website: e.target.value })}
+                            className="hidden"
+                            aria-hidden="true"
+                          />
+
                           <div>
                             <label className="block text-sm font-semibold text-midnight mb-1.5">
                               Project Details <span className="text-red-500">*</span>
@@ -364,14 +425,27 @@ export default function ContactPageClient() {
                               placeholder="Tell us about your project, challenges, and goals. The more detail, the better our initial assessment..."
                               className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all resize-none"
                             />
+                            {fieldErrors.message ? (
+                              <p className="mt-1 text-xs font-medium text-red-600">{fieldErrors.message}</p>
+                            ) : null}
                           </div>
 
                           <Button
                             type="submit"
+                            disabled={isSubmitting}
                             className="w-full bg-brand-orange hover:bg-[#E06612] text-white rounded-full h-12 text-sm font-bold shadow-lg shadow-brand-orange/20 transition-all hover:scale-[1.01] active:scale-95 group"
                           >
-                            <Send className="mr-2 h-4 w-4" />
-                            Send Message
+                            {isSubmitting ? (
+                              <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Sending...
+                              </>
+                            ) : (
+                              <>
+                                <Send className="mr-2 h-4 w-4" />
+                                Send Message
+                              </>
+                            )}
                             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                           </Button>
                         </motion.form>
@@ -387,7 +461,7 @@ export default function ContactPageClient() {
                           <div className="bg-slate-50/80 rounded-xl border border-slate-100 p-3 sm:p-4">
                             <div
                               className="calendly-inline-widget"
-                              data-url="https://calendly.com/sahal-vallorex/30min?primary_color=f97316"
+                              data-url="https://calendly.com/hello-vallorex/30min?primary_color=f97316"
                               style={{ minWidth: 320, height: 700 }}
                             />
                             <Script
