@@ -22,7 +22,7 @@ type Props = {
 
 const transition = { duration: 0.3, ease: "easeOut" as const };
 
-/** Host + path for fake address bar (no scheme — chrome adds https://) */
+/** Host + path for fake address bar (no scheme - chrome adds https://) */
 function displayUrl(url?: string) {
   if (!url) return "app.studio/preview";
   try {

@@ -2,14 +2,14 @@
 
 export function LogoStrip() {
   const logos = [
-    "ACME Corp",
-    "GlobalBank",
-    "Stark Industries",
-    "Cyberdyne Systems",
-    "Wayne Enterprises",
-    "Umbrella Corp",
-    "Massive Dynamic",
-    "InGen",
+    "AIML & LLM Engineering",
+    "Agentic AI Systems",
+    "AI Workflow Automation",
+    "Blockchain Engineering",
+    "Layer 2 & Scaling",
+    "Smart Contracts & Web3",
+    "MLOps & Model Pipelines",
+    "Enterprise AI Integration",
   ];
 
   return (

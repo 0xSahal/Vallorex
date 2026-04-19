@@ -11,12 +11,36 @@ export const revalidate = false;
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vallorex.com"),
   title: "Vallorex | Fast & Secure Software Engineeing",
-  description: "The premier engineering partner for AI and Blockchain ventures. Institutional quality from day one.",
+  description:
+    "The Engineering Firm That Turns AI & Blockchain Into Results",
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
     apple: "/favicon.png",
+  },
+  openGraph: {
+    title: "Vallorex",
+    description:
+      "The Engineering Firm That Turns AI & Blockchain Into Results",
+    url: "https://vallorex.com/",
+    type: "website",
+    siteName: "Vallorex",
+    images: [
+      {
+        url: "/vallorex-logo-dark.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vallorex",
+    description:
+      "The Engineering Firm That Turns AI & Blockchain Into Results",
+    images: ["/vallorex-logo-dark.png"],
   },
 };
 

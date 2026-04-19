@@ -193,7 +193,7 @@ const articles: Article[] = [
     tagColor: "#0D9488",
     title: "The CTO's Guide to Evaluating AI Vendors",
     description:
-      "A framework for technical leaders to assess AI service providers — covering model benchmarks, SLAs, IP ownership, and hidden costs.",
+      "A framework for technical leaders to assess AI service providers - covering model benchmarks, SLAs, IP ownership, and hidden costs.",
     readTime: "15 min read",
     date: "Jan 10, 2025",
     author: {
@@ -209,7 +209,7 @@ const articles: Article[] = [
     tagColor: "#2563EB",
     title: "Migrating from Monolith to Microservices: A Battle-Tested Playbook",
     description:
-      "Real patterns from 20+ enterprise migrations — including the Strangler Fig pattern, data decomposition, and observability setup.",
+      "Real patterns from 20+ enterprise migrations - including the Strangler Fig pattern, data decomposition, and observability setup.",
     readTime: "20 min read",
     date: "Dec 18, 2024",
     author: {
@@ -793,7 +793,7 @@ export default function ResourcesPageClient() {
                 className="text-base text-[#94A3B8] leading-relaxed max-w-md mb-4"
               >
                 A bi-weekly digest of curated insights on AI breakthroughs, blockchain
-                innovations, and engineering leadership — trusted by 5,000+ CTOs and
+                innovations, and engineering leadership - trusted by 5,000+ CTOs and
                 technical leaders.
               </motion.p>
               <motion.div
@@ -846,7 +846,7 @@ export default function ResourcesPageClient() {
                   </Button>
                 </div>
                 <p className="text-[11px] text-white/30 mt-4 leading-relaxed">
-                  Join 5,000+ engineering leaders. We respect your inbox — only the most impactful content, twice a month.
+                  Join 5,000+ engineering leaders. We respect your inbox - only the most impactful content, twice a month.
                 </p>
               </div>
             </motion.div>

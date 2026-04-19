@@ -26,7 +26,7 @@ export function labelProjectType(value: string): string {
     consulting: "Consulting / Strategy",
     other: "Other",
   };
-  return map[value] ?? (value ? value : "—");
+  return map[value] ?? (value ? value : "-");
 }
 
 export function labelBudget(value: string): string {
@@ -38,6 +38,6 @@ export function labelBudget(value: string): string {
     "250k+": "$250K+",
     unsure: "Not sure yet",
   };
-  return map[value] ?? (value ? value : "—");
+  return map[value] ?? (value ? value : "-");
 }
 

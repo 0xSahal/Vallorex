@@ -8,7 +8,7 @@ export function buildContactConfirmationEmail(input: {
   servicesUrl: string;
 }): string {
   const fullName = escapeHtml(safeText(input.fullName, 200));
-  const company = escapeHtml(safeText(input.company ?? "", 200)) || "—";
+  const company = escapeHtml(safeText(input.company ?? "", 200)) || "-";
   const projectType = escapeHtml(labelProjectType(safeText(input.projectType ?? "", 50)));
   const budgetRange = escapeHtml(labelBudget(safeText(input.budgetRange ?? "", 50)));
   const servicesUrl = escapeHtml(input.servicesUrl);
@@ -18,7 +18,7 @@ export function buildContactConfirmationEmail(input: {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>We’ve received your message — Vallorex Technologies</title>
+    <title>We’ve received your message - Vallorex Technologies</title>
   </head>
   <body style="margin:0;padding:0;background:#0D1117;font-family:Arial,Helvetica,sans-serif;">
     <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">
