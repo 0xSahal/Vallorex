@@ -119,7 +119,7 @@ type ResourceCardItem = { Icon: LucideIcon; label: string; desc: string; href: s
 const resourcesCardsData: ResourceCardItem[] = [
   { Icon: Newspaper, label: "Blog & Insights", desc: "Deep technical articles, industry trends, and engineering best practices written by our senior team.", href: "#", tag: "New articles weekly" },
   { Icon: BookOpen, label: "Whitepapers", desc: "Download in-depth research on AI adoption, blockchain scalability, and emerging tech for enterprise.", href: "#", tag: "Free downloads" },
-  { Icon: Video, label: "Webinars & Events", desc: "Join live sessions with our engineers and thought leaders — or watch past talks on demand.", href: "#", tag: "Live & on-demand" },
+  { Icon: Video, label: "Webinars & Events", desc: "Join live sessions with our engineers and thought leaders - or watch past talks on demand.", href: "#", tag: "Live & on-demand" },
   { Icon: MessageSquare, label: "AI Readiness Audit", desc: "A complimentary 1-hour review with a senior Vallorex engineer to map your AI transformation starting point.", href: "#", tag: "Free for enterprises" },
 ];
 
@@ -190,7 +190,7 @@ const megaMenus: Record<string, React.ReactNode> = {
           <Rocket className="h-5 w-5 text-brand-orange flex-shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-bold text-midnight">Free Technical Audit</p>
-            <p className="text-xs text-muted mt-0.5 leading-relaxed">Get a senior engineer to review your current architecture — no strings attached.</p>
+            <p className="text-xs text-muted mt-0.5 leading-relaxed">Get a senior engineer to review your current architecture - no strings attached.</p>
             <Link href="#" className="text-xs font-semibold text-brand-orange hover:underline flex items-center mt-2">
               Book yours <ArrowRight className="ml-1 h-3 w-3" />
             </Link>
@@ -228,7 +228,7 @@ const megaMenus: Record<string, React.ReactNode> = {
       </div>
       <div className="col-span-4 pl-8">
         <p className="text-[10px] font-bold tracking-widest text-muted uppercase mb-5">Deep Domain Expertise</p>
-        <p className="text-sm text-midnight font-semibold mb-2 leading-snug">We don&apos;t just code — we understand your market.</p>
+        <p className="text-sm text-midnight font-semibold mb-2 leading-snug">We don&apos;t just code - we understand your market.</p>
         <p className="text-xs text-muted leading-relaxed mb-6">Our engineering teams are paired with industry specialists who know the regulatory landscape, compliance requirements, and competitive pressures you face daily.</p>
         <div className="space-y-3">
           {[
@@ -381,7 +381,7 @@ const drawerTransition = { duration: 0.3, ease: "easeInOut" as const };
 
 const LOGO_LIGHT = "/vallorex-logo.png";
 const LOGO_DARK = "/vallorex-logo-dark.png";
-/** Reference aspect (dark logo); Next/Image intrinsic ratio — display locked via CSS */
+/** Reference aspect (dark logo); Next/Image intrinsic ratio - display locked via CSS */
 const LOGO_REF_WIDTH = 560;
 const LOGO_REF_HEIGHT = 156;
 

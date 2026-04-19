@@ -5,7 +5,7 @@ import { ArrowRight, Home, Sparkles, Wrench } from "lucide-react";
 export default function NotFound() {
   return (
     <section className="relative flex min-h-[min(78vh,720px)] flex-1 flex-col items-center justify-center overflow-hidden bg-white px-4 py-16 sm:py-20">
-      {/* Ambient depth — mirrors hero + CTA sections */}
+      {/* Ambient depth - mirrors hero + CTA sections */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute left-1/2 top-0 h-40 w-[min(100%,56rem)] -translate-x-1/2 bg-midnight/[0.06] blur-[100px]" />
         <div className="absolute -left-[20%] top-1/3 h-[min(70vw,420px)] w-[min(70vw,420px)] rounded-full bg-brand-orange/[0.08] blur-[100px]" />
@@ -25,7 +25,7 @@ export default function NotFound() {
           <Sparkles className="h-3.5 w-3.5 text-brand-blue" strokeWidth={2.5} aria-hidden />
         </div>
 
-        {/* Blueprint-style ring — suggests “in progress” without saying 404 */}
+        {/* Blueprint-style ring - suggests “in progress” without saying 404 */}
         <div className="relative mb-8 flex h-36 w-36 items-center justify-center sm:h-44 sm:w-44" aria-hidden>
           <div className="absolute inset-0 rounded-full border-2 border-dashed border-slate-200" />
           <div

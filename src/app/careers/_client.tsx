@@ -99,7 +99,7 @@ const jobs: Job[] = [
       "Design, train, and deploy production ML models serving millions of users",
       "Build and optimize end-to-end ML pipelines using PyTorch, TensorFlow, and custom frameworks",
       "Collaborate with client teams to translate business requirements into ML solutions",
-      "Implement MLOps best practices — CI/CD for models, A/B testing, monitoring, and drift detection",
+      "Implement MLOps best practices - CI/CD for models, A/B testing, monitoring, and drift detection",
       "Mentor junior engineers and contribute to Vallorex's AI engineering standards",
       "Publish internal research and contribute to open-source ML tools",
     ],
@@ -259,7 +259,7 @@ const jobs: Job[] = [
     salaryRange: "140K – 190K",
     postedDate: "4 days ago",
     description:
-      "Ship end-to-end product features for high-growth startups and enterprise clients. You'll work across the stack — from pixel-perfect React frontends to scalable Node.js APIs — in fast-paced, agile environments.",
+      "Ship end-to-end product features for high-growth startups and enterprise clients. You'll work across the stack - from pixel-perfect React frontends to scalable Node.js APIs - in fast-paced, agile environments.",
     responsibilities: [
       "Build responsive, accessible web applications using React, Next.js, and TypeScript",
       "Design and implement RESTful and GraphQL APIs using Node.js",
@@ -358,7 +358,7 @@ const jobs: Job[] = [
     salaryRange: "90K – 130K",
     postedDate: "2 weeks ago",
     description:
-      "Help us find and hire the top 3% of engineering talent globally. You'll build pipelines for senior engineers across AI, blockchain, and product engineering — and shape the candidate experience at Vallorex.",
+      "Help us find and hire the top 3% of engineering talent globally. You'll build pipelines for senior engineers across AI, blockchain, and product engineering - and shape the candidate experience at Vallorex.",
     responsibilities: [
       "Source and engage top-tier engineering candidates across AI, blockchain, and full-stack roles",
       "Manage full-cycle recruiting from sourcing to offer negotiation",
@@ -1134,9 +1134,9 @@ export default function CareersPageClient() {
               className="space-y-8 md:space-y-0"
             >
               {[
-                { step: "01", title: "Application Review", desc: "We review every application within 48 hours. No AI screeners — real humans read your resume.", color: "#2563EB", icon: Briefcase },
+                { step: "01", title: "Application Review", desc: "We review every application within 48 hours. No AI screeners - real humans read your resume.", color: "#2563EB", icon: Briefcase },
                 { step: "02", title: "Recruiter Call", desc: "A 30-minute call to discuss the role, your background, and mutual expectations. Casual and conversational.", color: "#F97316", icon: Users },
-                { step: "03", title: "Technical Assessment", desc: "A take-home challenge or live coding session tailored to the role. No LeetCode tricks — real-world problems.", color: "#8B5CF6", icon: Code2 },
+                { step: "03", title: "Technical Assessment", desc: "A take-home challenge or live coding session tailored to the role. No LeetCode tricks - real-world problems.", color: "#8B5CF6", icon: Code2 },
                 { step: "04", title: "Team Interview", desc: "Meet your potential teammates. Discuss system design, past projects, and how you approach complex problems.", color: "#10B981", icon: Brain },
                 { step: "05", title: "Offer & Onboarding", desc: "Competitive offer within 48 hours of final interview. Structured 30-60-90 day onboarding plan.", color: "#EC4899", icon: Rocket },
               ].map((item, i) => {

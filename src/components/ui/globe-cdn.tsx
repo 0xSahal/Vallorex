@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useCallback } from "react"
+import { useEffect, useRef, useCallback, useState } from "react"
 import createGlobe from "cobe"
 
 interface CdnMarker {
@@ -57,6 +57,17 @@ export function GlobeCdn({
   const thetaOffsetRef = useRef(0)
   const isPausedRef = useRef(false)
 
+  /** Touch-primary devices: skip drag + allow page scroll (see canvas touchAction). */
+  const [allowPointerDrag, setAllowPointerDrag] = useState(true)
+
+  useEffect(() => {
+    const mq = window.matchMedia("(pointer: coarse)")
+    const apply = () => setAllowPointerDrag(!mq.matches)
+    apply()
+    mq.addEventListener("change", apply)
+    return () => mq.removeEventListener("change", apply)
+  }, [])
+
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     pointerInteracting.current = { x: e.clientX, y: e.clientY }
     if (canvasRef.current) canvasRef.current.style.cursor = "grabbing"
@@ -75,6 +86,7 @@ export function GlobeCdn({
   }, [])
 
   useEffect(() => {
+    if (!allowPointerDrag) return
     const handlePointerMove = (e: PointerEvent) => {
       if (pointerInteracting.current !== null) {
         dragOffset.current = {
@@ -89,7 +101,7 @@ export function GlobeCdn({
       window.removeEventListener("pointermove", handlePointerMove)
       window.removeEventListener("pointerup", handlePointerUp)
     }
-  }, [handlePointerUp])
+  }, [allowPointerDrag, handlePointerUp])
 
   useEffect(() => {
     if (!canvasRef.current) return
@@ -188,10 +200,13 @@ export function GlobeCdn({
       `}</style>
       <canvas
         ref={canvasRef}
-        onPointerDown={handlePointerDown}
+        onPointerDown={allowPointerDrag ? handlePointerDown : undefined}
         style={{
-          width: "100%", height: "100%", cursor: "grab", opacity: 0,
-          transition: "opacity 1.2s ease", borderRadius: "50%", touchAction: "none",
+          width: "100%", height: "100%",
+          cursor: allowPointerDrag ? "grab" : "default",
+          opacity: 0,
+          transition: "opacity 1.2s ease", borderRadius: "50%",
+          touchAction: allowPointerDrag ? "none" : "auto",
         }}
       />
       {markers.map((m) => (

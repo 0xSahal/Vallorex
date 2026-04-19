@@ -618,7 +618,7 @@ export default function CaseStudiesPageClient() {
               variants={itemMotion}
               className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70 md:text-xl"
             >
-              Every project below is a live or MVP production system — not a
+              Every project below is a live or MVP production system - not a
               wireframe, not a concept.
             </motion.p>
           </motion.div>

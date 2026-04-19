@@ -12,11 +12,11 @@ export function buildContactInternalEmail(input: {
 }): string {
   const fullName = escapeHtml(safeText(input.fullName, 200));
   const workEmail = escapeHtml(safeText(input.workEmail, 254));
-  const company = escapeHtml(safeText(input.company ?? "", 200)) || "—";
-  const phone = escapeHtml(safeText(input.phone ?? "", 100)) || "—";
+  const company = escapeHtml(safeText(input.company ?? "", 200)) || "-";
+  const phone = escapeHtml(safeText(input.phone ?? "", 100)) || "-";
   const projectType = escapeHtml(labelProjectType(safeText(input.projectType ?? "", 50)));
   const budgetRange = escapeHtml(labelBudget(safeText(input.budgetRange ?? "", 50)));
-  const projectDetails = nl2br(escapeHtml(safeText(input.projectDetails, 8000))) || "—";
+  const projectDetails = nl2br(escapeHtml(safeText(input.projectDetails, 8000))) || "-";
   const submittedAtIst = escapeHtml(input.submittedAtIst);
 
   const rows: Array<[string, string]> = [

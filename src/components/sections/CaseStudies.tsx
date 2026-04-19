@@ -28,7 +28,7 @@ export function CaseStudies() {
               Proof of Impact
             </h2>
             <p className="mt-3 max-w-2xl text-[15px] leading-[1.7] text-[#475569]">
-              Two production systems we engineered end-to-end — measurable outcomes,
+              Two production systems we engineered end-to-end - measurable outcomes,
               real architecture, shipped.
             </p>
           </div>

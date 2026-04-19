@@ -97,7 +97,7 @@ export async function POST(req: Request) {
       sendEmail({
         to: workEmail,
         from: fromEmail,
-        subject: "We've received your message — Vallorex Technologies",
+        subject: "We've received your message - Vallorex Technologies",
         html: buildContactConfirmationEmail({
           fullName,
           company,
@@ -110,7 +110,7 @@ export async function POST(req: Request) {
         to: internalTo,
         from: fromEmail,
         replyTo: workEmail,
-        subject: `🚀 New Project Inquiry — ${projectType || "New inquiry"} from ${company || fullName}`,
+        subject: `🚀 New Project Inquiry - ${projectType || "New inquiry"} from ${company || fullName}`,
         html: buildContactInternalEmail({
           fullName,
           workEmail,
