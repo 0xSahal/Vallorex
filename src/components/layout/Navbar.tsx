@@ -14,7 +14,7 @@ import {
   Landmark, TrendingUp, ShoppingBag, HeartPulse, Zap,
   Globe, Server, Lock, GitBranch, Terminal,
   BookOpen, Newspaper, Video, MessageSquare,
-  Users, Award, Briefcase, Phone,
+  Users, Briefcase, Phone,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -135,7 +135,6 @@ type CompanyMegaItem = { Icon: LucideIcon; label: string; desc: string; href: st
 
 const companyMegaItemsData: CompanyMegaItem[] = [
   { Icon: Users, label: "About Vallorex", desc: "Our story, mission, and the values that drive every engagement we take on.", href: "/company" },
-  { Icon: Award, label: "Leadership Team", desc: "Meet the engineers, strategists, and operators building the future with our clients.", href: "/company#leadership" },
   { Icon: Briefcase, label: "Careers", desc: "Work on challenging AI and Blockchain problems with a focused, technical team.", tag: "We're hiring", href: "/careers" },
   { Icon: Phone, label: "Contact Us", desc: "Reach our team for partnerships, new projects, or press enquiries.", href: "/contact" },
   { Icon: ShieldCheck, label: "Trust & Security", desc: "Your IP and data are always protected. We sign NDAs on every engagement.", href: "/company#trust" },
