@@ -389,8 +389,30 @@ function StudyCard({ study }: { study: CaseStudy }) {
             </div>
           ) : null}
 
+          {study.heroImage &&
+          !isArchVision &&
+          !(isLatticePay && latticeCardImage) ? (
+            <div className="-mx-6 -mt-6 mb-5 md:-mx-7 md:-mt-7">
+              <div className="relative h-40 w-full flex-shrink-0 overflow-hidden rounded-t-xl bg-black">
+                <Image
+                  src={study.heroImage}
+                  alt={`${study.shortTitle}: case study hero preview`}
+                  fill
+                  className="object-cover object-[50%_42%] transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 100vw, 420px"
+                  priority={false}
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                <div className="absolute bottom-2 left-3 text-[9px] font-mono uppercase tracking-widest text-white/50">
+                  {study.heroImageCaption ?? "Product preview"}
+                </div>
+              </div>
+            </div>
+          ) : null}
+
           {!isArchVision &&
           !(isLatticePay && latticeCardImage) &&
+          !study.heroImage &&
           !hasHeroImage ? (
             <div className="-mx-6 -mt-6 mb-5 md:-mx-7 md:-mt-7">
               <EmptyHeroHeader />

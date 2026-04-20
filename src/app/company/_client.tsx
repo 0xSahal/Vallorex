@@ -22,7 +22,6 @@ import {
   Globe2,
   Rocket,
   TrendingUp,
-  ExternalLink,
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -138,37 +137,6 @@ const values = [
     description:
       "We hire the top 3% of engineering talent globally. Every team member has shipped systems at scale.",
     color: "#EC4899",
-  },
-];
-
-const leadership = [
-  {
-    name: "Alexander Chen",
-    role: "Chief Executive Officer",
-    bio: "Ex-Google DeepMind. 15 years building AI systems at scale. Led teams that shipped ML infrastructure serving 2B+ users.",
-    color: "#2563EB",
-    previousCompany: "Google DeepMind",
-  },
-  {
-    name: "Sarah Mitchell",
-    role: "Chief Technology Officer",
-    bio: "Former Principal Engineer at Coinbase. Architect of DeFi protocols securing $4B+ TVL. Solidity & Rust expert.",
-    color: "#8B5CF6",
-    previousCompany: "Coinbase",
-  },
-  {
-    name: "David Park",
-    role: "VP of Engineering",
-    bio: "Ex-Meta infrastructure lead. Built real-time data systems processing 50M+ events/second. Distributed systems specialist.",
-    color: "#F97316",
-    previousCompany: "Meta",
-  },
-  {
-    name: "Elena Rodriguez",
-    role: "VP of Client Success",
-    bio: "Former McKinsey engagement manager. Bridges the gap between business strategy and engineering execution for Fortune 500 clients.",
-    color: "#0D9488",
-    previousCompany: "McKinsey",
   },
 ];
 
@@ -437,113 +405,6 @@ export default function CompanyPageClient() {
                 <p className="text-sm text-muted leading-[1.7]">
                   {value.description}
                 </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* - SECTION 5: LEADERSHIP - */}
-      <section id="leadership" className="py-24 md:py-32 bg-white scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-            className="text-center mb-16"
-          >
-            <motion.span
-              variants={fadeUp}
-              className="block text-[10px] font-bold tracking-[0.25em] text-brand-blue uppercase mb-4"
-            >
-              Leadership
-            </motion.span>
-            <motion.h2
-              variants={fadeUp}
-              className="text-3xl sm:text-4xl md:text-[44px] font-extrabold text-midnight tracking-tight leading-tight"
-            >
-              Built by Operators, Not Observers
-            </motion.h2>
-            <motion.p
-              variants={fadeUp}
-              className="mt-4 text-base md:text-lg text-muted max-w-[600px] mx-auto"
-            >
-              Our leadership team has collectively shipped systems at Google,
-              Meta, Coinbase, McKinsey, and Goldman Sachs.
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={stagger}
-            className="grid grid-cols-1 md:grid-cols-2 gap-7 lg:gap-8"
-          >
-            {leadership.map((person) => (
-              <motion.div
-                key={person.name}
-                variants={fadeUp}
-                className="group relative bg-white rounded-2xl border border-slate-200/80 px-8 py-8 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden"
-              >
-                {/* Subtle accent line on left */}
-                <div
-                  className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl transition-all duration-300 group-hover:w-[4px]"
-                  style={{ background: person.color }}
-                />
-
-                <div className="flex items-start gap-5">
-                  {/* Monogram */}
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-105"
-                    style={{ background: `${person.color}10` }}
-                  >
-                    <span
-                      className="text-lg font-bold"
-                      style={{ color: person.color }}
-                    >
-                      {person.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </span>
-                  </div>
-
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <h3 className="text-lg font-bold text-midnight">
-                        {person.name}
-                      </h3>
-                      <span
-                        className="text-[9px] font-bold uppercase tracking-wider rounded-full px-2.5 py-0.5"
-                        style={{
-                          color: person.color,
-                          background: `${person.color}10`,
-                        }}
-                      >
-                        Ex-{person.previousCompany}
-                      </span>
-                    </div>
-                    <p
-                      className="text-sm font-semibold mt-1"
-                      style={{ color: person.color }}
-                    >
-                      {person.role}
-                    </p>
-                    <p className="text-sm text-muted mt-3 leading-[1.7]">
-                      {person.bio}
-                    </p>
-                    <a
-                      href="#"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold mt-4 transition-colors hover:underline"
-                      style={{ color: person.color }}
-                    >
-                      Connect <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </div>
-                </div>
               </motion.div>
             ))}
           </motion.div>

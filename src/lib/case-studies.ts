@@ -23,6 +23,10 @@ export interface CaseStudy {
   images: string[];
   /** Optional hero walkthrough video (path under /public, e.g. /images/case-studies/foo.mp4) */
   heroVideo?: string;
+  /** Optional hero still when no video (detail page right column; same path can appear in images[]) */
+  heroImage?: string;
+  /** Small label on case-study grid card over heroImage (e.g. product angle) */
+  heroImageCaption?: string;
   demoLink?: string;
   clientQuote?: { text: string; author: string; role: string; company: string };
   featured: boolean;
@@ -448,6 +452,316 @@ export const caseStudies: CaseStudy[] = [
       "Wallet Operators and Exchanges: Teams building or upgrading non-custodial wallet infrastructure where security posture, key handling, and trust UX are non-negotiable.",
     ],
     competitors: [],
+  },
+  {
+    slug: "roadhow-uk-dashcam-visual-analytics",
+    title: "Dashcam Visual Analytics & Driver Scoring Platform",
+    shortTitle: "RoadHow UK",
+    category: "Artificial Intelligence",
+    tags: [
+      "Computer Vision",
+      "Fleet Safety",
+      "Video Analytics",
+      "PyTorch",
+      "OpenCV",
+      "Django",
+      "UK",
+    ],
+    client: "RoadHow UK",
+    industry: "Computer Vision / Fleet Safety / Road Safety (UK)",
+    year: 2025,
+    timelineWeeks: "Multi-phase delivery",
+    teamSize: 3,
+    status: "Completed",
+    heroMetricLabel: "Dashcam Footage Processed",
+    heroMetricValue: "500+ hrs",
+    shortDescription:
+      "CV-powered driving event detection and driver scoring from vehicle dashcam footage for UK fleet training and compliance.",
+    summary:
+      "A custom computer vision platform for a UK road safety company that processes vehicle dashcam footage to detect driving events, assess driver behaviour, and generate safety analytics for fleet training programs.",
+    challenge:
+      "Manual review of dashcam footage was time-consuming and inconsistent. Fleet managers needed automated, objective driver scoring for training and compliance.\n\nReview teams could not scale with growing video volume, and subjective judgments made it difficult to compare drivers fairly or demonstrate due diligence to stakeholders.",
+    approach: [
+      {
+        icon: "Layers",
+        title: "Frame-by-frame video analysis pipeline",
+        description:
+          "Built an OpenCV-based ingestion and processing pipeline that walks vehicle dashcam footage frame-by-frame for stable, repeatable feature extraction before model inference.",
+      },
+      {
+        icon: "Brain",
+        title: "Scene change detection, tracking, and event extraction",
+        description:
+          "Combined scene change detection with object tracking to isolate meaningful segments and pull structured driving events from noisy real-world road footage.",
+      },
+      {
+        icon: "Zap",
+        title: "PyTorch model fine-tuning for critical events",
+        description:
+          "Fine-tuned PyTorch models for hard braking, lane departure, and tailgating detection, iterating on fleet-specific data to tighten precision and reduce false positives.",
+      },
+      {
+        icon: "Code2",
+        title: "Driver behaviour scoring and timeline reports",
+        description:
+          "Implemented behaviour scoring, per-trip timelines, and exportable reporting hooks via Django so trainers and compliance workflows could consume results without manual clip review.",
+      },
+    ],
+    techStack: ["PyTorch", "OpenCV", "Django", "Python"],
+    architectureDescription:
+      "Dashcam ingest → OpenCV frame pipeline → Scene & tracking analytics → PyTorch event detection → Driver behaviour scoring → Django services → Fleet training & trend dashboards",
+    kpis: [
+      { value: "500+", label: "Hours of Footage Processed" },
+      { value: "3", label: "Driving Event Types Detected" },
+      { value: "Lower FP", label: "After Model Fine-Tuning" },
+      { value: "UK", label: "Fleet Programs & Region" },
+    ],
+    outcomes: [
+      "Processed more than 500 hours of dashcam footage through the automated pipeline",
+      "Materially reduced false positive rates through iterative PyTorch fine-tuning on real fleet clips",
+      "Replaced slow manual review with consistent, objective driver scoring suitable for training workflows",
+      "Delivered trend dashboards that support fleet training programs and safety reporting",
+    ],
+    heroImage: "/images/case-studies/roadhow-dashcam-cv-overlay.png",
+    heroImageCaption: "Dashcam CV & driver scoring",
+    images: [
+      "/images/case-studies/roadhow-dashcam-cv-overlay.png",
+      "/images/case-studies/roadhow-fleet-analytics-dashboard.png",
+      "/images/case-studies/roadhow-fleet-training-trends.png",
+    ],
+    featured: false,
+    gradientFrom: "#0a1628",
+    gradientTo: "#152a45",
+    useCases: [
+      "Commercial fleets: Objective scoring from dashcam evidence for coaching conversations without all-day manual review",
+      "Road safety programs: Repeatable event detection for tailgating, hard braking, and lane departure across large video libraries",
+      "Compliance and training leads: Audit-friendly timelines and aggregates that align teams on the same safety metrics",
+      "UK operators: Region-specific deployment and analytics tuned to UK driving conditions and fleet policies",
+    ],
+    competitors: [
+      "Lytx DriveCam",
+      "Samsara AI Dash Cams",
+      "Nexar Fleets",
+      "Geotab Video",
+      "SmartDrive (SmartDrive Systems)",
+    ],
+  },
+  {
+    slug: "helix-whatsapp-conversational-ai",
+    title: "Helix: Conversational AI Platform (WhatsApp + Web)",
+    shortTitle: "Helix",
+    category: "Artificial Intelligence",
+    tags: [
+      "Conversational AI",
+      "LangGraph",
+      "WhatsApp",
+      "Multi-agent",
+      "FastAPI",
+      "React",
+      "AWS",
+    ],
+    client: "Northline Labs",
+    industry: "Conversational AI / Consumer Productivity / Messaging Platforms",
+    year: 2026,
+    timelineWeeks: "Production deployment",
+    teamSize: 2,
+    status: "Live",
+    heroMetricLabel: "Connected integrations",
+    heroMetricValue: "50+",
+    shortDescription:
+      "WhatsApp-native AI assistant with six specialist agents, 50+ OAuth integrations, and a React control room, with multi-agent LangGraph, sub-100ms memory, and multi-provider LLMs.",
+    summary:
+      "Helix is a production-grade conversational AI assistant delivered through WhatsApp, backed by a React web portal. It handles finance, travel, reminders, collaborative boards, and connected apps, powered by multi-agent LangGraph with three-layer persistent memory and more than fifty integrations.",
+    challenge:
+      "Users needed a personal AI assistant accessible through WhatsApp, one that could remember past conversations, manage expenses, set reminders, book travel, and connect to Google apps without learning any new interface.\n\nConsumer chat apps are fragmented: switching between banking apps, calendars, and travel sites breaks flow. A single conversational surface had to feel instant, trustworthy on memory, and extensible enough to grow new capabilities without rebuilding the core stack each time a new SaaS needed wiring in.",
+    approach: [
+      {
+        icon: "Brain",
+        title: "Six domain-specific LangGraph agent subgraphs",
+        description:
+          "Finance, travel, reminders, boards, connected apps, and general each run as dedicated subgraphs so routing stays predictable, prompts stay scoped, and failures do not cascade across unrelated domains.",
+      },
+      {
+        icon: "Layers",
+        title: "Pluggable OAuth connector abstraction (50+ integrations)",
+        description:
+          "Shipped a connector abstraction so new SaaS integrations register through adapters without touching orchestration code, enabling the 50+ integration catalog to grow while the LangGraph core stays stable.",
+      },
+      {
+        icon: "Zap",
+        title: "Three-layer cognitive memory under 100ms",
+        description:
+          "Combined Qdrant vector recall, PostgreSQL entity graphs, and a Redis snapshot cache so recent context, durable facts, and hot working sets each land on the right store, targeting sub-100ms retrieval on the critical path.",
+      },
+      {
+        icon: "Code2",
+        title: "Multi-provider LLM factory and Langfuse observability",
+        description:
+          "Built a hot-swappable factory across Gemini, Groq, Claude, and OpenRouter for A/B routing and failover, with end-to-end traces in Langfuse so regressions are caught before they hit WhatsApp users.",
+      },
+    ],
+    techStack: [
+      "LangGraph",
+      "LangChain",
+      "Gemini",
+      "Groq",
+      "Claude",
+      "OpenRouter",
+      "Qdrant",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "React",
+      "WhatsApp Cloud API",
+      "Langfuse",
+      "Docker",
+      "AWS",
+    ],
+    architectureDescription:
+      "WhatsApp Cloud API → FastAPI gateway → LangGraph multi-agent router → Domain subgraphs → LLM provider factory (Gemini / Groq / Claude / OpenRouter) → 3-layer memory (Qdrant + PostgreSQL + Redis) → React 19 portal → Langfuse + Prometheus/Grafana on AWS (Docker)",
+    kpis: [
+      { value: "6", label: "AI Agents (domain subgraphs)" },
+      { value: "50+", label: "OAuth Integrations" },
+      { value: "<100ms", label: "Memory retrieval (target path)" },
+      { value: "4", label: "LLM Providers (hot-swappable)" },
+    ],
+    outcomes: [
+      "Full AWS deployment with Prometheus and Grafana for service-level observability",
+      "Sub-100ms memory retrieval across the three-layer cognitive architecture on tuned workloads",
+      "Production A/B testing of LLM providers with configuration-only swaps, with no redeploy for routing experiments",
+      "Flagship build demonstrating end-to-end conversational AI: WhatsApp channel, FastAPI services, LangGraph agents, durable memory, and a React analytics and boards portal",
+      "Multi-language voice path: Sarvam AI TTS for Indian languages and Google Cloud TTS for international locales",
+    ],
+    heroImage: "/images/case-studies/helix-whatsapp-ai-assistant.png",
+    heroImageCaption: "WhatsApp multi-agent assistant",
+    images: [
+      "/images/case-studies/helix-whatsapp-ai-assistant.png",
+      "/images/case-studies/helix-web-control-portal.png",
+      "/images/case-studies/helix-ai-platform-architecture.png",
+    ],
+    featured: false,
+    gradientFrom: "#14082a",
+    gradientTo: "#0a2344",
+    useCases: [
+      "Personal productivity: One WhatsApp thread for expenses, reminders, and travel instead of juggling five siloed apps",
+      "Finance hygiene: Natural-language logging and categorisation with a React portal for analytics when spreadsheets are overkill",
+      "Travel and calendar coordination: Agent subgraphs that reason over availability and confirmations with Google-connected context",
+      "Small teams: Collaborative boards plus shared memory patterns for lightweight coordination without adopting a full enterprise suite",
+    ],
+    competitors: [
+      "ChatGPT (mobile + voice)",
+      "Google Gemini app",
+      "Lindy.ai",
+      "Zapier AI Actions",
+      "Poe by Quora",
+      "WhatsApp Business API chatbots (rules-based)",
+    ],
+  },
+  {
+    slug: "apex-pipeline-agentic-crm",
+    title: "Apex Pipeline: AI-Powered CRM for Lead Generation & Outreach",
+    shortTitle: "Apex Pipeline",
+    category: "Enterprise",
+    tags: [
+      "Artificial Intelligence",
+      "Agentic AI",
+      "LangGraph",
+      "CRM",
+      "Sales",
+      "FastAPI",
+      "Lead generation",
+    ],
+    client: "Summit Forge Partners",
+    industry: "Enterprise SaaS / Agentic AI / Revenue Operations",
+    year: 2026,
+    timelineWeeks: "Production rollout",
+    teamSize: 5,
+    status: "Live",
+    heroMetricLabel: "Est. annual savings",
+    heroMetricValue: "$75K",
+    shortDescription:
+      "Six-agent LangGraph system that automates job-board discovery, lead qualification, and AI-written outreach, with human-in-the-loop approval and team RBAC.",
+    summary:
+      "Apex Pipeline is an intelligent, fully automated CRM platform that replaces manual job board browsing and outreach. It scrapes job postings around the clock from LinkedIn, Wellfound, and Y Combinator, processes them through six specialized AI agents, and delivers qualified leads with AI-written cold email drafts for business development review.",
+    challenge:
+      "Business development executives were spending hours daily manually browsing job boards, copy-pasting leads, and writing individual cold emails. The process was slow, inconsistent, and impossible to scale.\n\nPipeline coverage was uneven across territories, and leadership could not rely on spreadsheets or ad hoc notes to prove which sources produced revenue-ready conversations.",
+    approach: [
+      {
+        icon: "Layers",
+        title: "Always-on discovery and resilient crawling",
+        description:
+          "Operates 24/7 web crawlers against LinkedIn, Wellfound, and Y Combinator listings using Playwright and Crawl4AI, routed through rotating residential and datacenter proxies via Decodo and Bright Data to keep ingestion stable under rate limits.",
+      },
+      {
+        icon: "Brain",
+        title: "Six-agent LangGraph qualification pipeline",
+        description:
+          "LangGraph orchestrates JD Analyzer, Fit Scorer, LinkedIn Intel, Connection Agent, Contact Finder, and Email Writer subgraphs so each lead graduates through structured reasoning instead of a single monolithic prompt.",
+      },
+      {
+        icon: "Zap",
+        title: "Human-in-the-loop approval and follow-up automation",
+        description:
+          "BDMs review and approve email sequences before anything sends, while Celery-backed schedules drive automated follow-ups that pause automatically when a prospect replies, protecting sender reputation and compliance.",
+      },
+      {
+        icon: "Code2",
+        title: "RBAC, assignment, and operations-grade backend",
+        description:
+          "Role-based access control lets admins assign leads to pods with full visibility boundaries, backed by FastAPI services, PostgreSQL as the system of record, and Redis for hot queues and coordination across workers.",
+      },
+    ],
+    techStack: [
+      "LangGraph",
+      "LangChain",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Celery",
+      "Docker",
+      "Playwright",
+      "Crawl4AI",
+      "Bright Data",
+      "Decodo",
+    ],
+    architectureDescription:
+      "Playwright + Crawl4AI crawlers → Proxy mesh (Decodo + Bright Data) → FastAPI ingest APIs → LangGraph six-agent pipeline → PostgreSQL CRM records + Redis queues → Celery workers → BDM approval UI → Outbound email + follow-up scheduler",
+    kpis: [
+      { value: "6", label: "AI agents (LangGraph)" },
+      { value: "$75K", label: "Annual savings (replaced roles est.)" },
+      { value: "5-7", label: "Qualified leads / week" },
+      { value: "4-5h", label: "Manual hours saved / day / BDE" },
+    ],
+    outcomes: [
+      "Replaced roughly four to five hours of daily manual sourcing and drafting work per business development executive",
+      "Delivers five to seven qualified leads per week automatically once crawlers and agents are tuned to Ideal Customer Profile rules",
+      "Consolidated six BDE-equivalent workflows into the automated stack, with an estimated $75K annual run-rate savings on staffing mix",
+      "Provides consistent 24/7 lead discovery with zero manual job-board browsing for core sources",
+    ],
+    heroImage: "/images/case-studies/apex-pipeline-crm-dashboard.png",
+    heroImageCaption: "Agentic outbound CRM & leads",
+    images: [
+      "/images/case-studies/apex-pipeline-crm-dashboard.png",
+      "/images/case-studies/apex-pipeline-six-agents-flow.png",
+      "/images/case-studies/apex-pipeline-hitl-email-review.png",
+    ],
+    featured: false,
+    gradientFrom: "#0c1624",
+    gradientTo: "#1a2740",
+    useCases: [
+      "B2B outbound teams: Replace fragmented job-board tabs with one audited pipeline from scrape to approved send",
+      "Agency new business pods: Standardize qualification rubrics and email voice while rotating accounts safely",
+      "Startup GTM: Tap Wellfound and Y Combinator signals early without hiring a dedicated researcher for each list",
+      "Enterprise RevOps: Pair RBAC and assignment with savings reporting so leadership trusts automation volume",
+    ],
+    competitors: [
+      "Apollo.io",
+      "Outreach",
+      "Salesloft",
+      "Lemlist",
+      "ZoomInfo SalesOS",
+      "LinkedIn Sales Navigator (manual)",
+    ],
   },
 ];
 

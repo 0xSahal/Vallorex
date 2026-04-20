@@ -196,56 +196,59 @@ export default function CaseStudyDetailPage({
                     priority
                   />
                 </div>
+              ) : cs.heroVideo ? (
+                <div className="relative aspect-video w-full justify-self-center overflow-hidden rounded-2xl border border-white/10 shadow-xl">
+                  <video
+                    className="h-full w-full bg-black object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    aria-label={`${cs.shortTitle} product walkthrough`}
+                  >
+                    <source src={cs.heroVideo} type="video/mp4" />
+                  </video>
+                </div>
+              ) : cs.heroImage ? (
+                <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-xl ring-1 ring-white/5">
+                  <Image
+                    src={cs.heroImage}
+                    alt={`${cs.shortTitle}: case study hero preview`}
+                    fill
+                    className="object-cover object-center"
+                    sizes="(max-width: 1024px) 100vw, 560px"
+                    priority
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+                </div>
               ) : (
-                <div
-                  className={cn(
-                    "relative overflow-hidden rounded-2xl border border-white/10 shadow-xl",
-                    cs.heroVideo
-                      ? "aspect-video w-full justify-self-center"
-                      : "min-h-[280px] lg:min-h-[340px]",
-                  )}
-                >
-                  {cs.heroVideo ? (
-                    <video
-                      className="h-full w-full bg-black object-cover"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="auto"
-                      aria-label={`${cs.shortTitle} product walkthrough`}
-                    >
-                      <source src={cs.heroVideo} type="video/mp4" />
-                    </video>
-                  ) : (
-                    <>
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          background: `linear-gradient(135deg, ${cs.gradientFrom}, ${cs.gradientTo})`,
-                        }}
-                      />
-                      <CircuitPattern />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                <div className="relative min-h-[280px] overflow-hidden rounded-2xl border border-white/10 shadow-xl lg:min-h-[340px]">
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: `linear-gradient(135deg, ${cs.gradientFrom}, ${cs.gradientTo})`,
+                    }}
+                  />
+                  <CircuitPattern />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
-                      {cs.demoLink ? (
-                        <div className="absolute inset-x-0 bottom-0 flex justify-center p-6">
-                          <a
-                            href={cs.demoLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={cn(
-                              buttonVariants({ variant: "outline", size: "lg" }),
-                              "border-brand-orange bg-midnight/40 text-brand-orange backdrop-blur-sm hover:bg-brand-orange/10",
-                            )}
-                          >
-                            View Live Demo
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </a>
-                        </div>
-                      ) : null}
-                    </>
-                  )}
+                  {cs.demoLink ? (
+                    <div className="absolute inset-x-0 bottom-0 flex justify-center p-6">
+                      <a
+                        href={cs.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                          buttonVariants({ variant: "outline", size: "lg" }),
+                          "border-brand-orange bg-midnight/40 text-brand-orange backdrop-blur-sm hover:bg-brand-orange/10",
+                        )}
+                      >
+                        View Live Demo
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </a>
+                    </div>
+                  ) : null}
                 </div>
               )}
             </div>
