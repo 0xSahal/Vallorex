@@ -14,7 +14,7 @@ import {
   Landmark, TrendingUp, ShoppingBag, HeartPulse, Zap,
   Globe, Server, Lock, GitBranch, Terminal,
   BookOpen, Newspaper, Video, MessageSquare,
-  Users, Award, Briefcase, Phone,
+  Users, Briefcase, Phone,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
