@@ -38,16 +38,16 @@ export function Footer() {
             <h3 className="font-semibold text-lg mb-6 tracking-tight">Services</h3>
             <ul className="space-y-3 text-sm text-muted">
               <li>
-                <Link href="/services/ai" className="hover:text-white transition-colors">AI & Machine Learning</Link>
+                <Link href="/services/ai-engineering" className="hover:text-white transition-colors">AI Engineering</Link>
               </li>
               <li>
-                <Link href="/services/blockchain" className="hover:text-white transition-colors">Blockchain Dev</Link>
+                <Link href="/services/blockchain" className="hover:text-white transition-colors">Blockchain</Link>
               </li>
               <li>
-                <Link href="/services/security" className="hover:text-white transition-colors">Security Audits</Link>
+                <Link href="/services/smart-contract-audits" className="hover:text-white transition-colors">Smart Contract Audits</Link>
               </li>
               <li>
-                <Link href="/services/saas" className="hover:text-white transition-colors">Custom SaaS</Link>
+                <Link href="/services/product-engineering" className="hover:text-white transition-colors">Product Engineering</Link>
               </li>
             </ul>
           </div>
@@ -57,7 +57,7 @@ export function Footer() {
             <h3 className="font-semibold text-lg mb-6 tracking-tight">Company</h3>
             <ul className="space-y-3 text-sm text-muted">
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
+                <Link href="/company" className="hover:text-white transition-colors">About Us</Link>
               </li>
               <li>
                 <Link href="/industries" className="hover:text-white transition-colors">Industries</Link>

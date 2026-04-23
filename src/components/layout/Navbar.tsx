@@ -30,40 +30,40 @@ const servicesColumnsData: ServiceColumn[] = [
     heading: "AI Engineering",
     Icon: Brain,
     items: [
-      { label: "AI Strategy & Roadmap", desc: "Tailored AI transformation plans", href: "#" },
-      { label: "Custom LLM Development", desc: "Fine-tuned models for your domain", href: "#" },
-      { label: "AI Agents & Automation", desc: "Task-oriented autonomous agents", href: "#" },
-      { label: "ML Ops & Infrastructure", desc: "Scalable model deployment", href: "#" },
+      { label: "AI Strategy & Roadmap", desc: "Tailored AI transformation plans", href: "/services/ai-strategy-roadmap" },
+      { label: "Custom LLM Development", desc: "Fine-tuned models for your domain", href: "/services/custom-llm-development" },
+      { label: "AI Agents & Automation", desc: "Task-oriented autonomous agents", href: "/services/ai-agents-automation" },
+      { label: "ML Ops & Infrastructure", desc: "Scalable model deployment", href: "/services/ml-ops-infrastructure" },
     ],
   },
   {
     heading: "Blockchain",
     Icon: Layers,
     items: [
-      { label: "Smart Contract Development", desc: "Audited, gas-optimized contracts", href: "#" },
-      { label: "DeFi Protocol Design", desc: "DEX, lending & yield products", href: "#" },
-      { label: "Layer 2 & Rollups", desc: "High-throughput scaling solutions", href: "#" },
-      { label: "NFT & Token Engineering", desc: "ERC-20, ERC-721, and beyond", href: "#" },
+      { label: "Smart Contract Development", desc: "Audited, gas-optimized contracts", href: "/services/smart-contract-development" },
+      { label: "DeFi Protocol Design", desc: "DEX, lending & yield products", href: "/services/defi-protocol-design" },
+      { label: "Layer 2 & Rollups", desc: "High-throughput scaling solutions", href: "/services/layer2-rollups" },
+      { label: "NFT & Token Engineering", desc: "ERC-20, ERC-721, and beyond", href: "/services/nft-token-engineering" },
     ],
   },
   {
     heading: "Data & Analytics",
     Icon: BarChart3,
     items: [
-      { label: "Data Platform Engineering", desc: "ETL pipelines & warehousing", href: "#" },
-      { label: "Business Intelligence", desc: "Dashboards & real-time KPIs", href: "#" },
-      { label: "Predictive Analytics", desc: "Forecasting models at scale", href: "#" },
-      { label: "Cloud Data Migration", desc: "AWS, GCP & Azure experts", href: "#" },
+      { label: "Data Platform Engineering", desc: "ETL pipelines & warehousing", href: "/services/data-platform-engineering" },
+      { label: "Business Intelligence", desc: "Dashboards & real-time KPIs", href: "/services/business-intelligence" },
+      { label: "Predictive Analytics", desc: "Forecasting models at scale", href: "/services/predictive-analytics" },
+      { label: "Cloud Data Migration", desc: "AWS, GCP & Azure experts", href: "/services/cloud-data-migration" },
     ],
   },
   {
     heading: "Product Engineering",
     Icon: Code2,
     items: [
-      { label: "Full-Stack Development", desc: "React, Next.js, Node & more", href: "#" },
-      { label: "Mobile Applications", desc: "iOS, Android & cross-platform", href: "#" },
-      { label: "API & Integrations", desc: "Headless & microservices", href: "#" },
-      { label: "QA & Testing", desc: "Automated end-to-end coverage", href: "#" },
+      { label: "Full-Stack Development", desc: "React, Next.js, Node & more", href: "/services/full-stack-development" },
+      { label: "Mobile Applications", desc: "iOS, Android & cross-platform", href: "/services/mobile-applications" },
+      { label: "API & Integrations", desc: "Headless & microservices", href: "/services/api-integrations" },
+      { label: "QA & Testing", desc: "Automated end-to-end coverage", href: "/services/qa-testing" },
     ],
   },
 ];
@@ -86,30 +86,30 @@ const technologiesColumnsData: TechColumn[] = [
     heading: "AI & Machine Learning",
     Icon: Globe,
     items: [
-      { label: "OpenAI / GPT-4o", desc: "Agents, copilots & RAG pipelines", href: "#" },
-      { label: "LangChain & LlamaIndex", desc: "LLM orchestration frameworks", href: "#" },
-      { label: "Hugging Face", desc: "Open-source model fine-tuning", href: "#" },
-      { label: "TensorFlow / PyTorch", desc: "Custom model training at scale", href: "#" },
+      { label: "OpenAI / GPT-4o", desc: "Agents, copilots & RAG pipelines", href: "/technologies" },
+      { label: "LangChain & LlamaIndex", desc: "LLM orchestration frameworks", href: "/technologies" },
+      { label: "Hugging Face", desc: "Open-source model fine-tuning", href: "/technologies" },
+      { label: "TensorFlow / PyTorch", desc: "Custom model training at scale", href: "/technologies" },
     ],
   },
   {
     heading: "Blockchain Stack",
     Icon: Layers,
     items: [
-      { label: "Ethereum & EVM Chains", desc: "Solidity smart contracts & DApps", href: "#" },
-      { label: "Solana & Rust", desc: "High-performance on-chain programs", href: "#" },
-      { label: "Cosmos & Polkadot", desc: "Cross-chain interoperability", href: "#" },
-      { label: "Hardhat / Foundry", desc: "Contract testing & deployment", href: "#" },
+      { label: "Ethereum & EVM Chains", desc: "Solidity smart contracts & DApps", href: "/technologies" },
+      { label: "Solana & Rust", desc: "High-performance on-chain programs", href: "/technologies" },
+      { label: "Cosmos & Polkadot", desc: "Cross-chain interoperability", href: "/technologies" },
+      { label: "Hardhat / Foundry", desc: "Contract testing & deployment", href: "/technologies" },
     ],
   },
   {
     heading: "Cloud & DevOps",
     Icon: Server,
     items: [
-      { label: "AWS / GCP / Azure", desc: "Multi-cloud architecture", href: "#" },
-      { label: "Kubernetes & Docker", desc: "Container orchestration", href: "#" },
-      { label: "Terraform & Pulumi", desc: "Infrastructure as code", href: "#" },
-      { label: "CI/CD Pipelines", desc: "GitHub Actions, ArgoCD", href: "#" },
+      { label: "AWS / GCP / Azure", desc: "Multi-cloud architecture", href: "/technologies" },
+      { label: "Kubernetes & Docker", desc: "Container orchestration", href: "/technologies" },
+      { label: "Terraform & Pulumi", desc: "Infrastructure as code", href: "/technologies" },
+      { label: "CI/CD Pipelines", desc: "GitHub Actions, ArgoCD", href: "/technologies" },
     ],
   },
 ];
@@ -117,19 +117,19 @@ const technologiesColumnsData: TechColumn[] = [
 type ResourceCardItem = { Icon: LucideIcon; label: string; desc: string; href: string; tag: string };
 
 const resourcesCardsData: ResourceCardItem[] = [
-  { Icon: Newspaper, label: "Blog & Insights", desc: "Deep technical articles, industry trends, and engineering best practices written by our senior team.", href: "#", tag: "New articles weekly" },
-  { Icon: BookOpen, label: "Whitepapers", desc: "Download in-depth research on AI adoption, blockchain scalability, and emerging tech for enterprise.", href: "#", tag: "Free downloads" },
-  { Icon: Video, label: "Webinars & Events", desc: "Join live sessions with our engineers and thought leaders - or watch past talks on demand.", href: "#", tag: "Live & on-demand" },
-  { Icon: MessageSquare, label: "AI Readiness Audit", desc: "A complimentary 1-hour review with a senior Vallorex engineer to map your AI transformation starting point.", href: "#", tag: "Free for enterprises" },
+  { Icon: Newspaper, label: "Blog & Insights", desc: "Deep technical articles, industry trends, and engineering best practices written by our senior team.", href: "/resources", tag: "New articles weekly" },
+  { Icon: BookOpen, label: "Whitepapers", desc: "Download in-depth research on AI adoption, blockchain scalability, and emerging tech for enterprise.", href: "/resources", tag: "Free downloads" },
+  { Icon: Video, label: "Webinars & Events", desc: "Join live sessions with our engineers and thought leaders - or watch past talks on demand.", href: "/resources", tag: "Live & on-demand" },
+  { Icon: MessageSquare, label: "AI Readiness Audit", desc: "A complimentary 1-hour review with a senior Vallorex engineer to map your AI transformation starting point.", href: "/contact?tab=booking", tag: "Free for enterprises" },
 ];
 
 const resourcesBlogPostsData: { title: string; date: string; href: string }[] = [
-  { title: "How GPT-4o Is Reshaping Enterprise Workflows in 2025", date: "Mar 28, 2025", href: "#" },
-  { title: "On-Chain Identity: Building Verifiable Credential Systems", date: "Mar 15, 2025", href: "#" },
-  { title: "Why Your RAG Pipeline Is Leaking Revenue", date: "Mar 2, 2025", href: "#" },
+  { title: "How GPT-4o Is Reshaping Enterprise Workflows in 2025", date: "Mar 28, 2025", href: "/resources" },
+  { title: "On-Chain Identity: Building Verifiable Credential Systems", date: "Mar 15, 2025", href: "/resources" },
+  { title: "Why Your RAG Pipeline Is Leaking Revenue", date: "Mar 2, 2025", href: "/resources" },
 ];
 
-const resourcesViewAllArticles = { label: "View all articles", href: "#" };
+const resourcesViewAllArticles = { label: "View all articles", href: "/resources" };
 
 type CompanyMegaItem = { Icon: LucideIcon; label: string; desc: string; href: string; tag?: string };
 
@@ -141,7 +141,7 @@ const companyMegaItemsData: CompanyMegaItem[] = [
 ];
 
 const companyPartnerCta = {
-  href: "#" as const,
+  href: "/contact" as const,
   eyebrow: "Partner With Us",
   title: "Join our growing network of AI and Blockchain ventures.",
   linkLabel: "Start a conversation",
@@ -181,7 +181,7 @@ const megaMenus: Record<string, React.ReactNode> = {
           <span className="text-[10px] font-bold tracking-widest text-brand-blue uppercase">Flagship Service</span>
           <p className="text-base font-bold leading-snug">AI + Blockchain: The New Stack of Business</p>
           <p className="text-xs text-[#94A3B8] leading-relaxed">Most agencies pick one. We master both. See how our converged stack compresses time-to-market.</p>
-          <Link href="#" className="inline-flex items-center text-xs font-semibold text-brand-blue hover:underline mt-1">
+          <Link href="/services" className="inline-flex items-center text-xs font-semibold text-brand-blue hover:underline mt-1">
             See Our Approach <ArrowRight className="ml-1 h-3 w-3" />
           </Link>
         </div>
@@ -190,7 +190,7 @@ const megaMenus: Record<string, React.ReactNode> = {
           <div>
             <p className="text-sm font-bold text-midnight">Free Technical Audit</p>
             <p className="text-xs text-muted mt-0.5 leading-relaxed">Get a senior engineer to review your current architecture - no strings attached.</p>
-            <Link href="#" className="text-xs font-semibold text-brand-orange hover:underline flex items-center mt-2">
+            <Link href="/contact?tab=booking" className="text-xs font-semibold text-brand-orange hover:underline flex items-center mt-2">
               Book yours <ArrowRight className="ml-1 h-3 w-3" />
             </Link>
           </div>
