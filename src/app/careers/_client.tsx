@@ -25,6 +25,7 @@ import {
   GraduationCap,
   Sparkles,
   Rocket,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -396,6 +397,14 @@ function ApplicationModal({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  type ApplyField =
+    | "fullName"
+    | "email"
+    | "phone"
+    | "linkedin"
+    | "portfolio"
+    | "resume";
+
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -407,12 +416,134 @@ function ApplicationModal({
   });
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<ApplyField, string>>>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const fullNameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const linkedinRef = useRef<HTMLInputElement>(null);
+  const portfolioRef = useRef<HTMLInputElement>(null);
+  const resumeBlockRef = useRef<HTMLDivElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const clearFieldError = (key: ApplyField) => {
+    setFieldErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
+  };
+
+  const validateApply = (): Partial<Record<ApplyField, string>> => {
+    const errors: Partial<Record<ApplyField, string>> = {};
+
+    const fullName = formData.fullName.trim();
+    if (!fullName) errors.fullName = "Please enter your full name";
+
+    const email = formData.email.trim();
+    if (!email) errors.email = "Please enter your email address";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "Please enter a valid email address";
+
+    const phoneRaw = formData.phone.trim();
+    if (!phoneRaw) {
+      errors.phone = "Please enter your phone number";
+    } else {
+      if (!/^\d{10}$/.test(phoneRaw)) {
+        errors.phone = "Please enter a valid 10-digit phone number";
+      }
+    }
+
+    const linkedIn = formData.linkedin.trim();
+    if (linkedIn) {
+      if (!/^https?:\/\//i.test(linkedIn) || !linkedIn.includes("linkedin.com/in/")) {
+        errors.linkedin = "Please enter a valid LinkedIn URL (e.g. https://linkedin.com/in/yourname)";
+      }
+    }
+
+    const portfolio = formData.portfolio.trim();
+    if (portfolio) {
+      if (!/^https?:\/\//i.test(portfolio)) {
+        errors.portfolio = "Please enter a valid URL starting with https://";
+      }
+    }
+
+    if (!resumeFile) {
+      errors.resume = "Please upload your CV or resume";
+    } else {
+      const name = resumeFile.name || "";
+      const ext = name.split(".").pop()?.toLowerCase() || "";
+      if (!["pdf", "doc", "docx"].includes(ext)) {
+        errors.resume = "Only PDF, DOC, or DOCX files are accepted";
+      } else if (resumeFile.size > 10 * 1024 * 1024) {
+        errors.resume = "File size must be under 10MB";
+      }
+    }
+
+    return errors;
+  };
+
+  const scrollToFirstError = (errors: Partial<Record<ApplyField, string>>) => {
+    const order: ApplyField[] = ["fullName", "email", "phone", "linkedin", "portfolio", "resume"];
+    const first = order.find((k) => Boolean(errors[k]));
+    if (!first) return;
+
+    const map: Record<ApplyField, React.RefObject<HTMLElement>> = {
+      fullName: fullNameRef,
+      email: emailRef,
+      phone: phoneRef,
+      linkedin: linkedinRef,
+      portfolio: portfolioRef,
+      resume: resumeBlockRef,
+    } as const;
+
+    const el = map[first].current;
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el instanceof HTMLSelectElement) {
+      el.focus();
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In Step 2, this will call an API route to send emails
-    setSubmitted(true);
+    if (isSubmitting) return;
+
+    if (!job) {
+      return;
+    }
+
+    const errors = validateApply();
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      scrollToFirstError(errors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const fd = new FormData();
+      fd.append("fullName", formData.fullName);
+      fd.append("email", formData.email);
+      fd.append("phone", formData.phone);
+      fd.append("linkedIn", formData.linkedin);
+      fd.append("portfolio", formData.portfolio);
+      fd.append("coverLetter", formData.coverLetter);
+      fd.append("source", formData.howHeard);
+      fd.append("jobTitle", job.title);
+      if (resumeFile) {
+        fd.append("resume", resumeFile, resumeFile.name);
+      }
+
+      const res = await fetch("/api/apply", { method: "POST", body: fd });
+      const data = (await res.json().catch(() => ({}))) as { success?: boolean; error?: string };
+
+      if (!res.ok || !data?.success) {
+        window.alert(data?.error || "Unable to submit application. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
+      window.alert("Unable to submit application. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -481,7 +612,7 @@ function ApplicationModal({
               </div>
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="p-8 space-y-5">
+              <form onSubmit={handleSubmit} noValidate className="p-8 space-y-5">
                 {/* Name & Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -489,26 +620,46 @@ function ApplicationModal({
                       Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
+                      ref={fullNameRef}
                       type="text"
-                      required
                       value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      onChange={(e) => {
+                        clearFieldError("fullName");
+                        setFormData({ ...formData, fullName: e.target.value });
+                      }}
                       placeholder="John Doe"
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
+                      className={`w-full rounded-xl border px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all ${
+                        fieldErrors.fullName
+                          ? "border-red-300 focus:ring-red-200 focus:border-red-400"
+                          : "border-slate-200 focus:ring-brand-blue/30 focus:border-brand-blue"
+                      }`}
                     />
+                    {fieldErrors.fullName ? (
+                      <p className="mt-1 text-xs text-red-600">{fieldErrors.fullName}</p>
+                    ) : null}
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-midnight mb-1.5">
                       Email Address <span className="text-red-500">*</span>
                     </label>
                     <input
+                      ref={emailRef}
                       type="email"
-                      required
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) => {
+                        clearFieldError("email");
+                        setFormData({ ...formData, email: e.target.value });
+                      }}
                       placeholder="john@example.com"
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
+                      className={`w-full rounded-xl border px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all ${
+                        fieldErrors.email
+                          ? "border-red-300 focus:ring-red-200 focus:border-red-400"
+                          : "border-slate-200 focus:ring-brand-blue/30 focus:border-brand-blue"
+                      }`}
                     />
+                    {fieldErrors.email ? (
+                      <p className="mt-1 text-xs text-red-600">{fieldErrors.email}</p>
+                    ) : null}
                   </div>
                 </div>
 
@@ -516,27 +667,53 @@ function ApplicationModal({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-midnight mb-1.5">
-                      Phone Number
+                      Phone Number <span className="text-red-500">*</span>
                     </label>
                     <input
+                      ref={phoneRef}
                       type="tel"
+                      inputMode="numeric"
+                      pattern="\d{10}"
+                      maxLength={10}
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={(e) => {
+                        clearFieldError("phone");
+                        const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 10);
+                        setFormData({ ...formData, phone: digitsOnly });
+                      }}
                       placeholder="+1 (555) 000-0000"
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
+                      className={`w-full rounded-xl border px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all ${
+                        fieldErrors.phone
+                          ? "border-red-300 focus:ring-red-200 focus:border-red-400"
+                          : "border-slate-200 focus:ring-brand-blue/30 focus:border-brand-blue"
+                      }`}
                     />
+                    {fieldErrors.phone ? (
+                      <p className="mt-1 text-xs text-red-600">{fieldErrors.phone}</p>
+                    ) : null}
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-midnight mb-1.5">
                       LinkedIn Profile
                     </label>
                     <input
+                      ref={linkedinRef}
                       type="url"
                       value={formData.linkedin}
-                      onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
+                      onChange={(e) => {
+                        clearFieldError("linkedin");
+                        setFormData({ ...formData, linkedin: e.target.value });
+                      }}
                       placeholder="linkedin.com/in/johndoe"
-                      className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
+                      className={`w-full rounded-xl border px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all ${
+                        fieldErrors.linkedin
+                          ? "border-red-300 focus:ring-red-200 focus:border-red-400"
+                          : "border-slate-200 focus:ring-brand-blue/30 focus:border-brand-blue"
+                      }`}
                     />
+                    {fieldErrors.linkedin ? (
+                      <p className="mt-1 text-xs text-red-600">{fieldErrors.linkedin}</p>
+                    ) : null}
                   </div>
                 </div>
 
@@ -546,31 +723,46 @@ function ApplicationModal({
                     Portfolio / GitHub URL
                   </label>
                   <input
+                    ref={portfolioRef}
                     type="url"
                     value={formData.portfolio}
-                    onChange={(e) => setFormData({ ...formData, portfolio: e.target.value })}
+                    onChange={(e) => {
+                      clearFieldError("portfolio");
+                      setFormData({ ...formData, portfolio: e.target.value });
+                    }}
                     placeholder="github.com/johndoe"
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
+                    className={`w-full rounded-xl border px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all ${
+                      fieldErrors.portfolio
+                        ? "border-red-300 focus:ring-red-200 focus:border-red-400"
+                        : "border-slate-200 focus:ring-brand-blue/30 focus:border-brand-blue"
+                    }`}
                   />
+                  {fieldErrors.portfolio ? (
+                    <p className="mt-1 text-xs text-red-600">{fieldErrors.portfolio}</p>
+                  ) : null}
                 </div>
 
                 {/* Resume Upload */}
-                <div>
+                <div ref={resumeBlockRef}>
                   <label className="block text-sm font-semibold text-midnight mb-1.5">
                     Resume / CV <span className="text-red-500">*</span>
                   </label>
                   <input
                     ref={fileInputRef}
                     type="file"
-                    required
                     accept=".pdf,.doc,.docx"
-                    onChange={(e) => setResumeFile(e.target.files?.[0] || null)}
+                    onChange={(e) => {
+                      clearFieldError("resume");
+                      setResumeFile(e.target.files?.[0] || null);
+                    }}
                     className="hidden"
                   />
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="w-full rounded-xl border-2 border-dashed border-slate-200 hover:border-brand-blue/40 px-4 py-6 text-center transition-all group"
+                    className={`w-full rounded-xl border-2 border-dashed px-4 py-6 text-center transition-all group ${
+                      fieldErrors.resume ? "border-red-300" : "border-slate-200 hover:border-brand-blue/40"
+                    }`}
                   >
                     {resumeFile ? (
                       <div className="flex items-center justify-center gap-2">
@@ -578,7 +770,12 @@ function ApplicationModal({
                         <span className="text-sm font-medium text-midnight">{resumeFile.name}</span>
                         <button
                           type="button"
-                          onClick={(e) => { e.stopPropagation(); setResumeFile(null); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            clearFieldError("resume");
+                            setResumeFile(null);
+                            if (fileInputRef.current) fileInputRef.current.value = "";
+                          }}
                           className="text-muted hover:text-red-500 transition-colors"
                         >
                           <X className="w-4 h-4" />
@@ -594,6 +791,9 @@ function ApplicationModal({
                       </div>
                     )}
                   </button>
+                  {fieldErrors.resume ? (
+                    <p className="mt-1 text-xs text-red-600">{fieldErrors.resume}</p>
+                  ) : null}
                 </div>
 
                 {/* Cover Letter */}
@@ -635,10 +835,20 @@ function ApplicationModal({
                 <div className="pt-2">
                   <Button
                     type="submit"
+                    disabled={isSubmitting}
                     className="w-full bg-brand-orange hover:bg-[#E06612] text-white rounded-full h-12 text-sm font-bold shadow-lg shadow-brand-orange/20 transition-all hover:scale-[1.01] active:scale-95"
                   >
-                    Submit Application
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        Submit Application
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </>
+                    )}
                   </Button>
                   <p className="text-xs text-center text-muted mt-3">
                     By submitting, you agree to our privacy policy and consent to Vallorex processing your data for recruitment purposes.
