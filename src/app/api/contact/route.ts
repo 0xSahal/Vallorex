@@ -68,7 +68,6 @@ export async function POST(req: Request) {
   if (!fullName) errors.name = "Full Name is required.";
   if (!workEmail) errors.email = "Work Email is required.";
   if (workEmail && !isValidEmail(workEmail)) errors.email = "Please enter a valid email address.";
-  if (!projectDetails) errors.message = "Project Details is required.";
 
   if (Object.keys(errors).length > 0) {
     return NextResponse.json({ ok: false, errors }, { status: 400 });

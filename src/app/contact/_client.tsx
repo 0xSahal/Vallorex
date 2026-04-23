@@ -47,7 +47,11 @@ const fadeUp: Variants = {
 
 type ContactTab = "message" | "booking";
 
-type FieldErrors = Partial<Record<"name" | "email" | "message", string>>;
+type FieldErrors = Partial<Record<"name" | "email" | "phone" | "message", string>>;
+
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 export default function ContactPageClient() {
   const searchParams = useSearchParams();
@@ -72,10 +76,48 @@ export default function ContactPageClient() {
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [serverError, setServerError] = useState<string | null>(null);
 
+  const scrollToFirstError = (errors: FieldErrors) => {
+    const order: Array<keyof FieldErrors> = ["name", "email", "phone", "message"];
+    const first = order.find((k) => Boolean(errors[k]));
+    if (!first) return;
+    const el = document.querySelector<HTMLElement>(`[data-field="${String(first)}"]`);
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement || el instanceof HTMLSelectElement) {
+      el.focus();
+    }
+  };
+
+  const validateMessageForm = (): FieldErrors => {
+    const errors: FieldErrors = {};
+
+    const name = msgForm.name.trim();
+    if (!name) errors.name = "Please enter your full name";
+
+    const email = msgForm.email.trim();
+    if (!email) errors.email = "Please enter your email address";
+    else if (!isValidEmail(email)) errors.email = "Please enter a valid email address";
+
+    const phone = msgForm.phone.trim();
+    if (phone) {
+      if (!/^\d{10}$/.test(phone)) {
+        errors.phone = "Please enter a valid 10-digit phone number";
+      }
+    }
+
+    return errors;
+  };
+
   const handleMessageSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setServerError(null);
-    setFieldErrors({});
+    const errors = validateMessageForm();
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      scrollToFirstError(errors);
+      return;
+    }
     setIsSubmitting(true);
 
     try {
@@ -308,13 +350,21 @@ export default function ContactPageClient() {
                               <input
                                 type="text"
                                 required
+                                data-field="name"
                                 value={msgForm.name}
-                                onChange={(e) => setMsgForm({ ...msgForm, name: e.target.value })}
+                                onChange={(e) => {
+                                  setFieldErrors((prev) => (prev.name ? { ...prev, name: undefined } : prev));
+                                  setMsgForm({ ...msgForm, name: e.target.value });
+                                }}
                                 placeholder="John Doe"
-                                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
+                                className={`w-full rounded-xl border px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all ${
+                                  fieldErrors.name
+                                    ? "border-red-300 focus:ring-red-200 focus:border-red-400"
+                                    : "border-slate-200 focus:ring-brand-blue/30 focus:border-brand-blue"
+                                }`}
                               />
                               {fieldErrors.name ? (
-                                <p className="mt-1 text-xs font-medium text-red-600">{fieldErrors.name}</p>
+                                <p className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>
                               ) : null}
                             </div>
                             <div>
@@ -324,13 +374,21 @@ export default function ContactPageClient() {
                               <input
                                 type="email"
                                 required
+                                data-field="email"
                                 value={msgForm.email}
-                                onChange={(e) => setMsgForm({ ...msgForm, email: e.target.value })}
+                                onChange={(e) => {
+                                  setFieldErrors((prev) => (prev.email ? { ...prev, email: undefined } : prev));
+                                  setMsgForm({ ...msgForm, email: e.target.value });
+                                }}
                                 placeholder="john@company.com"
-                                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
+                                className={`w-full rounded-xl border px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all ${
+                                  fieldErrors.email
+                                    ? "border-red-300 focus:ring-red-200 focus:border-red-400"
+                                    : "border-slate-200 focus:ring-brand-blue/30 focus:border-brand-blue"
+                                }`}
                               />
                               {fieldErrors.email ? (
-                                <p className="mt-1 text-xs font-medium text-red-600">{fieldErrors.email}</p>
+                                <p className="mt-1 text-xs text-red-600">{fieldErrors.email}</p>
                               ) : null}
                             </div>
                           </div>
@@ -354,11 +412,26 @@ export default function ContactPageClient() {
                               </label>
                               <input
                                 type="tel"
+                                inputMode="numeric"
+                                pattern="\d{10}"
+                                maxLength={10}
+                                data-field="phone"
                                 value={msgForm.phone}
-                                onChange={(e) => setMsgForm({ ...msgForm, phone: e.target.value })}
+                                onChange={(e) => {
+                                  setFieldErrors((prev) => (prev.phone ? { ...prev, phone: undefined } : prev));
+                                  const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 10);
+                                  setMsgForm({ ...msgForm, phone: digitsOnly });
+                                }}
                                 placeholder="+1 (555) 000-0000"
-                                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all"
+                                className={`w-full rounded-xl border px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all ${
+                                  fieldErrors.phone
+                                    ? "border-red-300 focus:ring-red-200 focus:border-red-400"
+                                    : "border-slate-200 focus:ring-brand-blue/30 focus:border-brand-blue"
+                                }`}
                               />
+                              {fieldErrors.phone ? (
+                                <p className="mt-1 text-xs text-red-600">{fieldErrors.phone}</p>
+                              ) : null}
                             </div>
                           </div>
 
@@ -415,18 +488,25 @@ export default function ContactPageClient() {
 
                           <div>
                             <label className="block text-sm font-semibold text-midnight mb-1.5">
-                              Project Details <span className="text-red-500">*</span>
+                              Project Details
                             </label>
                             <textarea
                               rows={5}
-                              required
+                              data-field="message"
                               value={msgForm.message}
-                              onChange={(e) => setMsgForm({ ...msgForm, message: e.target.value })}
+                              onChange={(e) => {
+                                setFieldErrors((prev) => (prev.message ? { ...prev, message: undefined } : prev));
+                                setMsgForm({ ...msgForm, message: e.target.value });
+                              }}
                               placeholder="Tell us about your project, challenges, and goals. The more detail, the better our initial assessment..."
-                              className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-blue/30 focus:border-brand-blue transition-all resize-none"
+                              className={`w-full rounded-xl border px-4 py-3 text-sm text-midnight placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all resize-none ${
+                                fieldErrors.message
+                                  ? "border-red-300 focus:ring-red-200 focus:border-red-400"
+                                  : "border-slate-200 focus:ring-brand-blue/30 focus:border-brand-blue"
+                              }`}
                             />
                             {fieldErrors.message ? (
-                              <p className="mt-1 text-xs font-medium text-red-600">{fieldErrors.message}</p>
+                              <p className="mt-1 text-xs text-red-600">{fieldErrors.message}</p>
                             ) : null}
                           </div>
 
