@@ -184,7 +184,7 @@ export default function ContactPageClient() {
           >
             {[
               { icon: Mail, label: "Email Us", value: "hello@vallorex.com", href: "mailto:hello@vallorex.com", color: "#2563EB" },
-              { icon: Clock, label: "Response Time", value: "Mon-Fri, 10AM-7PM IST", href: "#", color: "#10B981" },
+              { icon: Clock, label: "Response Time", value: "Mon-Fri, 10AM-7PM IST", href: "/contact", color: "#10B981" },
             ].map((item) => (
               <motion.a
                 key={item.label}
