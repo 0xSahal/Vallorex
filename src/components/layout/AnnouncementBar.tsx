@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { ArrowRight, X } from "lucide-react";
+import { useAuditModal } from "@/context/AuditModalContext";
 
 export function AnnouncementBar() {
   const [isVisible, setIsVisible] = useState(true);
+  const { openAuditModal } = useAuditModal();
 
   useEffect(() => {
     const dismissed = sessionStorage.getItem("announcementDismissed");
@@ -47,13 +48,13 @@ export function AnnouncementBar() {
               <X className="h-4 w-4" />
             </button>
           </div>
-          <Link href="/contact" className={`${claimLinkClass} w-fit`}>
+          <button type="button" onClick={openAuditModal} className={`${claimLinkClass} w-fit`}>
             <span className="whitespace-nowrap">Claim your free audit</span>
             <ArrowRight
               className="hidden h-3.5 w-3.5 shrink-0 sm:block transition-transform group-hover:translate-x-0.5"
               aria-hidden
             />
-          </Link>
+          </button>
         </div>
 
         {/* Laptop+: centered row (unchanged) */}
@@ -65,13 +66,13 @@ export function AnnouncementBar() {
             <p className="text-center text-sm leading-normal text-white/90">
               Vallorex now offers a complimentary AI Readiness Audit for enterprise teams.
             </p>
-            <Link href="/contact" className={`${claimLinkClass}`}>
+            <button type="button" onClick={openAuditModal} className={`${claimLinkClass}`}>
               <span className="whitespace-nowrap">Claim your free audit</span>
               <ArrowRight
                 className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:translate-x-0.5"
                 aria-hidden
               />
-            </Link>
+            </button>
           </div>
           <button
             type="button"

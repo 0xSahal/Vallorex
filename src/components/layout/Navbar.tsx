@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useAuditModal } from "@/context/AuditModalContext";
 
 // ─── Shared nav data (desktop mega menus + mobile accordions) ───────────────
 
@@ -71,12 +72,12 @@ const servicesColumnsData: ServiceColumn[] = [
 type IndustryItem = { icon: LucideIcon; label: string; desc: string; href: string };
 
 const industriesItemsData: IndustryItem[] = [
-  { icon: Landmark, label: "Banking & Finance", desc: "Credit automation, KYC pipelines, and trading infrastructure for modern banks.", href: "/industries" },
-  { icon: TrendingUp, label: "FinTech & Crypto", desc: "Wallets, DEXs, on/off-ramp solutions, and compliant token economies.", href: "/industries" },
-  { icon: ShoppingBag, label: "eCommerce & Retail", desc: "AI-driven recommendations, inventory ops, and headless commerce stacks.", href: "/industries" },
-  { icon: HeartPulse, label: "HealthTech", desc: "HIPAA-compliant data platforms, medical AI, and telehealth engineering.", href: "/industries" },
-  { icon: Zap, label: "Energy & Sustainability", desc: "IoT data pipelines, carbon credit tokenization, and grid analytics.", href: "/industries" },
-  { icon: Building2, label: "Enterprise & SaaS", desc: "Scalable B2B platforms, AI copilots, and multi-tenant architectures.", href: "/industries" },
+  { icon: Landmark, label: "Banking & Finance", desc: "Credit automation, KYC pipelines, and trading infrastructure for modern banks.", href: "/industries#banking-finance" },
+  { icon: TrendingUp, label: "FinTech & Crypto", desc: "Wallets, DEXs, on/off-ramp solutions, and compliant token economies.", href: "/industries#fintech-crypto" },
+  { icon: ShoppingBag, label: "eCommerce & Retail", desc: "AI-driven recommendations, inventory ops, and headless commerce stacks.", href: "/industries#ecommerce-retail" },
+  { icon: HeartPulse, label: "HealthTech", desc: "HIPAA-compliant data platforms, medical AI, and telehealth engineering.", href: "/industries#healthtech" },
+  { icon: Zap, label: "Energy & Sustainability", desc: "IoT data pipelines, carbon credit tokenization, and grid analytics.", href: "/industries#energy-sustainability" },
+  { icon: Building2, label: "Enterprise & SaaS", desc: "Scalable B2B platforms, AI copilots, and multi-tenant architectures.", href: "/industries#enterprise-saas" },
 ];
 
 type TechColumn = { heading: string; Icon: LucideIcon; items: MegaLink[] };
@@ -114,13 +115,20 @@ const technologiesColumnsData: TechColumn[] = [
   },
 ];
 
-type ResourceCardItem = { Icon: LucideIcon; label: string; desc: string; href: string; tag: string };
+type ResourceCardItem = {
+  Icon: LucideIcon;
+  label: string;
+  desc: string;
+  href?: string;
+  tag: string;
+  action?: "open-audit-modal";
+};
 
 const resourcesCardsData: ResourceCardItem[] = [
   { Icon: Newspaper, label: "Blog & Insights", desc: "Deep technical articles, industry trends, and engineering best practices written by our senior team.", href: "/resources", tag: "New articles weekly" },
   { Icon: BookOpen, label: "Whitepapers", desc: "Download in-depth research on AI adoption, blockchain scalability, and emerging tech for enterprise.", href: "/resources", tag: "Free downloads" },
   { Icon: Video, label: "Webinars & Events", desc: "Join live sessions with our engineers and thought leaders - or watch past talks on demand.", href: "/resources", tag: "Live & on-demand" },
-  { Icon: MessageSquare, label: "AI Readiness Audit", desc: "A complimentary 1-hour review with a senior Vallorex engineer to map your AI transformation starting point.", href: "/contact?tab=booking", tag: "Free for enterprises" },
+  { Icon: MessageSquare, label: "AI Readiness Audit", desc: "A complimentary 1-hour review with a senior Vallorex engineer to map your AI transformation starting point.", tag: "Free for enterprises", action: "open-audit-modal" },
 ];
 
 const resourcesBlogPostsData: { title: string; date: string; href: string }[] = [
@@ -149,7 +157,8 @@ const companyPartnerCta = {
 
 // ─── Mega Menu Data ──────────────────────────────────────────────────────────
 
-const megaMenus: Record<string, React.ReactNode> = {
+function buildMegaMenus(openAuditModal: () => void): Record<string, React.ReactNode> {
+  return {
 
   /** SERVICES ──────────────────────────────────────────── */
   services: (
@@ -190,9 +199,9 @@ const megaMenus: Record<string, React.ReactNode> = {
           <div>
             <p className="text-sm font-bold text-midnight">Free Technical Audit</p>
             <p className="text-xs text-muted mt-0.5 leading-relaxed">Get a senior engineer to review your current architecture - no strings attached.</p>
-            <Link href="/contact?tab=booking" className="text-xs font-semibold text-brand-orange hover:underline flex items-center mt-2">
+            <button type="button" onClick={openAuditModal} className="text-xs font-semibold text-brand-orange hover:underline flex items-center mt-2">
               Book yours <ArrowRight className="ml-1 h-3 w-3" />
-            </Link>
+            </button>
           </div>
         </div>
         <div className="flex items-center gap-2 px-1">
@@ -296,8 +305,9 @@ const megaMenus: Record<string, React.ReactNode> = {
       <div className="col-span-8 grid grid-cols-2 gap-4 pr-10 border-r border-slate-100">
         {resourcesCardsData.map((item) => {
           const CardIcon = item.Icon;
-          return (
-            <Link key={item.label} href={item.href} className="group flex items-start gap-4 rounded-xl p-4 hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all">
+
+          const content = (
+            <>
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-brand-blue/8 text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition-all flex-shrink-0">
                 <CardIcon className="h-5 w-5" />
               </div>
@@ -308,6 +318,29 @@ const megaMenus: Record<string, React.ReactNode> = {
                 </div>
                 <p className="text-xs text-muted leading-relaxed">{item.desc}</p>
               </div>
+            </>
+          );
+
+          if (item.action === "open-audit-modal") {
+            return (
+              <button
+                key={item.label}
+                type="button"
+                onClick={openAuditModal}
+                className="group flex w-full items-start gap-4 rounded-xl p-4 hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all text-left"
+              >
+                {content}
+              </button>
+            );
+          }
+
+          return (
+            <Link
+              key={item.label}
+              href={item.href || "/resources"}
+              className="group flex items-start gap-4 rounded-xl p-4 hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all"
+            >
+              {content}
             </Link>
           );
         })}
@@ -372,7 +405,8 @@ const megaMenus: Record<string, React.ReactNode> = {
       </div>
     </div>
   ),
-};
+  };
+}
 
 const menuKey = (name: string) => name.toLowerCase().replace(/ /g, "-");
 
@@ -390,6 +424,8 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAccordionKey, setMobileAccordionKey] = useState<string | null>(null);
   const pathname = usePathname();
+  const { openAuditModal } = useAuditModal();
+  const megaMenus = useMemo(() => buildMegaMenus(openAuditModal), [openAuditModal]);
   const mobileDrawerRef = useRef<HTMLElement | null>(null);
   const lastActiveElementRef = useRef<HTMLElement | null>(null);
 
@@ -728,7 +764,10 @@ export function Navbar() {
                       subItems = mobileTechnologiesItems.map((i) => ({ label: i.label, href: i.href }));
                     } else if (key === "resources") {
                       subItems = [
-                        ...resourcesCardsData.map((i) => ({ label: i.label, href: i.href })),
+                        ...resourcesCardsData.map((i) => ({
+                          label: i.label,
+                          href: i.action === "open-audit-modal" ? "" : i.href || "/resources",
+                        })),
                         ...resourcesBlogPostsData.map((p) => ({ label: p.title, href: p.href })),
                         { label: resourcesViewAllArticles.label, href: resourcesViewAllArticles.href },
                       ];
@@ -775,16 +814,34 @@ export function Navbar() {
                         >
                           {open && (
                             <div className="pl-6 border-l-2 border-orange-500 ml-4 mb-2">
-                              {subItems.map((item) => (
-                                <Link
-                                  key={`${key}:${item.label}`}
-                                  href={item.href}
-                                  {...linkClosesMenu}
-                                  className="block py-2 text-sm text-gray-600 hover:text-gray-900"
-                                >
-                                  {item.label}
-                                </Link>
-                              ))}
+                              {subItems.map((item) => {
+                                const isAudit = key === "resources" && item.label === "AI Readiness Audit";
+                                if (isAudit) {
+                                  return (
+                                    <button
+                                      key={`${key}:${item.label}`}
+                                      type="button"
+                                      onClick={() => {
+                                        openAuditModal();
+                                        closeMobileMenu();
+                                      }}
+                                      className="block w-full py-2 text-left text-sm text-gray-600 hover:text-gray-900"
+                                    >
+                                      {item.label}
+                                    </button>
+                                  );
+                                }
+                                return (
+                                  <Link
+                                    key={`${key}:${item.label}`}
+                                    href={item.href}
+                                    {...linkClosesMenu}
+                                    className="block py-2 text-sm text-gray-600 hover:text-gray-900"
+                                  >
+                                    {item.label}
+                                  </Link>
+                                );
+                              })}
                             </div>
                           )}
                         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   motion,
   Variants,
@@ -14,10 +14,11 @@ import {
   ShieldCheck,
   Compass,
   Landmark,
-  Globe2,
   HeartPulse,
-  Factory,
-  Truck,
+  TrendingUp,
+  ShoppingBag,
+  Zap,
+  Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -100,9 +101,9 @@ interface Industry {
 
 const industries: Industry[] = [
   {
-    id: "fintech",
+    id: "banking-finance",
     icon: <Landmark className="w-6 h-6" />,
-    label: "Fintech & Payments",
+    label: "Banking & Finance",
     labelColor: "text-brand-orange",
     accentColor: "#F97316",
     accentBg: "bg-orange-50",
@@ -123,9 +124,9 @@ const industries: Industry[] = [
     glowColor: "rgba(249,115,22,0.15)",
   },
   {
-    id: "defi",
-    icon: <Globe2 className="w-6 h-6" />,
-    label: "DeFi & Web3",
+    id: "fintech-crypto",
+    icon: <TrendingUp className="w-6 h-6" />,
+    label: "FinTech & Crypto",
     labelColor: "text-brand-orange",
     accentColor: "#F97316",
     accentBg: "bg-orange-50",
@@ -143,9 +144,32 @@ const industries: Industry[] = [
     glowColor: "rgba(6,182,212,0.12)",
   },
   {
-    id: "health",
+    id: "ecommerce-retail",
+    icon: <ShoppingBag className="w-6 h-6" />,
+    label: "eCommerce & Retail",
+    labelColor: "text-brand-blue",
+    accentColor: "#2563EB",
+    accentBg: "bg-blue-50",
+    heading: "Customer Experiences That Convert",
+    description:
+      "From high-performance storefronts to inventory intelligence and personalization, we build commerce platforms that scale through spikes and deliver measurable lift in conversion.",
+    features: [
+      { number: "01", label: "Personalization & Search" },
+      { number: "02", label: "Inventory & Order Ops" },
+    ],
+    featureStyle: "numbered",
+    ctaLabel: "See Commerce Case Studies",
+    ctaHref: "/case-studies",
+    imagePosition: "right",
+    darkBg: false,
+    gradient:
+      "radial-gradient(ellipse at 40% 70%, rgba(37,99,235,0.25) 0%, transparent 50%), radial-gradient(ellipse at 70% 20%, rgba(249,115,22,0.18) 0%, transparent 55%), linear-gradient(135deg, #0B1220 0%, #020617 100%)",
+    glowColor: "rgba(37,99,235,0.12)",
+  },
+  {
+    id: "healthtech",
     icon: <HeartPulse className="w-6 h-6" />,
-    label: "Healthcare & MedTech",
+    label: "HealthTech",
     labelColor: "text-brand-blue",
     accentColor: "#2563EB",
     accentBg: "bg-blue-50",
@@ -172,9 +196,33 @@ const industries: Industry[] = [
     glowColor: "rgba(6,182,212,0.12)",
   },
   {
-    id: "enterprise",
-    icon: <Factory className="w-6 h-6" />,
-    label: "Enterprise Automation",
+    id: "energy-sustainability",
+    icon: <Zap className="w-6 h-6" />,
+    label: "Energy & Sustainability",
+    labelColor: "text-teal-600",
+    accentColor: "#0D9488",
+    accentBg: "bg-teal-50",
+    heading: "Data Systems for a Decarbonizing World",
+    description:
+      "We engineer IoT pipelines, analytics layers, and optimization systems that help energy and sustainability teams measure, predict, and act with confidence.",
+    features: [
+      { label: "IoT Data Pipelines" },
+      { label: "Grid & Demand Analytics" },
+      { label: "Carbon Accounting" },
+    ],
+    featureStyle: "tag",
+    ctaLabel: "See Energy Case Studies",
+    ctaHref: "/case-studies",
+    imagePosition: "left",
+    darkBg: false,
+    gradient:
+      "radial-gradient(ellipse at 35% 65%, rgba(20,184,166,0.28) 0%, transparent 55%), radial-gradient(ellipse at 70% 25%, rgba(37,99,235,0.12) 0%, transparent 55%), linear-gradient(135deg, #031B18 0%, #0B1220 100%)",
+    glowColor: "rgba(20,184,166,0.12)",
+  },
+  {
+    id: "enterprise-saas",
+    icon: <Building2 className="w-6 h-6" />,
+    label: "Enterprise & SaaS",
     labelColor: "text-teal-600",
     accentColor: "#0D9488",
     accentBg: "bg-teal-50",
@@ -193,26 +241,6 @@ const industries: Industry[] = [
     gradient:
       "radial-gradient(ellipse at 40% 60%, rgba(94,234,212,0.3) 0%, transparent 50%), linear-gradient(135deg, #134E4A 0%, #115E59 40%, #0D9488 100%)",
     glowColor: "rgba(20,184,166,0.12)",
-  },
-  {
-    id: "logistics",
-    icon: <Truck className="w-6 h-6" />,
-    label: "Logistics & Supply Chain",
-    labelColor: "text-brand-blue",
-    accentColor: "#2563EB",
-    accentBg: "bg-blue-50",
-    heading: "Predictive Intelligence for Global Scale",
-    description:
-      "Turn volatility into a competitive advantage with real-time route optimization and demand forecasting models that scale across continents.",
-    features: [],
-    featureStyle: "tag",
-    ctaLabel: "See Logistics Case Studies",
-    ctaHref: "/case-studies",
-    imagePosition: "left",
-    darkBg: false,
-    gradient:
-      "radial-gradient(ellipse at 50% 50%, rgba(34,211,238,0.3) 0%, transparent 45%), radial-gradient(ellipse at 20% 20%, rgba(37,99,235,0.2) 0%, transparent 50%), linear-gradient(135deg, #0C4A6E 0%, #0F172A 100%)",
-    glowColor: "rgba(34,211,238,0.12)",
   },
 ];
 
@@ -543,7 +571,7 @@ function IndustrySection({
 
   return (
     <section
-      className={`relative w-full overflow-hidden ${
+      className={`industry-section relative w-full overflow-hidden ${
         isDark ? "bg-[#0B0F19]" : index % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"
       }`}
     >
@@ -606,6 +634,29 @@ function IndustryNav() {
 /* ──────────────────────────── Main Page ────────────────────────────────────── */
 
 export default function IndustriesPageClient() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+
+    const id = decodeURIComponent(hash.slice(1));
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const NAVBAR_HEIGHT_PX = 88;
+    const EXTRA_GAP_PX = 12;
+
+    const scroll = () => {
+      const top = el.getBoundingClientRect().top + window.scrollY - (NAVBAR_HEIGHT_PX + EXTRA_GAP_PX);
+      window.scrollTo({ top, behavior: "smooth" });
+    };
+
+    // Wait for layout/fonts to settle a bit before measuring.
+    requestAnimationFrame(() => {
+      window.setTimeout(scroll, 50);
+    });
+  }, []);
+
   return (
     <div className="bg-white relative overflow-hidden">
       {/* ─── Hero ─── */}
