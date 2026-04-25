@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+.industry-section {
+  scroll-margin-top: 100px;
+}
+
 @layer base {
   :root {
     --brand-blue: #2563EB;
