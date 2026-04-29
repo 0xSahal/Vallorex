@@ -13,14 +13,12 @@ import {
   ChevronRight,
   Search,
   FileText,
-  Mic,
   Lightbulb,
   TrendingUp,
   Shield,
   Brain,
   Layers,
   Zap,
-  ExternalLink,
   Play,
   ShieldCheck,
 } from "lucide-react";
@@ -126,32 +124,7 @@ const topicPillars = [
   },
 ];
 
-const upcomingEvents = [
-  {
-    type: "Webinar",
-    title: "Building Production-Grade AI Agents",
-    date: "Apr 15, 2025",
-    time: "2:00 PM EST",
-    speaker: "Dr. Arjun Mehta",
-    spotsLeft: 34,
-  },
-  {
-    type: "Workshop",
-    title: "Smart Contract Security Masterclass",
-    date: "Apr 22, 2025",
-    time: "11:00 AM EST",
-    speaker: "Elena Volkov",
-    spotsLeft: 12,
-  },
-  {
-    type: "Panel",
-    title: "The Future of DeFi: Regulatory Clarity & Institutional Adoption",
-    date: "May 6, 2025",
-    time: "3:00 PM EST",
-    speaker: "Multiple Speakers",
-    spotsLeft: 89,
-  },
-];
+
 
 function FeaturedArticle({ article }: { article: Article }) {
   const href = article.slug ? `/blog/${article.slug}` : "#";
@@ -706,189 +679,9 @@ export default function ResourcesPageClient({
         </div>
       </section>
 
-      <section className="py-20 md:py-24 bg-[#FAFAFA] border-y border-slate-200/60">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              variants={staggerContainer}
-              className="lg:col-span-5 flex flex-col items-start"
-            >
-              <motion.span
-                variants={fadeUp}
-                className="text-[10px] font-bold tracking-[0.2em] text-brand-blue uppercase block mb-3"
-              >
-                Upcoming
-              </motion.span>
-              <motion.h2
-                variants={fadeUp}
-                className="text-3xl sm:text-4xl md:text-[44px] font-extrabold text-midnight tracking-tight leading-[1.1] mb-6"
-              >
-                Events & <br />
-                Webinars
-              </motion.h2>
-              <motion.p
-                variants={fadeUp}
-                className="text-[15px] text-muted leading-relaxed mb-8 max-w-md"
-              >
-                Join live sessions with our senior engineers and industry thought leaders. Deep
-                technical content, not marketing fluff.
-              </motion.p>
-              <motion.div variants={fadeUp}>
-                <Link
-                  href="#"
-                  className="inline-flex items-center text-sm font-bold text-brand-orange hover:text-[#E06612] transition-colors group"
-                >
-                  View All Events
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
-            </motion.div>
 
-            <div className="lg:col-span-7 flex flex-col gap-5">
-              {upcomingEvents.map((event, i) => (
-                <motion.div
-                  key={event.title}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.5, delay: i * 0.12, ease: "easeOut" }}
-                  className="group relative bg-white rounded-xl border border-slate-200/80 overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-300"
-                >
-                  <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-brand-blue group-hover:bg-brand-orange transition-colors duration-300" />
-                  <div className="px-8 py-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
-                    <div className="flex-shrink-0">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-brand-blue bg-brand-blue/10 rounded-full px-2.5 py-0.5">
-                          {event.type}
-                        </span>
-                        <span className="text-xs text-muted">{event.spotsLeft} spots left</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-muted">
-                        <Calendar className="w-3.5 h-3.5" />
-                        <span className="font-medium">{event.date}</span>
-                        <span className="w-1 h-1 rounded-full bg-slate-300" />
-                        <span>{event.time}</span>
-                      </div>
-                    </div>
 
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-[17px] font-bold text-midnight mb-1 group-hover:text-brand-blue transition-colors leading-snug">
-                        {event.title}
-                      </h3>
-                      <p className="text-xs text-muted">
-                        <Mic className="w-3 h-3 inline mr-1" />
-                        {event.speaker}
-                      </p>
-                    </div>
 
-                    <Link
-                      href="#"
-                      className="flex-shrink-0 inline-flex items-center gap-2 rounded-full bg-brand-blue/5 text-brand-blue px-4 py-2 text-xs font-bold hover:bg-brand-blue hover:text-white transition-all duration-300"
-                    >
-                      Register
-                      <ExternalLink className="w-3 h-3" />
-                    </Link>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative py-24 md:py-32 bg-[#0B0F19] overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-brand-blue/8 blur-[150px] rounded-full pointer-events-none" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-orange/5 blur-[120px] rounded-full pointer-events-none" />
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px] relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-            >
-              <motion.span
-                variants={fadeUp}
-                className="text-[10px] font-bold tracking-[0.2em] text-brand-blue uppercase block mb-4"
-              >
-                Stay Ahead
-              </motion.span>
-              <motion.h2
-                variants={fadeUp}
-                className="text-3xl sm:text-4xl md:text-[48px] font-extrabold text-white tracking-tight leading-[1.1] mb-6"
-              >
-                The Engineering <br />
-                Edge Newsletter
-              </motion.h2>
-              <motion.p
-                variants={fadeUp}
-                className="text-base text-[#94A3B8] leading-relaxed max-w-md mb-4"
-              >
-                A bi-weekly digest of curated insights on AI breakthroughs, blockchain innovations,
-                and engineering leadership - trusted by 5,000+ CTOs and technical leaders.
-              </motion.p>
-              <motion.div
-                variants={fadeUp}
-                className="flex flex-wrap items-center gap-4 text-xs text-[#64748B]"
-              >
-                {["No spam, ever", "Unsubscribe anytime", "Free forever"].map((item) => (
-                  <span key={item} className="flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-brand-blue" />
-                    {item}
-                  </span>
-                ))}
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="w-full max-w-md lg:ml-auto"
-            >
-              <div className="rounded-2xl bg-white/[0.04] border border-white/10 p-8 backdrop-blur-sm">
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-white/60 mb-2 uppercase tracking-wider">
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="John Doe"
-                      className="w-full px-4 py-3 rounded-lg bg-white/[0.06] border border-white/10 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue/30 transition-all"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-white/60 mb-2 uppercase tracking-wider">
-                      Work Email
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="john@company.com"
-                      className="w-full px-4 py-3 rounded-lg bg-white/[0.06] border border-white/10 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue/30 transition-all"
-                    />
-                  </div>
-                  <Button className="w-full rounded-lg bg-brand-orange hover:bg-[#E06612] text-white h-12 text-sm font-bold shadow-lg shadow-brand-orange/20 transition-all hover:scale-[1.02] active:scale-95 mt-2">
-                    Subscribe to Newsletter
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
-                <p className="text-[11px] text-white/30 mt-4 leading-relaxed">
-                  Join 5,000+ engineering leaders. We respect your inbox - only the most impactful
-                  content, twice a month.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
       <section className="relative py-32 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0">

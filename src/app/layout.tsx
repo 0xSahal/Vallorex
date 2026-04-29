@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { AuditModalProvider } from "@/context/AuditModalContext";
+import { NavbarLatestPosts } from "@/components/layout/NavbarLatestPosts";
 
 export const dynamic = "force-static";
 export const revalidate = false;
@@ -55,7 +56,7 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased bg-white text-midnight min-h-screen flex flex-col`}>
         <AuditModalProvider>
           <AnnouncementBar />
-          <Navbar />
+          <Navbar latestPosts={<NavbarLatestPosts />} />
           <main className="flex-1 flex flex-col relative w-full overflow-hidden">
             {children}
           </main>
