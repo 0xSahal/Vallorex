@@ -6,7 +6,6 @@ import {
   ArrowRight,
   BookOpen,
   Newspaper,
-  Video,
   Download,
   Clock,
   Calendar,
@@ -19,7 +18,6 @@ import {
   Brain,
   Layers,
   Zap,
-  Play,
   ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -43,7 +41,7 @@ const fadeUp: Variants = {
   },
 };
 
-type ResourceCategory = "all" | "blog" | "whitepaper" | "webinar" | "guide";
+type ResourceCategory = "all" | "blog" | "whitepaper" | "guide";
 
 interface Article {
   category: ResourceCategory;
@@ -67,7 +65,6 @@ const categories: { id: ResourceCategory; label: string; icon: React.ReactNode }
   { id: "all", label: "All Blog Posts", icon: <Lightbulb className="w-4 h-4" /> },
   { id: "blog", label: "Blog & Insights", icon: <Newspaper className="w-4 h-4" /> },
   { id: "whitepaper", label: "Whitepapers", icon: <FileText className="w-4 h-4" /> },
-  { id: "webinar", label: "Webinars", icon: <Video className="w-4 h-4" /> },
   { id: "guide", label: "Guides", icon: <BookOpen className="w-4 h-4" /> },
 ];
 
@@ -215,7 +212,6 @@ function FeaturedArticle({ article }: { article: Article }) {
 }
 
 function ResourceCard({ article, index }: { article: Article; index: number }) {
-  const isWebinar = article.category === "webinar";
   const isWhitepaper = article.category === "whitepaper";
   const href = article.slug ? `/blog/${article.slug}` : "#";
 
@@ -239,13 +235,7 @@ function ResourceCard({ article, index }: { article: Article; index: number }) {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-white to-slate-50" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-        {isWebinar && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-              <Play className="w-5 h-5 text-brand-blue ml-0.5" />
-            </div>
-          </div>
-        )}
+
         {isWhitepaper && (
           <div className="absolute top-4 right-4">
             <div className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-sm">
@@ -303,7 +293,7 @@ function ResourceCard({ article, index }: { article: Article; index: number }) {
             href={href}
             className="flex items-center text-xs font-bold text-brand-blue hover:text-blue-700 transition-colors group/link"
           >
-            {isWhitepaper ? "Download" : isWebinar ? "Watch" : "Read"}
+            {isWhitepaper ? "Download" : "Read"}
             <ChevronRight
               className="ml-0.5 h-3.5 w-3.5 group-hover/link:translate-x-0.5 transition-transform"
               strokeWidth={3}

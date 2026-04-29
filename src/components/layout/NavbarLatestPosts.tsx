@@ -4,7 +4,7 @@ import client from "@/lib/sanity";
 
 export async function NavbarLatestPosts() {
   const posts = await client.fetch<Array<{ title: string; slug: { current: string }; publishedAt: string }>>(
-    `*[_type == "post"] | order(publishedAt desc)[0...3] { title, slug, publishedAt }`,
+    `*[_type == "post"] | order(publishedAt desc, _createdAt desc)[0...3] { title, slug, publishedAt }`,
     {},
     { next: { revalidate: 60 } }
   );
