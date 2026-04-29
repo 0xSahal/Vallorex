@@ -13,7 +13,7 @@ import {
   Layers, Brain, Code2, Rocket, Building2,
   Landmark, TrendingUp, ShoppingBag, HeartPulse, Zap,
   Globe, Server, Lock, GitBranch, Terminal,
-  BookOpen, Newspaper, Video, MessageSquare,
+  BookOpen, Newspaper, MessageSquare,
   Users, Briefcase, Phone,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
