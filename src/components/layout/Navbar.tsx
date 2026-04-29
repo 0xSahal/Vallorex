@@ -125,19 +125,19 @@ type ResourceCardItem = {
 };
 
 const resourcesCardsData: ResourceCardItem[] = [
-  { Icon: Newspaper, label: "Blog & Insights", desc: "Deep technical articles, industry trends, and engineering best practices written by our senior team.", href: "/resources", tag: "New articles weekly" },
-  { Icon: BookOpen, label: "Whitepapers", desc: "Download in-depth research on AI adoption, blockchain scalability, and emerging tech for enterprise.", href: "/resources", tag: "Free downloads" },
-  { Icon: Video, label: "Webinars & Events", desc: "Join live sessions with our engineers and thought leaders - or watch past talks on demand.", href: "/resources", tag: "Live & on-demand" },
+  { Icon: Newspaper, label: "Blog & Insights", desc: "Deep technical articles, industry trends, and engineering best practices written by our senior team.", href: "/blog", tag: "New articles weekly" },
+  { Icon: BookOpen, label: "Whitepapers", desc: "Download in-depth research on AI adoption, blockchain scalability, and emerging tech for enterprise.", href: "/blog", tag: "Free downloads" },
+  { Icon: Video, label: "Webinars & Events", desc: "Join live sessions with our engineers and thought leaders - or watch past talks on demand.", href: "/blog", tag: "Live & on-demand" },
   { Icon: MessageSquare, label: "AI Readiness Audit", desc: "A complimentary 1-hour review with a senior Vallorex engineer to map your AI transformation starting point.", tag: "Free for enterprises", action: "open-audit-modal" },
 ];
 
 const resourcesBlogPostsData: { title: string; date: string; href: string }[] = [
-  { title: "How GPT-4o Is Reshaping Enterprise Workflows in 2025", date: "Mar 28, 2025", href: "/resources" },
-  { title: "On-Chain Identity: Building Verifiable Credential Systems", date: "Mar 15, 2025", href: "/resources" },
-  { title: "Why Your RAG Pipeline Is Leaking Revenue", date: "Mar 2, 2025", href: "/resources" },
+  { title: "How GPT-4o Is Reshaping Enterprise Workflows in 2025", date: "Mar 28, 2025", href: "/blog" },
+  { title: "On-Chain Identity: Building Verifiable Credential Systems", date: "Mar 15, 2025", href: "/blog" },
+  { title: "Why Your RAG Pipeline Is Leaking Revenue", date: "Mar 2, 2025", href: "/blog" },
 ];
 
-const resourcesViewAllArticles = { label: "View all articles", href: "/resources" };
+const resourcesViewAllArticles = { label: "View all articles", href: "/blog" };
 
 type CompanyMegaItem = { Icon: LucideIcon; label: string; desc: string; href: string; tag?: string };
 
@@ -299,8 +299,8 @@ function buildMegaMenus(openAuditModal: () => void): Record<string, React.ReactN
     </div>
   ),
 
-  /** RESOURCES ─────────────────────────────────────────── */
-  resources: (
+  /** BLOG ─────────────────────────────────────────── */
+  blog: (
     <div className="grid grid-cols-12 py-8 gap-0 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
       <div className="col-span-8 grid grid-cols-2 gap-4 pr-10 border-r border-slate-100">
         {resourcesCardsData.map((item) => {
@@ -337,7 +337,7 @@ function buildMegaMenus(openAuditModal: () => void): Record<string, React.ReactN
           return (
             <Link
               key={item.label}
-              href={item.href || "/resources"}
+              href={item.href || "/blog"}
               className="group flex items-start gap-4 rounded-xl p-4 hover:bg-slate-50 border border-transparent hover:border-slate-200 transition-all"
             >
               {content}
@@ -544,7 +544,7 @@ export function Navbar() {
     { name: "Industries", hasDropdown: true, mobileAccordion: true as const },
     { name: "Technologies", hasDropdown: true, mobileAccordion: true as const },
     { name: "Case Studies", hasDropdown: false, mobileAccordion: false as const },
-    { name: "Resources", hasDropdown: true, mobileAccordion: true as const },
+    { name: "Blog", hasDropdown: true, mobileAccordion: true as const },
     { name: "Company", hasDropdown: true, mobileAccordion: true as const },
   ];
 
@@ -762,11 +762,11 @@ export function Navbar() {
                       subItems = industriesItemsData.map((i) => ({ label: i.label, href: i.href }));
                     } else if (key === "technologies") {
                       subItems = mobileTechnologiesItems.map((i) => ({ label: i.label, href: i.href }));
-                    } else if (key === "resources") {
+                    } else if (key === "blog") {
                       subItems = [
                         ...resourcesCardsData.map((i) => ({
                           label: i.label,
-                          href: i.action === "open-audit-modal" ? "" : i.href || "/resources",
+                          href: i.action === "open-audit-modal" ? "" : i.href || "/blog",
                         })),
                         ...resourcesBlogPostsData.map((p) => ({ label: p.title, href: p.href })),
                         { label: resourcesViewAllArticles.label, href: resourcesViewAllArticles.href },
@@ -815,7 +815,7 @@ export function Navbar() {
                           {open && (
                             <div className="pl-6 border-l-2 border-orange-500 ml-4 mb-2">
                               {subItems.map((item) => {
-                                const isAudit = key === "resources" && item.label === "AI Readiness Audit";
+                                const isAudit = key === "blog" && item.label === "AI Readiness Audit";
                                 if (isAudit) {
                                   return (
                                     <button

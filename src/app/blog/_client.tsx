@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { urlFor, type BlogPostListItem } from "@/lib/sanity";
 
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
@@ -44,8 +45,6 @@ const fadeUp: Variants = {
   },
 };
 
-/* ──────────────────────────── Data ──────────────────────────────────────────── */
-
 type ResourceCategory = "all" | "blog" | "whitepaper" | "webinar" | "guide";
 
 interface Article {
@@ -63,193 +62,66 @@ interface Article {
   };
   featured?: boolean;
   image: string;
+  slug?: string;
 }
 
 const categories: { id: ResourceCategory; label: string; icon: React.ReactNode }[] = [
-  { id: "all", label: "All Resources", icon: <Lightbulb className="w-4 h-4" /> },
+  { id: "all", label: "All Blog Posts", icon: <Lightbulb className="w-4 h-4" /> },
   { id: "blog", label: "Blog & Insights", icon: <Newspaper className="w-4 h-4" /> },
   { id: "whitepaper", label: "Whitepapers", icon: <FileText className="w-4 h-4" /> },
   { id: "webinar", label: "Webinars", icon: <Video className="w-4 h-4" /> },
   { id: "guide", label: "Guides", icon: <BookOpen className="w-4 h-4" /> },
 ];
 
-const articles: Article[] = [
-  {
-    category: "blog",
-    tag: "AI Engineering",
-    tagColor: "#F97316",
-    title: "How GPT-4o Is Reshaping Enterprise Workflows in 2025",
-    description:
-      "A deep dive into how the latest multimodal models are transforming everything from customer support to internal knowledge management at Fortune 500 companies.",
-    readTime: "8 min read",
-    date: "Mar 28, 2025",
-    author: {
-      name: "Dr. Arjun Mehta",
-      role: "Head of AI Research",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop",
-    },
-    featured: true,
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "blog",
-    tag: "Web3 Security",
-    tagColor: "#2563EB",
-    title: "On-Chain Identity: Building Verifiable Credential Systems",
-    description:
-      "How decentralized identity protocols are replacing fragile OAuth flows with cryptographically verifiable, user-owned credentials.",
-    readTime: "12 min read",
-    date: "Mar 15, 2025",
-    author: {
-      name: "Elena Volkov",
-      role: "Blockchain Architect",
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop",
-    },
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "blog",
-    tag: "Data Engineering",
-    tagColor: "#0D9488",
-    title: "Why Your RAG Pipeline Is Leaking Revenue",
-    description:
-      "Most Retrieval-Augmented Generation implementations suffer from embedding drift and context poisoning. Here's how to fix it.",
-    readTime: "6 min read",
-    date: "Mar 2, 2025",
-    author: {
-      name: "Marcus Reed",
-      role: "Senior ML Engineer",
-      avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop",
-    },
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "whitepaper",
-    tag: "AI Strategy",
-    tagColor: "#8B5CF6",
-    title: "The Enterprise AI Adoption Playbook: From POC to Production",
-    description:
-      "A comprehensive 40-page guide covering organizational readiness, model selection, MLOps, and measuring ROI for enterprise AI initiatives.",
-    readTime: "40 pages",
-    date: "Feb 20, 2025",
-    author: {
-      name: "Sarah Jenkins",
-      role: "VP of Engineering",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop",
-    },
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "whitepaper",
-    tag: "Blockchain",
-    tagColor: "#2563EB",
-    title: "Smart Contract Security: The Definitive Audit Checklist",
-    description:
-      "Our internal audit methodology distilled into a practical checklist covering reentrancy, oracle manipulation, flash loan attacks, and 20+ more vectors.",
-    readTime: "28 pages",
-    date: "Feb 5, 2025",
-    author: {
-      name: "Elena Volkov",
-      role: "Blockchain Architect",
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop",
-    },
-    image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "webinar",
-    tag: "Live Event",
-    tagColor: "#DC2626",
-    title: "Building Production-Grade AI Agents: Lessons from 50+ Deployments",
-    description:
-      "Join our head of AI as he walks through real-world architectures for autonomous AI agents, covering memory, tool use, and guardrails.",
-    readTime: "60 min",
-    date: "Apr 15, 2025",
-    author: {
-      name: "Dr. Arjun Mehta",
-      role: "Head of AI Research",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop",
-    },
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "webinar",
-    tag: "On-Demand",
-    tagColor: "#F97316",
-    title: "Zero-Knowledge Proofs Demystified: From Theory to Solidity",
-    description:
-      "A recorded masterclass on implementing ZK circuits for privacy-preserving identity verification and confidential transactions.",
-    readTime: "45 min",
-    date: "Jan 22, 2025",
-    author: {
-      name: "Carlos Rivera",
-      role: "Protocol Engineer",
-      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop",
-    },
-    image: "https://images.unsplash.com/photo-1591115765373-5f9cf1da241c?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "guide",
-    tag: "Step-by-Step",
-    tagColor: "#0D9488",
-    title: "The CTO's Guide to Evaluating AI Vendors",
-    description:
-      "A framework for technical leaders to assess AI service providers - covering model benchmarks, SLAs, IP ownership, and hidden costs.",
-    readTime: "15 min read",
-    date: "Jan 10, 2025",
-    author: {
-      name: "Sarah Jenkins",
-      role: "VP of Engineering",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop",
-    },
-    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
-  },
-  {
-    category: "guide",
-    tag: "Technical",
-    tagColor: "#2563EB",
-    title: "Migrating from Monolith to Microservices: A Battle-Tested Playbook",
-    description:
-      "Real patterns from 20+ enterprise migrations - including the Strangler Fig pattern, data decomposition, and observability setup.",
-    readTime: "20 min read",
-    date: "Dec 18, 2024",
-    author: {
-      name: "Priya Mishra",
-      role: "Platform Architect",
-      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop",
-    },
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
-  },
-];
+const staticArticles: Article[] = [];
+
+function formatListDate(date?: string) {
+  if (!date) {
+    return "Coming soon";
+  }
+
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function estimateReadTime(excerpt?: string) {
+  const words = excerpt?.trim().split(/\s+/).filter(Boolean).length ?? 0;
+  const minutes = Math.max(2, Math.round(words / 200));
+  return `${minutes} min read`;
+}
 
 const topicPillars = [
   {
     icon: <Brain className="w-6 h-6" />,
     label: "AI & Machine Learning",
-    count: "24 resources",
+    count: "24 posts",
     color: "#F97316",
   },
   {
     icon: <Layers className="w-6 h-6" />,
     label: "Blockchain & Web3",
-    count: "18 resources",
+    count: "18 posts",
     color: "#2563EB",
   },
   {
     icon: <Shield className="w-6 h-6" />,
     label: "Security & Compliance",
-    count: "12 resources",
+    count: "12 posts",
     color: "#8B5CF6",
   },
   {
     icon: <TrendingUp className="w-6 h-6" />,
     label: "Engineering Leadership",
-    count: "15 resources",
+    count: "15 posts",
     color: "#0D9488",
   },
   {
     icon: <Zap className="w-6 h-6" />,
     label: "DevOps & Infrastructure",
-    count: "10 resources",
+    count: "10 posts",
     color: "#DC2626",
   },
 ];
@@ -281,9 +153,9 @@ const upcomingEvents = [
   },
 ];
 
-/* ──────────────────────────── Components ──────────────────────────────────── */
-
 function FeaturedArticle({ article }: { article: Article }) {
+  const href = article.slug ? `/blog/${article.slug}` : "#";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 32 }}
@@ -293,11 +165,15 @@ function FeaturedArticle({ article }: { article: Article }) {
       className="group relative grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-[0_4px_24px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_60px_rgb(0,0,0,0.08)] transition-all duration-500"
     >
       <div className="relative h-[280px] lg:h-auto min-h-[380px] overflow-hidden">
-        <img
-          src={article.image}
-          alt={article.title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
+        {article.image ? (
+          <img
+            src={article.image}
+            alt={article.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-white to-slate-50" />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
         <div className="absolute top-5 left-5">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-sm px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider shadow-sm">
@@ -329,11 +205,17 @@ function FeaturedArticle({ article }: { article: Article }) {
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img
-              src={article.author.avatar}
-              alt={article.author.name}
-              className="w-10 h-10 rounded-full object-cover shadow-sm bg-slate-100"
-            />
+            {article.author.avatar ? (
+              <img
+                src={article.author.avatar}
+                alt={article.author.name}
+                className="w-10 h-10 rounded-full object-cover shadow-sm bg-slate-100"
+              />
+            ) : (
+              <div className="w-10 h-10 rounded-full bg-slate-100 shadow-sm flex items-center justify-center text-sm font-bold text-midnight">
+                {article.author.name.slice(0, 1).toUpperCase()}
+              </div>
+            )}
             <div>
               <p className="text-sm font-bold text-midnight">{article.author.name}</p>
               <p className="text-xs text-muted">{article.author.role}</p>
@@ -347,7 +229,7 @@ function FeaturedArticle({ article }: { article: Article }) {
 
         <div className="mt-8">
           <Link
-            href="#"
+            href={href}
             className="inline-flex items-center text-sm font-bold text-brand-blue hover:text-blue-700 transition-colors group/link"
           >
             Read Article
@@ -362,6 +244,7 @@ function FeaturedArticle({ article }: { article: Article }) {
 function ResourceCard({ article, index }: { article: Article; index: number }) {
   const isWebinar = article.category === "webinar";
   const isWhitepaper = article.category === "whitepaper";
+  const href = article.slug ? `/blog/${article.slug}` : "#";
 
   return (
     <motion.div
@@ -373,11 +256,15 @@ function ResourceCard({ article, index }: { article: Article; index: number }) {
       className="group flex flex-col bg-white rounded-2xl border border-slate-200/60 overflow-hidden shadow-[0_2px_16px_rgb(0,0,0,0.02)] hover:shadow-[0_16px_48px_rgb(0,0,0,0.08)] transition-all duration-300"
     >
       <div className="relative h-[200px] overflow-hidden">
-        <img
-          src={article.image}
-          alt={article.title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+        {article.image ? (
+          <img
+            src={article.image}
+            alt={article.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-white to-slate-50" />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
         {isWebinar && (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -390,7 +277,9 @@ function ResourceCard({ article, index }: { article: Article; index: number }) {
           <div className="absolute top-4 right-4">
             <div className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-sm">
               <Download className="w-3 h-3 text-brand-blue" />
-              <span className="text-[10px] font-bold text-midnight uppercase tracking-wider">PDF</span>
+              <span className="text-[10px] font-bold text-midnight uppercase tracking-wider">
+                PDF
+              </span>
             </div>
           </div>
         )}
@@ -423,20 +312,29 @@ function ResourceCard({ article, index }: { article: Article; index: number }) {
 
         <div className="flex items-center justify-between mt-auto pt-5 border-t border-slate-100">
           <div className="flex items-center gap-2.5">
-            <img
-              src={article.author.avatar}
-              alt={article.author.name}
-              className="w-7 h-7 rounded-full object-cover bg-slate-100"
-            />
+            {article.author.avatar ? (
+              <img
+                src={article.author.avatar}
+                alt={article.author.name}
+                className="w-7 h-7 rounded-full object-cover bg-slate-100"
+              />
+            ) : (
+              <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-[11px] font-bold text-midnight">
+                {article.author.name.slice(0, 1).toUpperCase()}
+              </div>
+            )}
             <span className="text-xs font-semibold text-midnight">{article.author.name}</span>
           </div>
 
           <Link
-            href="#"
+            href={href}
             className="flex items-center text-xs font-bold text-brand-blue hover:text-blue-700 transition-colors group/link"
           >
             {isWhitepaper ? "Download" : isWebinar ? "Watch" : "Read"}
-            <ChevronRight className="ml-0.5 h-3.5 w-3.5 group-hover/link:translate-x-0.5 transition-transform" strokeWidth={3} />
+            <ChevronRight
+              className="ml-0.5 h-3.5 w-3.5 group-hover/link:translate-x-0.5 transition-transform"
+              strokeWidth={3}
+            />
           </Link>
         </div>
       </div>
@@ -444,11 +342,149 @@ function ResourceCard({ article, index }: { article: Article; index: number }) {
   );
 }
 
-/* ──────────────────────────── Main Page ─────────────────────────────────────── */
+function getPaginationModel(currentPage: number, totalPages: number) {
+  if (totalPages <= 5) {
+    return Array.from({ length: totalPages }, (_, idx) => idx + 1);
+  }
 
-export default function ResourcesPageClient() {
+  const pages = [1, currentPage - 1, currentPage, currentPage + 1, totalPages]
+    .filter((p) => p >= 1 && p <= totalPages)
+    .filter((p, idx, arr) => arr.indexOf(p) === idx)
+    .sort((a, b) => a - b);
+
+  const model: Array<number | "ellipsis"> = [];
+  for (let i = 0; i < pages.length; i++) {
+    const page = pages[i];
+    const prev = pages[i - 1];
+    if (i > 0 && prev != null && page - prev > 1) {
+      model.push("ellipsis");
+    }
+    model.push(page);
+  }
+
+  return model;
+}
+
+function Pagination({
+  currentPage,
+  totalPages,
+}: {
+  currentPage: number;
+  totalPages: number;
+}) {
+  if (totalPages <= 1) {
+    return null;
+  }
+
+  const model = getPaginationModel(currentPage, totalPages);
+
+  const pageHref = (page: number) => `/blog?page=${page}#resources-grid`;
+
+  return (
+    <div className="mt-14 flex flex-wrap items-center justify-center gap-2">
+      <Link
+        href={pageHref(Math.max(1, currentPage - 1))}
+        aria-disabled={currentPage === 1}
+        className={`rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all duration-300 ${
+          currentPage === 1
+            ? "pointer-events-none bg-slate-50 text-muted border border-slate-200 opacity-60"
+            : "bg-slate-50 text-midnight border border-slate-200 hover:border-brand-blue/30 hover:text-brand-blue"
+        }`}
+      >
+        Previous
+      </Link>
+
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        {model.map((item, idx) =>
+          item === "ellipsis" ? (
+            <span key={`ellipsis-${idx}`} className="px-2 text-muted">
+              …
+            </span>
+          ) : (
+            <Link
+              key={item}
+              href={pageHref(item)}
+              aria-current={item === currentPage ? "page" : undefined}
+              className={`inline-flex h-9 min-w-9 items-center justify-center rounded-full px-3 text-xs font-bold transition-all duration-300 ${
+                item === currentPage
+                  ? "bg-brand-blue text-white shadow-md shadow-brand-blue/20"
+                  : "bg-slate-50 text-muted border border-slate-200 hover:border-brand-blue/30 hover:text-brand-blue"
+              }`}
+            >
+              {item}
+            </Link>
+          ),
+        )}
+      </div>
+
+      <Link
+        href={pageHref(Math.min(totalPages, currentPage + 1))}
+        aria-disabled={currentPage === totalPages}
+        className={`rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all duration-300 ${
+          currentPage === totalPages
+            ? "pointer-events-none bg-slate-50 text-muted border border-slate-200 opacity-60"
+            : "bg-slate-50 text-midnight border border-slate-200 hover:border-brand-blue/30 hover:text-brand-blue"
+        }`}
+      >
+        Next
+      </Link>
+    </div>
+  );
+}
+
+function colorForTag(tag: string) {
+  const colors = ["#F97316", "#2563EB", "#0D9488", "#8B5CF6", "#DC2626"];
+  let hash = 0;
+  for (let i = 0; i < tag.length; i++) {
+    hash = (hash * 31 + tag.charCodeAt(i)) % 2147483647;
+  }
+  return colors[Math.abs(hash) % colors.length] ?? "#2563EB";
+}
+
+function toArticle(post: BlogPostListItem, { featured }: { featured: boolean }): Article {
+  const tag = post.categories?.[0]?.title || "Insights";
+  const tagColor = colorForTag(tag);
+
+  const image = post.mainImage
+    ? urlFor(post.mainImage).width(1000).height(700).fit("crop").auto("format").url()
+    : "";
+
+  return {
+    category: "blog",
+    tag,
+    tagColor,
+    title: post.title,
+    description: post.excerpt || "Read the latest insight from the Vallorex engineering team.",
+    readTime: estimateReadTime(post.excerpt),
+    date: formatListDate(post.publishedAt),
+    author: {
+      name: "Vallorex",
+      role: "Engineering",
+      avatar: "",
+    },
+    featured,
+    image,
+    slug: post.slug.current,
+  };
+}
+
+export default function ResourcesPageClient({
+  posts,
+  pagination,
+}: {
+  posts: BlogPostListItem[];
+  pagination: { currentPage: number; totalPages: number; totalPosts: number; perPage: number };
+}) {
   const [activeCategory, setActiveCategory] = useState<ResourceCategory>("all");
   const [searchQuery, setSearchQuery] = useState("");
+
+  const blogArticles = useMemo(() => {
+    return posts.map((post, idx) => toArticle(post, { featured: idx === 0 }));
+  }, [posts]);
+
+  const articles = useMemo(() => {
+    return [...blogArticles, ...staticArticles];
+  }, [blogArticles]);
 
   const isSearching = searchQuery.trim().length > 0;
 
@@ -462,12 +498,11 @@ export default function ResourcesPageClient() {
         !isSearching ||
         a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         a.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        a.tag.toLowerCase().includes(searchQuery.toLowerCase())
+        a.tag.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
   return (
     <div className="bg-white relative overflow-hidden">
-      {/* ─── Hero ─── */}
       <section className="relative w-full pt-20 pb-20 md:pt-28 md:pb-28 lg:pt-36 lg:pb-32 bg-white overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-40 bg-brand-blue/[0.03] blur-[100px] pointer-events-none" />
 
@@ -503,14 +538,13 @@ export default function ResourcesPageClient() {
               variants={fadeUp}
               className="text-base md:text-lg text-muted max-w-[600px] mx-auto leading-relaxed"
             >
-              Technical deep-dives, strategic frameworks, and battle-tested playbooks
-              from the engineers building the future of AI and blockchain.
+              Technical deep-dives, strategic frameworks, and battle-tested playbooks from the
+              engineers building the future of AI and blockchain.
             </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* ─── Topic Pillars ─── */}
       <section className="bg-white border-y border-slate-200/60 py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -540,7 +574,6 @@ export default function ResourcesPageClient() {
         </div>
       </section>
 
-      {/* ─── Featured Article ─── */}
       {featuredArticle && (
         <section className="py-20 md:py-24 bg-[#FAFAFA]">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
@@ -555,7 +588,7 @@ export default function ResourcesPageClient() {
                 Editor&apos;s Pick
               </span>
               <h2 className="text-3xl md:text-[40px] font-extrabold text-midnight tracking-tight">
-                Featured Resource
+                Featured Post
               </h2>
             </motion.div>
             <FeaturedArticle article={featuredArticle} />
@@ -563,7 +596,6 @@ export default function ResourcesPageClient() {
         </section>
       )}
 
-      {/* ─── All Resources Grid ─── */}
       <section className="py-20 md:py-24 bg-white" id="resources-grid">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
@@ -579,16 +611,15 @@ export default function ResourcesPageClient() {
                   Library
                 </span>
                 <h2 className="text-3xl md:text-[40px] font-extrabold text-midnight tracking-tight">
-                  Explore All Resources
+                  Explore the Blog
                 </h2>
               </div>
 
-              {/* Search Bar */}
               <div className="relative w-full md:w-[340px] lg:w-[400px]">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-muted" />
                 <input
                   type="text"
-                  placeholder="Search resources..."
+                  placeholder="Search blog posts..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-11 pr-4 py-3 rounded-full border border-slate-200 bg-white text-sm text-midnight placeholder:text-muted/60 focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/10 shadow-sm transition-all"
@@ -604,7 +635,6 @@ export default function ResourcesPageClient() {
               </div>
             </div>
 
-            {/* Category Filter Tabs */}
             <div className="flex flex-wrap gap-2">
               {categories.map((cat) => (
                 <button
@@ -623,19 +653,17 @@ export default function ResourcesPageClient() {
             </div>
           </motion.div>
 
-          {/* Search Results Indicator */}
           {isSearching && (
             <div className="flex items-center gap-2 mb-6 text-sm text-muted">
               <Search className="w-3.5 h-3.5" />
               <span>
-                <span className="font-semibold text-midnight">{filteredArticles.length}</span>
-                {" "}result{filteredArticles.length !== 1 ? "s" : ""} for &ldquo;
+                <span className="font-semibold text-midnight">{filteredArticles.length}</span>{" "}
+                result{filteredArticles.length !== 1 ? "s" : ""} for &ldquo;
                 <span className="font-medium text-midnight">{searchQuery}</span>&rdquo;
               </span>
             </div>
           )}
 
-          {/* Resources Grid */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory + searchQuery}
@@ -647,7 +675,15 @@ export default function ResourcesPageClient() {
               {filteredArticles.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                   {filteredArticles.map((article, index) => (
-                    <ResourceCard key={article.title} article={article} index={index} />
+                    <ResourceCard
+                      key={
+                        article.slug
+                          ? `${article.category}-${article.slug}`
+                          : `${article.category}-${article.title}`
+                      }
+                      article={article}
+                      index={index}
+                    />
                   ))}
                 </div>
               ) : (
@@ -655,7 +691,7 @@ export default function ResourcesPageClient() {
                   <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-5">
                     <Search className="w-7 h-7 text-muted" />
                   </div>
-                  <p className="text-lg font-bold text-midnight mb-2">No resources found</p>
+                  <p className="text-lg font-bold text-midnight mb-2">No posts found</p>
                   <p className="text-sm text-muted max-w-sm">
                     Try adjusting your search or filter criteria to find what you&apos;re looking for.
                   </p>
@@ -663,10 +699,13 @@ export default function ResourcesPageClient() {
               )}
             </motion.div>
           </AnimatePresence>
+
+          {activeCategory === "all" || activeCategory === "blog" ? (
+            <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
+          ) : null}
         </div>
       </section>
 
-      {/* ─── Upcoming Events ─── */}
       <section className="py-20 md:py-24 bg-[#FAFAFA] border-y border-slate-200/60">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20">
@@ -694,8 +733,8 @@ export default function ResourcesPageClient() {
                 variants={fadeUp}
                 className="text-[15px] text-muted leading-relaxed mb-8 max-w-md"
               >
-                Join live sessions with our senior engineers and industry thought leaders.
-                Deep technical content, not marketing fluff.
+                Join live sessions with our senior engineers and industry thought leaders. Deep
+                technical content, not marketing fluff.
               </motion.p>
               <motion.div variants={fadeUp}>
                 <Link
@@ -760,7 +799,6 @@ export default function ResourcesPageClient() {
         </div>
       </section>
 
-      {/* ─── Newsletter ─── */}
       <section className="relative py-24 md:py-32 bg-[#0B0F19] overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-brand-blue/8 blur-[150px] rounded-full pointer-events-none" />
@@ -792,22 +830,19 @@ export default function ResourcesPageClient() {
                 variants={fadeUp}
                 className="text-base text-[#94A3B8] leading-relaxed max-w-md mb-4"
               >
-                A bi-weekly digest of curated insights on AI breakthroughs, blockchain
-                innovations, and engineering leadership - trusted by 5,000+ CTOs and
-                technical leaders.
+                A bi-weekly digest of curated insights on AI breakthroughs, blockchain innovations,
+                and engineering leadership - trusted by 5,000+ CTOs and technical leaders.
               </motion.p>
               <motion.div
                 variants={fadeUp}
                 className="flex flex-wrap items-center gap-4 text-xs text-[#64748B]"
               >
-                {["No spam, ever", "Unsubscribe anytime", "Free forever"].map(
-                  (item) => (
-                    <span key={item} className="flex items-center gap-1.5">
-                      <span className="w-1 h-1 rounded-full bg-brand-blue" />
-                      {item}
-                    </span>
-                  )
-                )}
+                {["No spam, ever", "Unsubscribe anytime", "Free forever"].map((item) => (
+                  <span key={item} className="flex items-center gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-brand-blue" />
+                    {item}
+                  </span>
+                ))}
               </motion.div>
             </motion.div>
 
@@ -846,7 +881,8 @@ export default function ResourcesPageClient() {
                   </Button>
                 </div>
                 <p className="text-[11px] text-white/30 mt-4 leading-relaxed">
-                  Join 5,000+ engineering leaders. We respect your inbox - only the most impactful content, twice a month.
+                  Join 5,000+ engineering leaders. We respect your inbox - only the most impactful
+                  content, twice a month.
                 </p>
               </div>
             </motion.div>
@@ -854,7 +890,6 @@ export default function ResourcesPageClient() {
         </div>
       </section>
 
-      {/* ─── Bottom CTA ─── */}
       <section className="relative py-32 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-[#1c1815] via-[#0F172A] to-[#0A101C]" />
@@ -882,8 +917,8 @@ export default function ResourcesPageClient() {
               variants={fadeUp}
               className="text-base md:text-lg text-[#94A3B8] max-w-xl mx-auto mb-10 leading-relaxed"
             >
-              From the first architecture review to production deployment, our senior
-              engineers are ready to turn your most ambitious ideas into reality.
+              From the first architecture review to production deployment, our senior engineers are
+              ready to turn your most ambitious ideas into reality.
             </motion.p>
 
             <motion.div variants={fadeUp}>
@@ -898,10 +933,7 @@ export default function ResourcesPageClient() {
               </Button>
             </motion.div>
 
-            <motion.div
-              variants={fadeUp}
-              className="flex items-center justify-center gap-2.5 mt-10"
-            >
+            <motion.div variants={fadeUp} className="flex items-center justify-center gap-2.5 mt-10">
               <ShieldCheck className="h-4 w-4 text-brand-blue" strokeWidth={2.5} />
               <span className="text-sm font-medium text-[#94A3B8]">
                 The premier engineering partner for AI and Blockchain ventures.
@@ -913,3 +945,4 @@ export default function ResourcesPageClient() {
     </div>
   );
 }
+
