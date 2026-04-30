@@ -530,13 +530,20 @@ export function Navbar({ latestPosts }: { latestPosts?: React.ReactNode }) {
     };
   }, [mobileMenuOpen, closeMobileMenu]);
 
-  const navLinks = [
-    { name: "Services", hasDropdown: true, mobileAccordion: true as const },
-    { name: "Industries", hasDropdown: true, mobileAccordion: true as const },
-    { name: "Technologies", hasDropdown: true, mobileAccordion: true as const },
-    { name: "Case Studies", hasDropdown: false, mobileAccordion: false as const },
-    { name: "Resources", hasDropdown: true, mobileAccordion: true as const, href: "/blog" },
-    { name: "Company", hasDropdown: true, mobileAccordion: true as const },
+  type NavLink = {
+    name: string;
+    hasDropdown: boolean;
+    mobileAccordion: boolean;
+    href?: string;
+  };
+
+  const navLinks: NavLink[] = [
+    { name: "Services", hasDropdown: true, mobileAccordion: true },
+    { name: "Industries", hasDropdown: true, mobileAccordion: true },
+    { name: "Technologies", hasDropdown: true, mobileAccordion: true },
+    { name: "Case Studies", hasDropdown: false, mobileAccordion: false },
+    { name: "Resources", hasDropdown: true, mobileAccordion: true, href: "/blog" },
+    { name: "Company", hasDropdown: true, mobileAccordion: true },
   ];
 
   const linkClosesMenu = {
@@ -734,7 +741,7 @@ export function Navbar({ latestPosts }: { latestPosts?: React.ReactNode }) {
                       return (
                         <li key={link.name} className="border-b border-[#e5e7eb]">
                           <Link
-                            href={`/${key}`}
+                            href={link.href ? link.href : `/${key}`}
                             {...linkClosesMenu}
                             className="block py-3 pl-4 pr-4 text-base font-medium text-gray-900 dark:text-white"
                           >
@@ -774,7 +781,7 @@ export function Navbar({ latestPosts }: { latestPosts?: React.ReactNode }) {
                         {/* Split tap targets: link navigates, chevron toggles */}
                         <div className="flex items-center justify-between">
                           <Link
-                            href={`/${key}`}
+                            href={link.href ? link.href : `/${key}`}
                             onClick={closeMobileMenu}
                             className="flex-1 py-3 pl-4 text-base font-medium text-gray-900 dark:text-white"
                           >

@@ -1,5 +1,33 @@
 import Link from "next/link";
 import Image from "next/image";
+const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
+const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
+
+const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+  </svg>
+);
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -30,6 +58,20 @@ export function Footer() {
                 <span className="font-semibold text-white/90">Email:</span>
                 <a href="mailto:hello@vallorex.com" className="hover:text-white transition-colors">hello@vallorex.com</a>
               </p>
+            </div>
+            <div className="mt-6 flex gap-4">
+              <a href="https://www.linkedin.com/company/vallorex/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-brand-blue transition-colors" aria-label="LinkedIn">
+                <LinkedinIcon className="h-5 w-5" />
+              </a>
+              <a href="https://www.facebook.com/share/1Az3xVy6Xt/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-brand-blue transition-colors" aria-label="Facebook">
+                <FacebookIcon className="h-5 w-5" />
+              </a>
+              <a href="https://www.instagram.com/vallorex.technology/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-brand-blue transition-colors" aria-label="Instagram">
+                <InstagramIcon className="h-5 w-5" />
+              </a>
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-brand-blue transition-colors" aria-label="X">
+                <XIcon className="h-5 w-5" />
+              </a>
             </div>
           </div>
 
