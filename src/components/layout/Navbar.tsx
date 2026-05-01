@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import {
   ChevronDown, Menu, ArrowRight,
-  ShieldCheck, BarChart3,
+  BarChart3,
   Layers, Brain, Code2, Rocket, Building2,
   Landmark, TrendingUp, ShoppingBag, HeartPulse, Zap,
   Globe, Server, Lock, GitBranch, Terminal,
@@ -141,7 +141,7 @@ const companyMegaItemsData: CompanyMegaItem[] = [
   { Icon: Users, label: "About Vallorex", desc: "Our story, mission, and the values that drive every engagement we take on.", href: "/company" },
   { Icon: Briefcase, label: "Careers", desc: "Work on challenging AI and Blockchain problems with a focused, technical team.", tag: "We're hiring", href: "/careers" },
   { Icon: Phone, label: "Contact Us", desc: "Reach our team for partnerships, new projects, or press enquiries.", href: "/contact" },
-  { Icon: ShieldCheck, label: "Trust & Security", desc: "Your IP and data are always protected. We sign NDAs on every engagement.", href: "/company#trust" },
+  { Icon: Users, label: "Team", desc: "Meet the engineers and founders behind every Vallorex engagement.", href: "/team" },
 ];
 
 const companyPartnerCta = {
