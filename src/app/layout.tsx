@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
@@ -53,6 +54,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <Script
+          id="cookieyes"
+          src="https://cdn-cookieyes.com/client_data/932ff174478869291c2a1002837441c3/script.js"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body className={`${inter.variable} font-sans antialiased bg-white text-midnight min-h-screen flex flex-col`}>
         <AuditModalProvider>
           <AnnouncementBar />

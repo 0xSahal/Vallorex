@@ -1,3 +1,9 @@
+/** Narrow rule shape for field validation (Studio provides full Rule types). */
+type SanityFieldRule = {
+  required(): SanityFieldRule;
+  max(length: number): SanityFieldRule;
+};
+
 const post = {
   name: "post",
   title: "Post",
@@ -7,7 +13,7 @@ const post = {
       name: "title",
       title: "Title",
       type: "string",
-      validation: (rule: any) => rule.required(),
+      validation: (rule: SanityFieldRule) => rule.required(),
     },
     {
       name: "slug",
@@ -17,7 +23,7 @@ const post = {
         source: "title",
         maxLength: 96,
       },
-      validation: (rule: any) => rule.required(),
+      validation: (rule: SanityFieldRule) => rule.required(),
     },
     {
       name: "publishedAt",
@@ -29,7 +35,7 @@ const post = {
       title: "Excerpt",
       type: "text",
       rows: 3,
-      validation: (rule: any) => rule.max(200),
+      validation: (rule: SanityFieldRule) => rule.max(200),
     },
     {
       name: "mainImage",

@@ -69,7 +69,7 @@ export function Footer() {
               <a href="https://www.instagram.com/vallorex.technology/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-brand-blue transition-colors" aria-label="Instagram">
                 <InstagramIcon className="h-5 w-5" />
               </a>
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-brand-blue transition-colors" aria-label="X">
+              <a href="https://x.com/Vallorex_tech" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-brand-blue transition-colors" aria-label="X">
                 <XIcon className="h-5 w-5" />
               </a>
             </div>
