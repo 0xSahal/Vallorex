@@ -396,6 +396,17 @@ function buildMegaMenus(openAuditModal: () => void, latestPosts?: React.ReactNod
 
 const menuKey = (name: string) => name.toLowerCase().replace(/ /g, "-");
 
+/** Current path belongs to this top-level nav section (nested routes included). */
+function isActivePath(pathname: string, segment: string): boolean {
+  return pathname === segment || pathname.startsWith(`${segment}/`);
+}
+
+function pathnameMatchesNavLink(pathname: string, linkName: string): boolean {
+  const key = menuKey(linkName);
+  if (key === "resources") return isActivePath(pathname, "/blog");
+  return isActivePath(pathname, `/${key}`);
+}
+
 const LOGO_LIGHT = "/vallorex-logo.png";
 const LOGO_DARK = "/vallorex-logo-dark.png";
 /** Reference aspect (dark logo); Next/Image intrinsic ratio - display locked via CSS */
@@ -440,11 +451,6 @@ export function Navbar({ latestPosts }: { latestPosts?: React.ReactNode }) {
       document.body.style.overflow = prev;
     };
   }, [mobileMenuOpen]);
-
-  useEffect(() => {
-    setMobileMenuOpen(false);
-    setMobileAccordionKey(null);
-  }, [pathname]);
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -599,21 +605,26 @@ export function Navbar({ latestPosts }: { latestPosts?: React.ReactNode }) {
           </Link>
 
         <nav className="hidden lg:flex items-center h-full gap-8">
-          {navLinks.map((link) => (
+          {navLinks.map((link) => {
+            const key = menuKey(link.name);
+            const sectionActive = pathnameMatchesNavLink(pathname, link.name);
+            const dropdownOpen = activeMenu === key;
+
+            return (
             <div
               key={link.name}
               className="relative h-full flex items-center"
-              onMouseEnter={() => link.hasDropdown ? setActiveMenu(menuKey(link.name)) : setActiveMenu(null)}
+              onMouseEnter={() => link.hasDropdown ? setActiveMenu(key) : setActiveMenu(null)}
             >
               <Link
-                href={link.href ? link.href : `/${menuKey(link.name)}`}
+                href={link.href ? link.href : `/${key}`}
                 className={cn(
-                  "flex items-center gap-1 text-sm font-medium transition-all duration-300 h-[88px]",
+                  "flex items-center gap-1 text-sm font-medium transition-colors duration-300 h-[88px]",
                   isScrolled
-                    ? activeMenu === menuKey(link.name) || pathname === (link.href ? link.href : `/${menuKey(link.name)}`)
+                    ? sectionActive || dropdownOpen
                       ? "text-midnight"
                       : "text-slate-500 hover:text-midnight"
-                    : activeMenu === menuKey(link.name) || pathname === (link.href ? link.href : `/${menuKey(link.name)}`)
+                    : sectionActive || dropdownOpen
                       ? "text-white"
                       : "text-[#94A3B8] hover:text-white"
                 )}
@@ -623,13 +634,14 @@ export function Navbar({ latestPosts }: { latestPosts?: React.ReactNode }) {
                   <ChevronDown
                     className={cn(
                       "h-3.5 w-3.5 ml-0.5 transition-transform duration-200",
-                      activeMenu === menuKey(link.name) && "rotate-180"
+                      dropdownOpen && "rotate-180"
                     )}
                   />
                 )}
               </Link>
             </div>
-          ))}
+            );
+          })}
         </nav>
 
         <div className="hidden lg:flex items-center gap-4">
@@ -738,12 +750,18 @@ export function Navbar({ latestPosts }: { latestPosts?: React.ReactNode }) {
                     const key = menuKey(link.name);
 
                     if (!link.mobileAccordion) {
+                      const mobileSectionActive = pathnameMatchesNavLink(pathname, link.name);
                       return (
                         <li key={link.name} className="border-b border-[#e5e7eb]">
                           <Link
                             href={link.href ? link.href : `/${key}`}
                             {...linkClosesMenu}
-                            className="block py-3 pl-4 pr-4 text-base font-medium text-gray-900 dark:text-white"
+                            className={cn(
+                              "block py-3 pl-4 pr-4 text-base font-medium",
+                              mobileSectionActive
+                                ? "text-midnight"
+                                : "text-slate-500"
+                            )}
                           >
                             {link.name}
                           </Link>
@@ -776,6 +794,8 @@ export function Navbar({ latestPosts }: { latestPosts?: React.ReactNode }) {
                       ];
                     }
 
+                    const mobileSectionActive = pathnameMatchesNavLink(pathname, link.name);
+
                     return (
                       <li key={link.name} className="border-b border-[#e5e7eb]">
                         {/* Split tap targets: link navigates, chevron toggles */}
@@ -783,7 +803,12 @@ export function Navbar({ latestPosts }: { latestPosts?: React.ReactNode }) {
                           <Link
                             href={link.href ? link.href : `/${key}`}
                             onClick={closeMobileMenu}
-                            className="flex-1 py-3 pl-4 text-base font-medium text-gray-900 dark:text-white"
+                            className={cn(
+                              "flex flex-1 items-center py-3 pl-4 text-base font-medium",
+                              mobileSectionActive
+                                ? "text-midnight"
+                                : "text-slate-500"
+                            )}
                           >
                             {link.name}
                           </Link>
@@ -796,7 +821,8 @@ export function Navbar({ latestPosts }: { latestPosts?: React.ReactNode }) {
                           >
                             <ChevronDown
                               className={cn(
-                                "w-5 h-5 transition-transform duration-200 text-gray-900",
+                                "w-5 h-5 transition-transform duration-200",
+                                mobileSectionActive ? "text-midnight" : "text-slate-500",
                                 open ? "rotate-180" : ""
                               )}
                               aria-hidden
