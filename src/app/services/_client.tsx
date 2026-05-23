@@ -291,7 +291,7 @@ const services = [
       "ML Ops & Infrastructure",
       "Fine-tuned Domain Models",
     ],
-    href: "/services/ai",
+    href: "/services/ai-engineering",
   },
   {
     icon: Link2,
@@ -321,7 +321,7 @@ const services = [
       "Cloud Data Migration",
       "Real-time KPI Dashboards",
     ],
-    href: "/services/data",
+    href: "/services/data-analytics",
   },
   {
     icon: Code2,
@@ -336,7 +336,7 @@ const services = [
       "QA & Testing",
       "DevOps & CI/CD",
     ],
-    href: "/services/product",
+    href: "/services/product-engineering",
   },
 ];
 
@@ -709,7 +709,7 @@ export default function ServicesPageClient() {
                   size="lg"
                   className="bg-brand-orange hover:bg-brand-orange-hover text-white font-semibold h-auto px-8 py-3"
                 >
-                  <Link href="/services/ai">See Our Approach →</Link>
+                  <Link href="/services/ai-development">See Our Approach →</Link>
                 </Button>
               </motion.div>
             </motion.div>

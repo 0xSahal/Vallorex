@@ -42,7 +42,7 @@ export function HeroSection() {
               className="mb-4 inline-flex max-w-full items-center justify-center self-center rounded-sm bg-slate-100 px-2.5 py-1.5 sm:mb-5 sm:self-start sm:px-3"
             >
               <span className="text-center text-[9px] font-bold uppercase leading-snug tracking-wider text-muted sm:text-left sm:text-[10px]">
-                Trusted by global companies
+                Engineered for real results
               </span>
             </motion.div>
 

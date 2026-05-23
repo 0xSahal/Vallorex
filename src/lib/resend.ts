@@ -14,18 +14,25 @@ export function getResendClient(): Resend {
   return cached;
 }
 
+type ResendAttachment = {
+  filename: string;
+  content: string;
+};
+
 export async function sendEmail({
   to,
   from,
   subject,
   html,
   replyTo,
+  attachments,
 }: {
   to: string | string[];
   from: string;
   subject: string;
   html: string;
   replyTo?: string;
+  attachments?: ResendAttachment[];
 }) {
   const resend = getResendClient();
   return await resend.emails.send({
@@ -34,6 +41,7 @@ export async function sendEmail({
     subject,
     html,
     replyTo,
+    attachments,
   });
 }
 

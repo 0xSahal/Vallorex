@@ -4,37 +4,37 @@ export const SERVICES = [
   {
     title: "AI Development",
     description: "Custom LLM fine-tuning, RAG pipelines, and generative AI agents built for scale.",
-    href: "#",
+    href: "/services/ai-development",
     icon: BrainCircuit,
   },
   {
     title: "Blockchain Engineering",
     description: "L1/L2 development, custom consensus mechanisms, and high-throughput infrastructure.",
-    href: "#",
+    href: "/services/blockchain-engineering",
     icon: Layers,
   },
   {
     title: "Smart Contract Audits",
     description: "Rigorous security audits with formal verification to protect millions in TVL.",
-    href: "#",
+    href: "/services/smart-contract-audits",
     icon: ShieldCheck,
   },
   {
     title: "ML & Data Pipelines",
     description: "End-to-end data orchestration and automated training loops for real-time inference.",
-    href: "#",
+    href: "/services/ml-data-pipelines",
     icon: Network,
   },
   {
     title: "Web3 Integration",
     description: "Seamlessly bridge traditional enterprise software with decentralized networks.",
-    href: "#",
+    href: "/services/web3-integration",
     icon: Blocks,
   },
   {
     title: "Technology Consulting",
     description: "Fractional CTO services and technical due diligence for VCs and enterprises.",
-    href: "#",
+    href: "/services/technology-consulting",
     icon: SquareTerminal,
   },
 ];

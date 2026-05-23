@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   motion,
   Variants,
@@ -153,6 +153,28 @@ const milestones = [
    ═══════════════════════════════════════════════════════════════ */
 
 export default function CompanyPageClient() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+
+    const id = decodeURIComponent(hash.slice(1));
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const NAVBAR_PLUS_BANNER_PX = 132;
+    const EXTRA_GAP_PX = 12;
+
+    const scroll = () => {
+      const top = el.getBoundingClientRect().top + window.scrollY - (NAVBAR_PLUS_BANNER_PX + EXTRA_GAP_PX);
+      window.scrollTo({ top, behavior: "smooth" });
+    };
+
+    requestAnimationFrame(() => {
+      window.setTimeout(scroll, 50);
+    });
+  }, []);
+
   return (
     <div className="bg-white relative overflow-hidden">
       {/* - SECTION 1: HERO - */}
@@ -347,7 +369,7 @@ export default function CompanyPageClient() {
       </section>
 
       {/* - SECTION 4: VALUES - */}
-      <section className="py-24 md:py-32 bg-[#FAFAFA] border-y border-slate-200/60">
+      <section id="trust" className="scroll-mt-36 py-24 md:py-32 bg-[#FAFAFA] border-y border-slate-200/60">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-[1400px]">
           <motion.div
             initial="hidden"
