@@ -6,18 +6,17 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { caseStudies, type CaseStudy } from "@/lib/case-studies";
 
-export function CaseStudies() {
-  const featured = caseStudies.find((cs) => cs.featured);
-  const bestLive =
-    caseStudies.find((cs) => cs.status === "Live") ??
-    caseStudies.find((cs) => cs.status === "MVP Complete") ??
-    caseStudies.find((cs) => cs.status === "MVP") ??
-    caseStudies[0];
+const HOME_PROOF_SLUGS = [
+  "adge-angle-ai-background-removal",
+  "latticepay-non-custodial-wallet",
+  "vallorex-ai-voice-advisor",
+  "vallorex-ai-lead-engine",
+] as const;
 
-  const homeStudies: CaseStudy[] = [
-    ...(featured ? [featured] : []),
-    ...(bestLive && bestLive.slug !== featured?.slug ? [bestLive] : []),
-  ].slice(0, 2);
+export function CaseStudies() {
+  const homeStudies: CaseStudy[] = HOME_PROOF_SLUGS.map((slug) =>
+    caseStudies.find((cs) => cs.slug === slug),
+  ).filter((cs): cs is CaseStudy => cs !== undefined);
 
   return (
     <section className="py-24 bg-white" id="case-studies">
@@ -28,7 +27,7 @@ export function CaseStudies() {
               Proof of Impact
             </h2>
             <p className="mt-3 max-w-2xl text-[15px] leading-[1.7] text-[#475569]">
-              Two production systems we engineered end-to-end - measurable outcomes,
+              Four production systems we engineered end-to-end - measurable outcomes,
               real architecture, shipped.
             </p>
           </div>

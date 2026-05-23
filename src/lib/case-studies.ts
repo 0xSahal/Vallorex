@@ -23,6 +23,12 @@ export interface CaseStudy {
   images: string[];
   /** Optional hero walkthrough video (path under /public, e.g. /images/case-studies/foo.mp4) */
   heroVideo?: string;
+  /** Hero video starts unmuted when true (default muted for autoplay elsewhere) */
+  heroVideoMuted?: boolean;
+  /** Show native play/volume controls on hero video */
+  heroVideoControls?: boolean;
+  /** Hero video fit mode (default cover) */
+  heroVideoObjectFit?: "cover" | "contain";
   /** Optional hero still when no video (detail page right column; same path can appear in images[]) */
   heroImage?: string;
   /** Small label on case-study grid card over heroImage (e.g. product angle) */
@@ -34,6 +40,18 @@ export interface CaseStudy {
   gradientTo: string;
   useCases: string[];
   competitors: string[];
+  /** Curated related case study slugs for the detail page */
+  relatedSlugs?: string[];
+  /** Sidebar team size label when not a numeric count */
+  teamSizeLabel?: string;
+  /** Product section CTA button label */
+  productCtaLabel?: string;
+  /** Product CTA opens audit inquiry modal instead of external demo link */
+  productCtaAction?: "audit-modal" | "link";
+  /** Internal or external href when productCtaAction is "link" */
+  productCtaHref?: string;
+  /** Product screenshot slider fit mode (default cover) */
+  productScreenshotsObjectFit?: "cover" | "contain";
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -141,6 +159,11 @@ export const caseStudies: CaseStudy[] = [
       "Adobe Photoshop (Select Subject)",
       "Canva Pro Background Remover",
     ],
+    relatedSlugs: [
+      "vallorex-ai-voice-advisor",
+      "vallorex-ai-lead-engine",
+      "helix-whatsapp-conversational-ai",
+    ],
   },
   {
     slug: "archvision-ai-floor-plan-to-3d",
@@ -240,111 +263,308 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    slug: "careline-ai-healthcare-voice-assistant",
-    title: "CareLine AI",
-    shortTitle: "CareLine AI",
-    category: "Healthcare",
+    slug: "roadhow-uk-dashcam-visual-analytics",
+    title: "Dashcam Visual Analytics & Driver Scoring Platform",
+    shortTitle: "RoadHow UK",
+    category: "Artificial Intelligence",
     tags: [
-      "Artificial Intelligence",
-      "Voice AI",
-      "LiveKit",
-      "LangGraph",
-      "FastAPI",
-      "Multilingual",
-      "Telephony",
-      "+2 more",
+      "Computer Vision",
+      "Fleet Safety",
+      "Video Analytics",
+      "PyTorch",
+      "OpenCV",
+      "Django",
+      "UK",
     ],
-    client: "CareLine AI",
-    industry: "Healthcare / AI Voice Automation",
-    year: 2026,
-    timelineWeeks: "2-4 Weeks to Production",
+    client: "RoadHow UK",
+    industry: "Computer Vision / Fleet Safety / Road Safety (UK)",
+    year: 2025,
+    timelineWeeks: "Multi-phase delivery",
     teamSize: 3,
-    status: "MVP Complete",
-    heroMetricLabel: "To Production",
-    heroMetricValue: "2-4 weeks",
-    shortDescription: "AI Voice Assistant for Healthcare Appointment Automation",
+    status: "Completed",
+    heroMetricLabel: "Dashcam Footage Processed",
+    heroMetricValue: "500+ hrs",
+    shortDescription:
+      "CV-powered driving event detection and driver scoring from vehicle dashcam footage for UK fleet training and compliance.",
     summary:
-      "CareLine AI is an AI voice and chat assistant that automates healthcare appointment workflows - booking, rescheduling, and cancellations - through natural conversations in English and Hindi, backed by real-time availability checks and a clinic monitoring dashboard.",
+      "A custom computer vision platform for a UK road safety company that processes vehicle dashcam footage to detect driving events, assess driver behaviour, and generate safety analytics for fleet training programs.",
     challenge:
-      "Healthcare organizations - hospitals, clinics, diagnostic centers, and telemedicine providers - spend significant time managing appointment calls through human operators. A busy clinic can receive hundreds of calls daily for booking, rescheduling, and cancellations, tying up staff who could be doing higher-value work. Long hold times frustrate patients, and missed calls lead directly to missed appointments and lost revenue.\n\nTraditional IVR systems do not solve this. They are rigid, menu-driven, and break down the moment a patient deviates from the expected flow. They cannot handle natural conversation, do not support Indian languages reliably, and cannot manage complex rescheduling logic where multiple calendar slots, doctor availability, and patient history all need to be considered in real time.\n\nThe goal was to build an AI voice assistant that could handle the full appointment workflow - booking, rescheduling, and cancellation - through natural conversations over phone calls and chat, in both English and Hindi, with a backend that verified availability, updated records, and gave clinic staff full visibility through a monitoring dashboard.",
+      "Manual review of dashcam footage was time-consuming and inconsistent. Fleet managers needed automated, objective driver scoring for training and compliance.\n\nReview teams could not scale with growing video volume, and subjective judgments made it difficult to compare drivers fairly or demonstrate due diligence to stakeholders.",
     approach: [
       {
-        title: "LiveKit-Based Voice Orchestration",
+        icon: "Layers",
+        title: "Frame-by-frame video analysis pipeline",
         description:
-          "Built real-time voice interaction on LiveKit Agents, handling the full telephony session lifecycle including SIP integration and Twilio connectivity. The system manages concurrent patient calls without blocking, with WebSocket-based communication between voice, AI, and backend layers.",
-        icon: "Phone",
+          "Built an OpenCV-based ingestion and processing pipeline that walks vehicle dashcam footage frame-by-frame for stable, repeatable feature extraction before model inference.",
       },
       {
-        title: "LangGraph Conversational Flows",
+        icon: "Brain",
+        title: "Scene change detection, tracking, and event extraction",
         description:
-          "Designed deterministic appointment workflows using LangGraph so the AI follows reliable, testable conversation paths for booking, rescheduling, and cancellation - rather than free-form generation that could hallucinate availability or confirmation details.",
-        icon: "GitBranch",
+          "Combined scene change detection with object tracking to isolate meaningful segments and pull structured driving events from noisy real-world road footage.",
       },
       {
-        title: "Multilingual Speech with Sarvam AI",
+        icon: "Zap",
+        title: "PyTorch model fine-tuning for critical events",
         description:
-          "Integrated Sarvam AI for speech-to-text and text-to-speech in Hindi and Indian English, covering the primary languages of the target patient base. The pipeline handles code-switching - patients who mix Hindi and English mid-conversation - without dropping context.",
+          "Fine-tuned PyTorch models for hard braking, lane departure, and tailgating detection, iterating on fleet-specific data to tighten precision and reduce false positives.",
+      },
+      {
+        icon: "Code2",
+        title: "Driver behaviour scoring and timeline reports",
+        description:
+          "Implemented behaviour scoring, per-trip timelines, and exportable reporting hooks via Django so trainers and compliance workflows could consume results without manual clip review.",
+      },
+    ],
+    techStack: ["PyTorch", "OpenCV", "Django", "Python"],
+    architectureDescription:
+      "Dashcam ingest → OpenCV frame pipeline → Scene & tracking analytics → PyTorch event detection → Driver behaviour scoring → Django services → Fleet training & trend dashboards",
+    kpis: [
+      { value: "500+", label: "Hours of Footage Processed" },
+      { value: "3", label: "Driving Event Types Detected" },
+      { value: "Lower FP", label: "After Model Fine-Tuning" },
+      { value: "UK", label: "Fleet Programs & Region" },
+    ],
+    outcomes: [
+      "Processed more than 500 hours of dashcam footage through the automated pipeline",
+      "Materially reduced false positive rates through iterative PyTorch fine-tuning on real fleet clips",
+      "Replaced slow manual review with consistent, objective driver scoring suitable for training workflows",
+      "Delivered trend dashboards that support fleet training programs and safety reporting",
+    ],
+    heroImage: "/images/case-studies/roadhow-dashcam-cv-overlay.png",
+    heroImageCaption: "Dashcam CV & driver scoring",
+    images: [
+      "/images/case-studies/roadhow-dashcam-cv-overlay.png",
+      "/images/case-studies/roadhow-fleet-analytics-dashboard.png",
+      "/images/case-studies/roadhow-fleet-training-trends.png",
+    ],
+    featured: false,
+    gradientFrom: "#0a1628",
+    gradientTo: "#152a45",
+    useCases: [
+      "Commercial fleets: Objective scoring from dashcam evidence for coaching conversations without all-day manual review",
+      "Road safety programs: Repeatable event detection for tailgating, hard braking, and lane departure across large video libraries",
+      "Compliance and training leads: Audit-friendly timelines and aggregates that align teams on the same safety metrics",
+      "UK operators: Region-specific deployment and analytics tuned to UK driving conditions and fleet policies",
+    ],
+    competitors: [
+      "Lytx DriveCam",
+      "Samsara AI Dash Cams",
+      "Nexar Fleets",
+      "Geotab Video",
+      "SmartDrive (SmartDrive Systems)",
+    ],
+  },
+  {
+    slug: "vallorex-ai-voice-advisor",
+    title: "Vallorex AI Voice Advisor",
+    shortTitle: "Vallorex AI Voice Advisor",
+    category: "Artificial Intelligence",
+    tags: ["Artificial Intelligence", "Live Product", "Voice AI", "WebRTC"],
+    client: "Vallorex (Internal Product)",
+    industry: "AI / Voice Technology / Business Automation",
+    year: 2025,
+    timelineWeeks: "Internal Build, 2025",
+    teamSize: 0,
+    teamSizeLabel: "Vallorex Engineering Team",
+    status: "Live",
+    heroMetricLabel: "Ultra-Low Latency",
+    heroMetricValue: "Real-Time",
+    shortDescription:
+      "Real-time AI voice agent for inbound and outbound business calls",
+    summary:
+      "We built our own real-time AI voice agent that handles inbound customer calls and outbound business calls, and deployed it live on our own website as a working demo.",
+    challenge:
+      "Businesses miss leads and frustrate customers every time a call goes unanswered or gets stuck in an outdated IVR menu. Hiring and training human call agents is expensive, inconsistent, and impossible to scale affordably. Most AI chatbots handle text but fail completely the moment a customer picks up the phone.\n\nVallorex identified a clear gap: businesses needed a voice-first AI layer that could hold real, natural phone conversations, answering complex questions, qualifying leads, booking demos, and representing a business professionally, all without a human agent on the line. We decided to build it ourselves first, deploying it live on our own homepage as a working proof-of-concept before offering it to clients.\n\nKey requirements:\n\n- Handle both inbound calls (customers calling the business) and outbound calls (AI calling customers on behalf of the business)\n- Ultra-low latency so the conversation feels natural, not robotic\n- Deep business context awareness so the agent must answer real questions accurately, not just route callers\n- Zero-training deployment for end businesses",
+    approach: [
+      {
         icon: "Mic",
+        title: "Real-Time Voice Pipeline",
+        description:
+          "Built a real-time streaming audio pipeline using WebRTC and WebSocket-based transport. Speech-to-text processing runs with sub-second latency, feeding directly into the LLM engine so responses begin generating before the caller has finished speaking. Text-to-speech output is streamed back continuously, eliminating the pause-and-wait feel of older voice bots.",
       },
       {
-        title: "Appointment Management Backend",
+        icon: "Brain",
+        title: "LLM Conversation Engine",
         description:
-          "Built a FastAPI backend with SQLite storing patient records, appointment slots, doctor availability, and call logs. The AI verifies availability in real time during the conversation, confirms bookings, and writes back to the database before ending the call.",
-        icon: "Database",
+          "Fine-tuned and prompted a large language model on Vallorex's full service catalogue, FAQs, pricing context, and business-specific knowledge. The agent can handle multi-turn conversations, remember context from earlier in the call, and answer nuanced questions about AI solutions, automation services, blockchain engineering, and how to book a demo.",
       },
       {
-        title: "React Monitoring Dashboard",
+        icon: "Phone",
+        title: "Inbound & Outbound Call Architecture",
         description:
-          "Delivered a clinic-facing dashboard giving staff visibility into live and completed calls, appointment outcomes, call transcripts, and system status. Staff can review AI-handled conversations and catch edge cases without listening to recordings.",
+          "Designed a dual-mode call architecture. In inbound mode, the agent greets callers, identifies their needs, answers questions, and routes or escalates when needed. In outbound mode, the agent initiates calls on behalf of a business, following a configurable script while adapting naturally to what the recipient says.",
+      },
+      {
         icon: "Monitor",
-      },
-      {
-        title: "Dual-Channel Support",
+        title: "Live Website Demo Integration",
         description:
-          "The same appointment logic runs across both voice calls and chat interfaces. Patients who prefer text-based interaction reach the same backend flows and receive the same confirmation and rescheduling capability as phone callers.",
-        icon: "MessageSquare",
+          'Rather than showing a pre-recorded demo, we deployed the voice agent directly on the Vallorex homepage as a live, interactive widget. Any visitor can click "Start Conversation" and speak with the AI in real time. The widget displays live status (Listening / Speaking), real-time conversation transcripts, latency stats, and call controls (Mute / End Call).',
       },
     ],
     techStack: [
+      "LLM Fine-tuning",
+      "Speech-to-Text (ASR)",
+      "Text-to-Speech (TTS)",
+      "WebRTC",
+      "WebSockets",
       "React",
-      "Python",
       "FastAPI",
-      "WebSocket",
-      "SQLite",
-      "LiveKit Agents",
-      "LangGraph",
-      "OpenAI / Groq",
-      "Sarvam AI STT/TTS",
-      "SIP Telephony",
-      "Twilio",
+      "Python",
+      "Real-Time Streaming",
     ],
     architectureDescription:
-      "Voice + Chat Clients → LiveKit Agents + Telephony (SIP/Twilio) → LangGraph Flow Orchestrator → FastAPI APIs (availability + records) → SQLite (patients + slots + logs) → Clinic Monitoring Dashboard",
+      "Browser / Phone → WebRTC Audio Capture → ASR Engine (Speech-to-Text) → LLM Conversation Engine (Fine-tuned) → TTS Engine (Text-to-Speech) → Streamed Audio Output → WebSocket UI (status, transcript, latency)",
     kpis: [
-      { value: "2", label: "Channels Supported (voice + chat)" },
-      { value: "2+", label: "Languages (Hindi and English)" },
-      { value: "3", label: "Appointment Flows (book, reschedule, cancel)" },
-      { value: "2-4", label: "To Production (weeks)" },
+      { value: "Ultra-Low", label: "Response Latency" },
+      { value: "24/7", label: "Always Available" },
+      { value: "Inbound + Outbound", label: "Call Handling" },
+      { value: "0", label: "Human Agents Required" },
     ],
     outcomes: [
-      "Full appointment workflow automation covering booking, rescheduling, and cancellation through natural voice conversations and chat",
-      "Multilingual support for Hindi and Indian English including mid-conversation code-switching, built on Sarvam AI speech processing",
-      "SIP telephony and Twilio integration enabling the assistant to handle real inbound patient phone calls, not just web-based demos",
-      "Deterministic LangGraph conversation flows prevent hallucinated availability or confirmation details during live patient interactions",
-      "React monitoring dashboard gives clinic staff real-time visibility into call outcomes, transcripts, and appointment changes without manual call review",
-      "MVP complete with 2 to 4 weeks estimated to full production deployment, telephony validation, and pilot launch",
+      "Live on the Vallorex homepage: any visitor can speak with the AI agent in real time, no login or setup required",
+      "Handles complex multi-turn conversations: service questions, pricing, demo booking, and business fit assessment",
+      "Ultra-low latency pipeline delivers natural conversation rhythm with no noticeable pause between speaking and response",
+      "Dual inbound/outbound architecture means the same system can answer your business calls and proactively call your leads",
+      "Zero human agents required per call; scales to unlimited concurrent calls without additional headcount",
+      "Fully configurable for any business: custom knowledge base, brand voice, call scripts, and escalation logic",
     ],
-    images: [],
+    images: [
+      "/images/case-studies/advisor-listening.png",
+      "/images/case-studies/advisor-speaking.png",
+      "/images/case-studies/advisor-conversation.png",
+    ],
+    heroVideo: "/videos/case-studies/vallorex-advisor-demo.mp4",
+    heroVideoMuted: false,
+    heroVideoControls: true,
+    heroImage: "/images/case-studies/advisor-listening.png",
+    heroImageCaption: "Live voice agent on homepage",
+    demoLink: "https://www.vallorex.com",
+    productCtaLabel: "Send Us an Inquiry for the Demo",
+    productCtaAction: "audit-modal",
     featured: false,
-    gradientFrom: "#051a14",
-    gradientTo: "#041210",
+    gradientFrom: "#1a0a33",
+    gradientTo: "#0a1a3a",
     useCases: [
-      "Hospitals and Diagnostic Centers: High call-volume facilities where appointment desks handle hundreds of daily calls. The assistant reduces staff workload and eliminates hold times during peak hours.",
-      "Clinics and Specialist Practices: Smaller practices without dedicated call center staff that need reliable appointment handling without hiring additional reception personnel.",
-      "Telemedicine Providers: Platforms managing appointment scheduling across multiple doctors and time zones where consistent, automated patient communication is critical to conversion.",
-      "Healthcare Chains: Multi-location operators who need a centralized appointment automation layer that works consistently across branches and supports regional language variations.",
+      "Sales & Lead Qualification: AI dials prospects from your CRM, qualifies them with natural conversation, and books demos directly into your calendar without an SDR.",
+      "24/7 Customer Support: Handles inbound FAQs, service queries, and troubleshooting calls around the clock without a human on standby.",
+      "Appointment & Demo Booking: Calls customers to confirm, reschedule, or follow up on bookings with a professional, natural-sounding voice.",
+      "Business Inquiry Handling: Acts as the first point of contact for inbound business calls, answering questions about your services, pricing, and availability on your behalf.",
     ],
     competitors: [],
+    relatedSlugs: [
+      "vallorex-ai-lead-engine",
+      "adge-angle-ai-background-removal",
+      "helix-whatsapp-conversational-ai",
+    ],
+  },
+  {
+    slug: "vallorex-ai-lead-engine",
+    title: "Vallorex AI Lead Engine",
+    shortTitle: "Vallorex AI Lead Engine",
+    category: "Artificial Intelligence",
+    tags: ["Artificial Intelligence", "Agentic AI"],
+    client: "Vallorex (Internal Product)",
+    industry: "AI / Sales Automation / Agentic Systems",
+    year: 2026,
+    timelineWeeks: "Internal Build, 2026",
+    teamSize: 0,
+    teamSizeLabel: "Vallorex Engineering Team",
+    status: "Live",
+    heroMetricLabel: "Multi-Agent Orchestration",
+    heroMetricValue: "Parallel",
+    shortDescription:
+      "Autonomous multi-agent system for B2B lead generation, qualification, and personalised outreach",
+    summary:
+      "A fully autonomous, multi-agent AI system that finds, qualifies, and reaches out to leads end to end without any human involvement.",
+    challenge:
+      "Outbound lead generation is one of the most time-consuming and expensive parts of any sales operation. A typical SDR spends hours every day manually searching for prospects, researching their business context, crafting personalised outreach messages, and tracking follow-ups, only to achieve low response rates and inconsistent results. At scale, this means large, costly sales teams with unpredictable output.\n\nVallorex set out to replace this entire workflow with a fully autonomous AI system. The goal: given a target URL or product, the system should independently identify ideal customer profiles, generate targeted search strategies, discover and qualify prospects, and send personalised outreach, all without a human touching a single step. The system needed to run multiple parallel outreach strategies simultaneously, track its own budget and cost-per-lead, and give operators full real-time visibility into what each agent was doing and why.\n\nKey requirements:\n- Multi-agent architecture with a supervisor orchestrating specialised sub-agents in parallel\n- Intelligent ICP and signal extraction directly from a target product URL\n- Personalised outreach at scale, not templated spam, but context-aware messages per prospect\n- Real-time activity logging and live session monitoring\n- Full budget controls with cost tracking per agent and per platform",
+    approach: [
+      {
+        icon: "Brain",
+        title: "Supervisor: Master Orchestrator",
+        description:
+          "The system starts with a Supervisor agent that opens the target product URL via Selenium, reads and extracts the ICP (Ideal Customer Profile), industries, pain points, and buying signals using Gemini. This intelligence is passed downstream to all other agents as the strategic foundation for the entire pipeline.",
+      },
+      {
+        icon: "Layers",
+        title: "Strategist: Intelligence Planner",
+        description:
+          "A dedicated Strategist agent takes the Supervisor's output and generates multiple parallel outreach strategies, each targeting a different prospect segment or angle. It builds DDG/Google search queries tailored to each strategy and identifies personalisation signals and outreach angles for each prospect type. Multiple strategies run concurrently across parallel Outreacher workers.",
+      },
+      {
+        icon: "Zap",
+        title: "Outreacher Agents: Parallel Execution",
+        description:
+          "Multiple Outreacher agents run simultaneously, each assigned a different strategy from the Strategist. They search for matching prospects, qualify them against the ICP, and compose personalised outreach messages tailored to that prospect's specific context and pain point. All activity is logged in real time to the Live Activity Log.",
+      },
+      {
+        icon: "Monitor",
+        title: "Full Observability & Budget Control",
+        description:
+          "The platform gives operators complete visibility: a real-time Agent Monitor showing each agent's live status, a Lead Pipeline view for tracking discovered and contacted prospects, an Activity Feed for event-level logs, and a Cost Center with budget caps, spend tracking per agent type, and cost-by-platform breakdowns to control per-lead economics.",
+      },
+    ],
+    techStack: [
+      "Agentic AI",
+      "Multi-Agent Orchestration",
+      "Gemini",
+      "Selenium",
+      "LLM Fine-tuning",
+      "DDG / Google Search",
+      "Python",
+      "FastAPI",
+      "React",
+      "Real-Time Logging",
+      "WebSockets",
+    ],
+    architectureDescription:
+      "Target URL Input → Supervisor Agent (Selenium + Gemini: ICP & signal extraction) → Strategist Agent (search query generation & outreach angle planning) → Parallel Outreacher Agents (prospect discovery → qualification → personalised outreach)\n\nAll agent events stream to the Live Activity Log via WebSocket in real time. Budget consumption is tracked per agent and per platform in the Cost Center. Session state is persisted across pipeline runs with a unique session ID.",
+    kpis: [
+      { value: "Multi-Agent", label: "Parallel Orchestration" },
+      { value: "50%", label: "Response Rate Achieved" },
+      { value: "49+", label: "Leads Generated Per Run" },
+      { value: "$0", label: "Human SDR Cost Per Lead" },
+    ],
+    outcomes: [
+      "Fully autonomous pipeline from a target URL to personalised outreach with zero human steps in between",
+      "50% response rate achieved in live sessions, outperforming typical cold outreach benchmarks by 3-5x",
+      "49+ leads generated per run with 13-16 parallel agents active simultaneously",
+      "Parallel agent execution means multiple prospect segments are targeted at the same time, not sequentially",
+      "Real-time Live Activity Log gives operators full transparency into every agent decision and action",
+      "Built-in Cost Center with budget caps prevents runaway spend; operators set a limit and the system self-governs",
+      "Eliminates the need for a traditional SDR team for initial outbound prospecting and first-touch outreach",
+    ],
+    images: [
+      "/images/case-studies/dashboard.png",
+      "/images/case-studies/lead-gen.png",
+      "/images/case-studies/start-work.png",
+      "/images/case-studies/agent-monitor.png",
+      "/images/case-studies/lead-pipeline.png",
+      "/images/case-studies/cost-center.png",
+    ],
+    heroVideo: "/videos/case-studies/vallorex-lead-engine-demo.mp4",
+    heroVideoObjectFit: "contain",
+    heroImage: "/images/case-studies/dashboard.png",
+    heroImageCaption: "Lead Engine dashboard",
+    productCtaLabel: "Want This For Your Business",
+    productCtaAction: "audit-modal",
+    productScreenshotsObjectFit: "contain",
+    featured: false,
+    gradientFrom: "#0f1729",
+    gradientTo: "#1a0a33",
+    useCases: [
+      "B2B SaaS Outbound: Give the system your SaaS product URL and it autonomously identifies target ICPs, finds matching companies, and sends personalised cold outreach at scale.",
+      "Agency New Business Development: Agencies can run the Lead Engine against competitor clients or target verticals to fill their pipeline without hiring an outbound sales team.",
+      "Startup Go-To-Market: Early-stage startups with no sales team can activate the Lead Engine to run their entire outbound motion from day one, with full cost visibility and budget control.",
+      "Enterprise Market Expansion: Enterprises entering new markets or verticals can deploy parallel Outreacher agents targeting multiple segments simultaneously, dramatically compressing go-to-market timelines.",
+    ],
+    competitors: [],
+    relatedSlugs: [
+      "vallorex-ai-voice-advisor",
+      "adge-angle-ai-background-removal",
+      "helix-whatsapp-conversational-ai",
+    ],
   },
   {
     slug: "latticepay-non-custodial-wallet",
@@ -452,99 +672,6 @@ export const caseStudies: CaseStudy[] = [
       "Wallet Operators and Exchanges: Teams building or upgrading non-custodial wallet infrastructure where security posture, key handling, and trust UX are non-negotiable.",
     ],
     competitors: [],
-  },
-  {
-    slug: "roadhow-uk-dashcam-visual-analytics",
-    title: "Dashcam Visual Analytics & Driver Scoring Platform",
-    shortTitle: "RoadHow UK",
-    category: "Artificial Intelligence",
-    tags: [
-      "Computer Vision",
-      "Fleet Safety",
-      "Video Analytics",
-      "PyTorch",
-      "OpenCV",
-      "Django",
-      "UK",
-    ],
-    client: "RoadHow UK",
-    industry: "Computer Vision / Fleet Safety / Road Safety (UK)",
-    year: 2025,
-    timelineWeeks: "Multi-phase delivery",
-    teamSize: 3,
-    status: "Completed",
-    heroMetricLabel: "Dashcam Footage Processed",
-    heroMetricValue: "500+ hrs",
-    shortDescription:
-      "CV-powered driving event detection and driver scoring from vehicle dashcam footage for UK fleet training and compliance.",
-    summary:
-      "A custom computer vision platform for a UK road safety company that processes vehicle dashcam footage to detect driving events, assess driver behaviour, and generate safety analytics for fleet training programs.",
-    challenge:
-      "Manual review of dashcam footage was time-consuming and inconsistent. Fleet managers needed automated, objective driver scoring for training and compliance.\n\nReview teams could not scale with growing video volume, and subjective judgments made it difficult to compare drivers fairly or demonstrate due diligence to stakeholders.",
-    approach: [
-      {
-        icon: "Layers",
-        title: "Frame-by-frame video analysis pipeline",
-        description:
-          "Built an OpenCV-based ingestion and processing pipeline that walks vehicle dashcam footage frame-by-frame for stable, repeatable feature extraction before model inference.",
-      },
-      {
-        icon: "Brain",
-        title: "Scene change detection, tracking, and event extraction",
-        description:
-          "Combined scene change detection with object tracking to isolate meaningful segments and pull structured driving events from noisy real-world road footage.",
-      },
-      {
-        icon: "Zap",
-        title: "PyTorch model fine-tuning for critical events",
-        description:
-          "Fine-tuned PyTorch models for hard braking, lane departure, and tailgating detection, iterating on fleet-specific data to tighten precision and reduce false positives.",
-      },
-      {
-        icon: "Code2",
-        title: "Driver behaviour scoring and timeline reports",
-        description:
-          "Implemented behaviour scoring, per-trip timelines, and exportable reporting hooks via Django so trainers and compliance workflows could consume results without manual clip review.",
-      },
-    ],
-    techStack: ["PyTorch", "OpenCV", "Django", "Python"],
-    architectureDescription:
-      "Dashcam ingest → OpenCV frame pipeline → Scene & tracking analytics → PyTorch event detection → Driver behaviour scoring → Django services → Fleet training & trend dashboards",
-    kpis: [
-      { value: "500+", label: "Hours of Footage Processed" },
-      { value: "3", label: "Driving Event Types Detected" },
-      { value: "Lower FP", label: "After Model Fine-Tuning" },
-      { value: "UK", label: "Fleet Programs & Region" },
-    ],
-    outcomes: [
-      "Processed more than 500 hours of dashcam footage through the automated pipeline",
-      "Materially reduced false positive rates through iterative PyTorch fine-tuning on real fleet clips",
-      "Replaced slow manual review with consistent, objective driver scoring suitable for training workflows",
-      "Delivered trend dashboards that support fleet training programs and safety reporting",
-    ],
-    heroImage: "/images/case-studies/roadhow-dashcam-cv-overlay.png",
-    heroImageCaption: "Dashcam CV & driver scoring",
-    images: [
-      "/images/case-studies/roadhow-dashcam-cv-overlay.png",
-      "/images/case-studies/roadhow-fleet-analytics-dashboard.png",
-      "/images/case-studies/roadhow-fleet-training-trends.png",
-    ],
-    featured: false,
-    gradientFrom: "#0a1628",
-    gradientTo: "#152a45",
-    useCases: [
-      "Commercial fleets: Objective scoring from dashcam evidence for coaching conversations without all-day manual review",
-      "Road safety programs: Repeatable event detection for tailgating, hard braking, and lane departure across large video libraries",
-      "Compliance and training leads: Audit-friendly timelines and aggregates that align teams on the same safety metrics",
-      "UK operators: Region-specific deployment and analytics tuned to UK driving conditions and fleet policies",
-    ],
-    competitors: [
-      "Lytx DriveCam",
-      "Samsara AI Dash Cams",
-      "Nexar Fleets",
-      "Geotab Video",
-      "SmartDrive (SmartDrive Systems)",
-    ],
   },
   {
     slug: "helix-whatsapp-conversational-ai",
@@ -767,6 +894,16 @@ export const caseStudies: CaseStudy[] = [
 
 export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
   return caseStudies.find((cs) => cs.slug === slug);
+}
+
+export function getRelatedCaseStudies(cs: CaseStudy): CaseStudy[] {
+  if (cs.relatedSlugs?.length) {
+    return cs.relatedSlugs
+      .map((slug) => getCaseStudyBySlug(slug))
+      .filter((c): c is CaseStudy => c !== undefined && c.slug !== cs.slug)
+      .slice(0, 3);
+  }
+  return caseStudies.filter((c) => c.slug !== cs.slug).slice(0, 3);
 }
 
 export function getFeaturedCaseStudy(): CaseStudy | undefined {

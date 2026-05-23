@@ -455,11 +455,23 @@ function StudyCard({ study }: { study: CaseStudy }) {
             )}
           </div>
 
-          <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/10 pt-5">
-            <span className="flex items-center gap-1.5 text-xs text-white/55">
-              <span aria-hidden>⚡</span>
-              {study.timelineWeeks}
-            </span>
+          <div className="mt-auto flex flex-col gap-2 border-t border-white/10 pt-5 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col gap-1">
+              <span className="flex items-center gap-1.5 text-xs text-white/55">
+                <span aria-hidden>⚡</span>
+                {study.slug === "vallorex-ai-voice-advisor" ||
+                study.slug === "vallorex-ai-lead-engine"
+                  ? study.slug === "vallorex-ai-lead-engine"
+                    ? `${study.year} · Internal (Vallorex)`
+                    : `${study.year} · ${study.client}`
+                  : study.timelineWeeks}
+              </span>
+              {study.kpis[1] ? (
+                <span className="text-xs text-white/55">
+                  {study.kpis[1].value} {study.kpis[1].label}
+                </span>
+              ) : null}
+            </div>
             <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-orange transition-colors group-hover:text-brand-orange-hover">
               Read Case Study
               <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
