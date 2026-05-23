@@ -9,6 +9,10 @@ import {
   ChevronRight,
   Code2,
   Layers,
+  Mic,
+  Monitor,
+  Phone,
+  Radio,
   Zap,
   type LucideIcon,
 } from "lucide-react";
@@ -16,8 +20,14 @@ import {
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { caseStudies, getCaseStudyBySlug } from "@/lib/case-studies";
+import {
+  caseStudies,
+  getCaseStudyBySlug,
+  getRelatedCaseStudies,
+} from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
+import { CaseStudyHeroVideo } from "./case-study-hero-video";
+import { CaseStudyProductCta } from "./case-study-product-cta";
 import { ProductScreenshotsSlider } from "./product-screenshots-slider";
 
 const LATTICEPAY_HERO_IMAGE = "/images/case-studies/Wallet%20Pay.jpeg";
@@ -27,6 +37,10 @@ const APPROACH_ICONS: Record<string, LucideIcon> = {
   Zap,
   Layers,
   Code2,
+  Mic,
+  Phone,
+  Monitor,
+  Radio,
 };
 
 export const dynamic = "force-static";
@@ -112,9 +126,7 @@ export default function CaseStudyDetailPage({
     .map((s) => s.trim())
     .filter(Boolean);
 
-  const related = caseStudies
-    .filter((c) => c.slug !== cs.slug)
-    .slice(0, 3);
+  const related = getRelatedCaseStudies(cs);
 
   const challengeParagraphs = cs.challenge.split(/\n\n+/);
 
@@ -197,19 +209,13 @@ export default function CaseStudyDetailPage({
                   />
                 </div>
               ) : cs.heroVideo ? (
-                <div className="relative aspect-video w-full justify-self-center overflow-hidden rounded-2xl border border-white/10 shadow-xl">
-                  <video
-                    className="h-full w-full bg-black object-cover"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    aria-label={`${cs.shortTitle} product walkthrough`}
-                  >
-                    <source src={cs.heroVideo} type="video/mp4" />
-                  </video>
-                </div>
+                <CaseStudyHeroVideo
+                  src={cs.heroVideo}
+                  label={`${cs.shortTitle} product walkthrough`}
+                  muted={cs.heroVideoMuted !== false}
+                  showControls={cs.heroVideoControls === true}
+                  objectFit={cs.heroVideoObjectFit ?? "cover"}
+                />
               ) : cs.heroImage ? (
                 <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-xl ring-1 ring-white/5">
                   <Image
@@ -263,7 +269,10 @@ export default function CaseStudyDetailPage({
               { label: "Client", value: cs.client },
               { label: "Industry", value: cs.industry },
               { label: "Timeline", value: cs.timelineWeeks },
-              { label: "Team Size", value: String(cs.teamSize) },
+              {
+                label: "Team Size",
+                value: cs.teamSizeLabel ?? String(cs.teamSize),
+              },
               { label: "Year", value: String(cs.year) },
               { label: "Status", value: cs.status },
             ].map((item) => (
@@ -643,21 +652,48 @@ export default function CaseStudyDetailPage({
                 images={cs.images}
                 shortTitle={cs.shortTitle}
                 addressBarUrl={cs.demoLink}
-                {...(cs.slug === "latticepay-non-custodial-wallet"
+                {...(cs.productScreenshotsObjectFit === "contain"
                   ? {
                       viewportClassName:
                         "aspect-video min-h-[300px] sm:min-h-[340px] md:min-h-[380px]",
                       imageClassName:
-                        "object-contain object-left object-top bg-black",
+                        "object-contain object-center bg-black",
                       thumbnailImageClassName:
-                        "object-contain object-left object-top bg-black",
+                        "object-contain object-center bg-black",
                     }
-                  : {})}
+                  : cs.slug === "latticepay-non-custodial-wallet"
+                    ? {
+                        viewportClassName:
+                          "aspect-video min-h-[300px] sm:min-h-[340px] md:min-h-[380px]",
+                        imageClassName:
+                          "object-contain object-left object-top bg-black",
+                        thumbnailImageClassName:
+                          "object-contain object-left object-top bg-black",
+                      }
+                    : {})}
               />
             </div>
           )}
 
-          {cs.demoLink ? (
+          {cs.productCtaAction === "audit-modal" && cs.productCtaLabel ? (
+            <CaseStudyProductCta label={cs.productCtaLabel} />
+          ) : cs.productCtaAction === "link" &&
+            cs.productCtaHref &&
+            cs.productCtaLabel ? (
+            <div className="mt-10 flex justify-center">
+              <Link
+                href={cs.productCtaHref}
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "inline-flex h-12 items-center gap-2 rounded-full border-0 px-8 text-sm font-semibold",
+                  "bg-brand-orange text-white shadow-lg shadow-brand-orange/20 hover:bg-brand-orange-hover",
+                )}
+              >
+                {cs.productCtaLabel}
+                <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+              </Link>
+            </div>
+          ) : cs.demoLink ? (
             <div className="mt-10">
               <a
                 href={cs.demoLink}
@@ -668,7 +704,7 @@ export default function CaseStudyDetailPage({
                   "bg-brand-orange font-bold text-white hover:bg-brand-orange-hover",
                 )}
               >
-                Explore the Live Product
+                {cs.productCtaLabel ?? "Explore the Live Product"}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </div>
