@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { sendEmail } from "@/lib/resend";
 import { rateLimit } from "@/lib/rate-limit";
+import { verifyRecaptchaToken } from "@/lib/recaptcha";
 import { buildContactConfirmationEmail } from "@/emails/contact-confirmation";
 import { buildContactInternalEmail } from "@/emails/contact-internal";
 import { safeText } from "@/emails/_shared";
@@ -14,6 +15,7 @@ type ContactPayload = {
   budget?: unknown;
   message?: unknown;
   website?: unknown; // honeypot
+  recaptchaToken?: unknown;
 };
 
 function getClientIp(req: Request): string {
@@ -49,6 +51,16 @@ export async function POST(req: Request) {
     body = (await req.json()) as ContactPayload;
   } catch {
     return NextResponse.json({ ok: false, message: "Invalid JSON body." }, { status: 400 });
+  }
+
+  const recaptcha = await verifyRecaptchaToken(
+    typeof body.recaptchaToken === "string" ? body.recaptchaToken : null
+  );
+  if (!recaptcha.success) {
+    return NextResponse.json(
+      { ok: false, message: "Bot detected. Submission rejected." },
+      { status: 403 }
+    );
   }
 
   const honeypot = safeText(body.website, 200);

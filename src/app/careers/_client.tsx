@@ -28,6 +28,8 @@ import {
   Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRecaptcha } from "@/hooks/useRecaptcha";
+import { RecaptchaDisclosure } from "@/components/RecaptchaDisclosure";
 import * as Dialog from "@radix-ui/react-dialog";
 
 /* ═══════════════════════════════════════════════════════════════
@@ -425,6 +427,7 @@ function ApplicationModal({
   const linkedinRef = useRef<HTMLInputElement>(null);
   const portfolioRef = useRef<HTMLInputElement>(null);
   const resumeBlockRef = useRef<HTMLDivElement>(null);
+  const { getToken } = useRecaptcha();
 
   const clearFieldError = (key: ApplyField) => {
     setFieldErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
@@ -517,7 +520,15 @@ function ApplicationModal({
 
     setIsSubmitting(true);
     try {
+      const recaptchaAction = job.id === "general" ? "general_application" : "job_application";
+      const recaptchaToken = await getToken(recaptchaAction);
+      if (!recaptchaToken) {
+        window.alert("Security verification failed. Please refresh and try again.");
+        return;
+      }
+
       const fd = new FormData();
+      fd.append("recaptchaToken", recaptchaToken);
       fd.append("fullName", formData.fullName);
       fd.append("email", formData.email);
       fd.append("phone", formData.phone);
@@ -853,6 +864,7 @@ function ApplicationModal({
                   <p className="text-xs text-center text-muted mt-3">
                     By submitting, you agree to our privacy policy and consent to Vallorex processing your data for recruitment purposes.
                   </p>
+                  <RecaptchaDisclosure className="text-center mt-2" />
                 </div>
               </form>
             </>

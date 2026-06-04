@@ -5,6 +5,8 @@
  import { X, Loader2, ArrowRight } from "lucide-react";
  import { Button } from "@/components/ui/button";
  import { useAuditModal } from "@/context/AuditModalContext";
+ import { useRecaptcha } from "@/hooks/useRecaptcha";
+ import { RecaptchaDisclosure } from "@/components/RecaptchaDisclosure";
  
  type AuditFormState = {
    fullName: string;
@@ -41,6 +43,7 @@
  
  export default function AuditModal() {
    const { isOpen, closeAuditModal } = useAuditModal();
+   const { getToken } = useRecaptcha();
  
    const initialForm = useMemo<AuditFormState>(
      () => ({
@@ -102,10 +105,16 @@
      setIsSubmitting(true);
  
      try {
+       const recaptchaToken = await getToken("audit_request");
+       if (!recaptchaToken) {
+         setError("Security verification failed. Please refresh and try again.");
+         return;
+       }
+
        const res = await fetch("/api/audit", {
          method: "POST",
          headers: { "Content-Type": "application/json" },
-         body: JSON.stringify(form),
+         body: JSON.stringify({ ...form, recaptchaToken }),
        });
  
        if (res.ok) {
@@ -114,6 +123,10 @@
        }
  
        const data = (await res.json().catch(() => null)) as null | { message?: string };
+       if (res.status === 403) {
+         setError(data?.message || "Submission blocked. Please try again.");
+         return;
+       }
        setError(data?.message || "Something went wrong. Please try again.");
      } catch (err) {
        console.error(err);
@@ -317,6 +330,7 @@
                      )}
                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                    </Button>
+                   <RecaptchaDisclosure className="text-center mt-3" />
                  </form>
                )}
              </div>

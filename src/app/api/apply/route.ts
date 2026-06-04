@@ -6,6 +6,7 @@
 import { NextResponse } from "next/server";
 import { sendEmail } from "@/lib/resend";
 import { rateLimit } from "@/lib/rate-limit";
+import { verifyRecaptchaToken } from "@/lib/recaptcha";
 import { safeText } from "@/emails/_shared";
 import { buildApplyConfirmationEmail } from "@/emails/apply-confirmation";
 import { buildApplyInternalEmail } from "@/emails/apply-internal";
@@ -72,6 +73,15 @@ export async function POST(req: Request) {
     fd = await req.formData();
   } catch {
     return NextResponse.json({ success: false, error: "Invalid form submission." }, { status: 400 });
+  }
+
+  const recaptchaToken = getStringField(fd, "recaptchaToken");
+  const recaptcha = await verifyRecaptchaToken(recaptchaToken || null);
+  if (!recaptcha.success) {
+    return NextResponse.json(
+      { success: false, error: "Bot detected. Submission rejected." },
+      { status: 403 }
+    );
   }
 
   // Frontend sends multipart/form-data; accept both legacy and current key variants without requiring UI changes.

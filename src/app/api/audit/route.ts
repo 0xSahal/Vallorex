@@ -1,6 +1,7 @@
  import { NextResponse } from "next/server";
  import { sendEmail } from "@/lib/resend";
  import { rateLimit } from "@/lib/rate-limit";
+ import { verifyRecaptchaToken } from "@/lib/recaptcha";
  import { safeText } from "@/emails/_shared";
  
  type AuditPayload = {
@@ -10,6 +11,7 @@
    industry?: unknown;
    companySize?: unknown;
    challenge?: unknown;
+   recaptchaToken?: unknown;
  };
  
  function getClientIp(req: Request): string {
@@ -47,6 +49,16 @@
      return NextResponse.json({ ok: false, message: "Invalid JSON body." }, { status: 400 });
    }
  
+   const recaptcha = await verifyRecaptchaToken(
+     typeof body.recaptchaToken === "string" ? body.recaptchaToken : null
+   );
+   if (!recaptcha.success) {
+     return NextResponse.json(
+       { ok: false, message: "Bot detected. Submission rejected." },
+       { status: 403 }
+     );
+   }
+
    const fullName = safeText(body.fullName, 200);
    const workEmail = safeText(body.workEmail, 254);
    const companyName = safeText(body.companyName, 200);
