@@ -19,6 +19,8 @@ import {
   Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRecaptcha } from "@/hooks/useRecaptcha";
+import { RecaptchaDisclosure } from "@/components/RecaptchaDisclosure";
 
 /* ═══════════════════════════════════════════════════════════════
    ANIMATION VARIANTS
@@ -54,6 +56,7 @@ function isValidEmail(email: string): boolean {
 }
 
 export default function ContactPageClient() {
+  const { getToken } = useRecaptcha();
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<ContactTab>(
     searchParams.get("tab") === "booking" ? "booking" : "message"
@@ -121,10 +124,16 @@ export default function ContactPageClient() {
     setIsSubmitting(true);
 
     try {
+      const recaptchaToken = await getToken("contact_form");
+      if (!recaptchaToken) {
+        setServerError("Security verification failed. Please refresh and try again.");
+        return;
+      }
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(msgForm),
+        body: JSON.stringify({ ...msgForm, recaptchaToken }),
       });
 
       if (res.ok) {
@@ -136,6 +145,10 @@ export default function ContactPageClient() {
       const data = (await res.json().catch(() => null)) as null | { errors?: FieldErrors; message?: string };
       if (res.status === 400 && data?.errors) {
         setFieldErrors(data.errors);
+        return;
+      }
+      if (res.status === 403) {
+        setServerError(data?.message || "Submission blocked. Please try again.");
         return;
       }
 
@@ -528,6 +541,7 @@ export default function ContactPageClient() {
                             )}
                             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                           </Button>
+                          <RecaptchaDisclosure className="text-center mt-3" />
                         </motion.form>
                       ) : (
                         <motion.div

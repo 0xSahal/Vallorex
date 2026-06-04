@@ -11,8 +11,6 @@
   "dependencies": {
     "@portabletext/react": "^6.0.3",
     "@radix-ui/react-accordion": "^1.2.12",
-    "@sanity/client": "^7.22.0",
-    "@sanity/image-url": "^2.1.1",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-slot": "^1.2.4",
     "@sanity/client": "^7.22.0",
@@ -27,6 +25,7 @@
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18",
+    "react-google-recaptcha-v3": "^1.11.0",
     "resend": "^6.12.0",
     "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7"
