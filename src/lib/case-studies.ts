@@ -263,9 +263,9 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    slug: "roadhow-uk-dashcam-visual-analytics",
+    slug: "dashcam-visual-analytics-driver-scoring",
     title: "Dashcam Visual Analytics & Driver Scoring Platform",
-    shortTitle: "RoadHow UK",
+    shortTitle: "Dashcam Analytics",
     category: "Artificial Intelligence",
     tags: [
       "Computer Vision",
@@ -276,7 +276,7 @@ export const caseStudies: CaseStudy[] = [
       "Django",
       "UK",
     ],
-    client: "RoadHow UK",
+    client: "Confidential",
     industry: "Computer Vision / Fleet Safety / Road Safety (UK)",
     year: 2025,
     timelineWeeks: "Multi-phase delivery",
