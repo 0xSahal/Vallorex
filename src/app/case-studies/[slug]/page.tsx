@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import {
   ArrowRight,
   Brain,
@@ -56,7 +56,7 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const cs = getCaseStudyBySlug(params.slug);
-  if (!cs) return {};
+  if (!cs || cs.hidden) return {};
   return {
     title: `${cs.title} | Vallorex Case Study`,
     description: cs.summary,
@@ -120,6 +120,7 @@ export default function CaseStudyDetailPage({
 }) {
   const cs = getCaseStudyBySlug(params.slug);
   if (!cs) notFound();
+  if (cs.hidden) redirect("/case-studies");
 
   const architectureStages = cs.architectureDescription
     .split(/\s*→\s*/)
