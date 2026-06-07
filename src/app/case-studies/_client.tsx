@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import {
   caseStudies,
   caseStudyMatchesFilter,
+  isCaseStudyVisible,
   type CaseStudy,
 } from "@/lib/case-studies";
 
@@ -611,7 +612,10 @@ export default function CaseStudiesPageClient() {
   const [activeFilter, setActiveFilter] = useState<string>("All Projects");
 
   const filtered = useMemo(
-    () => caseStudies.filter((cs) => caseStudyMatchesFilter(cs, activeFilter)),
+    () =>
+      caseStudies.filter(
+        (cs) => isCaseStudyVisible(cs) && caseStudyMatchesFilter(cs, activeFilter),
+      ),
     [activeFilter],
   );
 

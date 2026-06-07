@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { caseStudies, type CaseStudy } from "@/lib/case-studies";
+import { caseStudies, isCaseStudyVisible, type CaseStudy } from "@/lib/case-studies";
 
 const HOME_PROOF_SLUGS = [
   "adge-angle-ai-background-removal",
@@ -16,7 +16,9 @@ const HOME_PROOF_SLUGS = [
 export function CaseStudies() {
   const homeStudies: CaseStudy[] = HOME_PROOF_SLUGS.map((slug) =>
     caseStudies.find((cs) => cs.slug === slug),
-  ).filter((cs): cs is CaseStudy => cs !== undefined);
+  )
+    .filter((cs): cs is CaseStudy => cs !== undefined)
+    .filter(isCaseStudyVisible);
 
   return (
     <section className="py-24 bg-white" id="case-studies">

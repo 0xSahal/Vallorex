@@ -52,6 +52,8 @@ export interface CaseStudy {
   productCtaHref?: string;
   /** Product screenshot slider fit mode (default cover) */
   productScreenshotsObjectFit?: "cover" | "contain";
+  /** When true, case study is hidden from UI listings and detail URLs redirect away */
+  hidden?: boolean;
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -355,8 +357,11 @@ export const caseStudies: CaseStudy[] = [
       "SmartDrive (SmartDrive Systems)",
     ],
   },
+  // HIDDEN: Set hidden to false to re-enable this case study in the UI
+  // Re-enabling will restore both the card on the listing page and the detail page URL
   {
     slug: "vallorex-ai-voice-advisor",
+    hidden: true,
     title: "Vallorex AI Voice Advisor",
     shortTitle: "Vallorex AI Voice Advisor",
     category: "Artificial Intelligence",
@@ -458,8 +463,11 @@ export const caseStudies: CaseStudy[] = [
       "helix-whatsapp-conversational-ai",
     ],
   },
+  // HIDDEN: Set hidden to false to re-enable this case study in the UI
+  // Re-enabling will restore both the card on the listing page and the detail page URL
   {
     slug: "vallorex-ai-lead-engine",
+    hidden: true,
     title: "Vallorex AI Lead Engine",
     shortTitle: "Vallorex AI Lead Engine",
     category: "Artificial Intelligence",
@@ -896,14 +904,23 @@ export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
   return caseStudies.find((cs) => cs.slug === slug);
 }
 
+export function isCaseStudyVisible(cs: CaseStudy): boolean {
+  return !cs.hidden;
+}
+
 export function getRelatedCaseStudies(cs: CaseStudy): CaseStudy[] {
   if (cs.relatedSlugs?.length) {
     return cs.relatedSlugs
       .map((slug) => getCaseStudyBySlug(slug))
-      .filter((c): c is CaseStudy => c !== undefined && c.slug !== cs.slug)
+      .filter(
+        (c): c is CaseStudy =>
+          c !== undefined && c.slug !== cs.slug && isCaseStudyVisible(c),
+      )
       .slice(0, 3);
   }
-  return caseStudies.filter((c) => c.slug !== cs.slug).slice(0, 3);
+  return caseStudies
+    .filter((c) => c.slug !== cs.slug && isCaseStudyVisible(c))
+    .slice(0, 3);
 }
 
 export function getFeaturedCaseStudy(): CaseStudy | undefined {

@@ -89,12 +89,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.65,
   }));
 
-  const caseStudyRoutes: MetadataRoute.Sitemap = caseStudies.map((cs) => ({
-    url: absoluteUrl(`/case-studies/${cs.slug}`),
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.75,
-  }));
+  const caseStudyRoutes: MetadataRoute.Sitemap = caseStudies
+    .filter((cs) => !cs.hidden)
+    .map((cs) => ({
+      url: absoluteUrl(`/case-studies/${cs.slug}`),
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    }));
 
   return [...staticRoutes, ...serviceRoutes, ...blogRoutes, ...caseStudyRoutes];
 }
