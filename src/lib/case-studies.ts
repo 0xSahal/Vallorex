@@ -167,8 +167,11 @@ export const caseStudies: CaseStudy[] = [
       "helix-whatsapp-conversational-ai",
     ],
   },
+  // HIDDEN: Set hidden to false to re-enable this case study in the UI
+  // Re-enabling will restore both the card on the listing page and the detail page URL
   {
     slug: "archvision-ai-floor-plan-to-3d",
+    hidden: true,
     title: "AI-Powered 2D Floor Plan to 3D Visualization Platform",
     shortTitle: "ArchVision AI",
     category: "Artificial Intelligence",
