@@ -34,9 +34,10 @@ export const metadata: Metadata = {
     siteName: "Vallorex",
     images: [
       {
-        url: "/vallorex-logo-dark.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
+        alt: "Vallorex Technology",
       },
     ],
   },
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     title: "Vallorex",
     description:
       "The Engineering Firm That Turns AI & Blockchain Into Results",
-    images: ["/vallorex-logo-dark.png"],
+    images: ["/og-image.png"],
   },
 };
 
