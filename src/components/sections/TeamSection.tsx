@@ -16,7 +16,7 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 const teamMembers = [
   { name: "Shaayan Shaikh", title: "Co-Founder & CEO", specialty: "Blockchain & Web3", initials: "SS", linkedin: "https://www.linkedin.com/in/shaayan-io/", image: "/images/team/shaayan-shaikh.png" },
-  { name: "Sahal Shaikh", title: "Co-Founder & Head of Product Engineering", specialty: "Full-Stack & DevOps", initials: "SS", linkedin: "https://www.linkedin.com/in/sahal-shaikh/", image: "/images/team/sahal-shaikh.jpg" },
+  { name: "Sahal Shaikh", title: "Head of Product Engineering", specialty: "Full-Stack & DevOps", initials: "SS", linkedin: "https://www.linkedin.com/in/sahal-shaikh/", image: "/images/team/sahal-shaikh.jpg" },
   { name: "Shamim Patel", title: "Software Engineer", specialty: "Software Development", initials: "SP", linkedin: "https://www.linkedin.com/in/shamimbanu-patel-722134402/", image: "/images/team/samim-banu.png" },
   { name: "Mukund Sharma", title: "Business Development Executive", specialty: "Growth Strategy", initials: "MS", linkedin: "https://www.linkedin.com/in/mukund-vallorex/", image: "/images/team/mukund.png" },
   { name: "Usama Patel", title: "Head of Business Growth & Strategic Partnerships", specialty: "Business Growth", initials: "UP", linkedin: "https://www.linkedin.com/in/usama-vallorex/", image: "/images/team/usama.png" },
