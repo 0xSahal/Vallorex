@@ -34,7 +34,7 @@ const founders = [
     image: "/images/team/shaayan-shaikh.png",
   },
   {
-    name: "Sahal Shaikh", title: "Co-Founder & Head of Product Engineering", initials: "SS",
+    name: "Sahal Shaikh", title: "Head of Product Engineering", initials: "SS",
     bio: "Full-stack engineer and co-founder leading Vallorex's product delivery practice. Specializes in building scalable MERN-stack applications, architecting clean backend systems, and shipping production-ready products end-to-end. Brings hands-on experience across the full software development lifecycle from scoping and architecture to deployment.",
     tags: ["MERN Stack", "DevOps & CI/CD", "Product Delivery"], linkedin: "https://www.linkedin.com/in/sahal-shaikh/",
     image: "/images/team/sahal-shaikh.jpg",
